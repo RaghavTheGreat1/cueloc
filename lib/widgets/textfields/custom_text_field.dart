@@ -118,12 +118,12 @@ class CustomTextFormField extends StatelessWidget {
             suffixIcon: suffixIcon,
             labelStyle: const TextStyle(fontSize: 15),
             alignLabelWithHint: false,
-            floatingLabelAlignment: FloatingLabelAlignment.center,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
+            floatingLabelAlignment: FloatingLabelAlignment.start,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
 
             border: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: CustomColors.red,
+              borderSide: BorderSide(
+                color: theme.colorScheme.primaryContainer,
               ),
               borderRadius: BorderRadius.circular(15),
             ),
@@ -136,14 +136,13 @@ class CustomTextFormField extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.grey.withOpacity(0.2),
-                width: 0.0,
+                color: theme.colorScheme.tertiary,
               ),
               borderRadius: BorderRadius.circular(15),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: theme.colorScheme.secondary,
+                color: theme.colorScheme.primary,
                 width: 1.75,
               ),
               borderRadius: BorderRadius.circular(15),

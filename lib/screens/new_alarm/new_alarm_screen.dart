@@ -3,6 +3,8 @@ import 'package:map_my_nap/widgets/cupertino_back_button.dart';
 import 'package:map_my_nap/widgets/textfields/custom_text_field.dart';
 
 import '../../maps.dart';
+import 'widgets/radius_slider.dart';
+import 'widgets/trigger_on_selector.dart';
 
 class NewAlarmScreen extends StatelessWidget {
   const NewAlarmScreen({super.key});
@@ -11,111 +13,87 @@ class NewAlarmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Map My Nap"),
         leading: const CupertinoBackButton(),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(17),
-                      child: const SizedBox(
-                        height: 252,
-                        child: Maps(),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(17),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minHeight: 252, maxHeight: 252),
+                            child: const Maps(),
+                          ),
+                        ),
+                      ),
+                      CustomTextFormField(
+                        label: "Label",
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      RadiusSlider(
+                        onChanged: (double value) {},
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      TriggerOnSelector(
+                        onChanged: (TriggerOn value) {},
+                      ),
+                      const SizedBox(
+                        height: 128,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              decoration: BoxDecoration(
+                color: theme.colorScheme.background,
+                border: const Border(
+                  top: BorderSide(
+                    width: 0.1,
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 56,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text("MAP IT"),
+                        ),
                       ),
                     ),
-                  ),
-                  const CustomTextFormField(),
-                  const RadiusSlider(),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class RadiusSlider extends StatefulWidget {
-  const RadiusSlider({
-    super.key,
-  });
-
-  @override
-  State<RadiusSlider> createState() => _RadiusSliderState();
-}
-
-class _RadiusSliderState extends State<RadiusSlider> {
-  ValueNotifier<double> sliderValue = ValueNotifier(250);
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Radius (meters)",
-              style: theme.textTheme.labelLarge!.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: sliderValue,
-              builder: (context, value, _) {
-                return Text(
-                  "$value m",
-                  style: theme.textTheme.labelLarge!.copyWith(),
-                  textAlign: TextAlign.right,
-                );
-              },
-            ),
-          ],
-        ),
-        ValueListenableBuilder(
-          valueListenable: sliderValue,
-          builder: (context, value, _) {
-            return Slider.adaptive(
-              value: value,
-              label: value.toString(),
-              min: 250,
-              max: 5250,
-              divisions: 20,
-              onChanged: (value) {
-                sliderValue.value = value;
-                print(value);
-              },
-            );
-          },
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "250",
-              style: theme.textTheme.labelLarge!.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              "5000",
-              style: theme.textTheme.labelLarge!.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        )
-      ],
     );
   }
 }
