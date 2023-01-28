@@ -7,7 +7,7 @@ class AlarmRealmServices {
   late final Realm realm;
 
   AlarmRealmServices() {
-    final config = Configuration.local([AlarmRealmModel.schema]);
+    final config = Configuration.local([AlarmRealmModel.schema, CoordinatesRealmModel.schema]);
     realm = Realm(config);
   }
 

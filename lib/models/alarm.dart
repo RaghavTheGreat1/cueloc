@@ -1,22 +1,22 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_my_nap/database/models/alarm_realm_model.dart';
 import 'package:map_my_nap/models/coordinates.dart';
 import 'package:map_my_nap/models/trigger_on.dart';
 import 'package:uuid/uuid.dart';
 
-class Alarm {
-  Alarm({
-    required this.id,
-    required this.label,
-    required this.coordinates,
-    required this.radius,
-    required this.triggerOn,
-  });
+part 'alarm.freezed.dart';
 
-  final String id;
-  final String label;
-  final Coordinates coordinates;
-  final double radius;
-  final TriggerOn triggerOn;
+@Freezed()
+class Alarm with _$Alarm {
+  const Alarm._();
+
+  const factory Alarm({
+    required String id,
+    required String label,
+    required Coordinates coordinates,
+    required double radius,
+    required TriggerOn triggerOn,
+  }) = _Alarm;
 
   factory Alarm.raw() {
     Uuid uuid = const Uuid();
@@ -43,7 +43,7 @@ class Alarm {
     return Alarm(
       id: alarmRealmModel.id,
       label: alarmRealmModel.label,
-      coordinates: Coordinates.fromRealmModel(alarmRealmModel.coordinates),
+      coordinates: Coordinates.fromRealmModel(alarmRealmModel.coordinates!),
       radius: alarmRealmModel.radius,
       triggerOn: TriggerOnExt.fromName(alarmRealmModel.triggerOn),
     );

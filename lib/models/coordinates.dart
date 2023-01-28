@@ -1,17 +1,20 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_my_nap/database/models/alarm_realm_model.dart';
 
-class Coordinates {
-  Coordinates({
-    required this.latitude,
-    required this.longitude,
-  });
+part 'coordinates.freezed.dart';
 
-  final double latitude;
-  final double longitude;
+@Freezed()
+class Coordinates with _$Coordinates {
+  const Coordinates._();
+  
+  const factory Coordinates({
+    required double latitude,
+    required double longitude,
+  }) = _Coordinates;
 
   factory Coordinates.raw() {
-    return Coordinates(latitude: 0, longitude: 0);
+    return const Coordinates(latitude: 0, longitude: 0);
   }
 
   CoordinatesRealmModel toRealmModel() {

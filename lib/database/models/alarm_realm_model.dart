@@ -8,7 +8,7 @@ class _AlarmRealmModel {
   late final String id;
 
   late final String label;
-  late final _CoordinatesRealmModel coordinates;
+  late final _CoordinatesRealmModel? coordinates;
   late final double radius;
   late final String triggerOn;
 }

@@ -35,11 +35,11 @@ class AlarmRealmModel extends _AlarmRealmModel
   set label(String value) => throw RealmUnsupportedSetError();
 
   @override
-  CoordinatesRealmModel get coordinates =>
+  CoordinatesRealmModel? get coordinates =>
       RealmObjectBase.get<CoordinatesRealmModel>(this, 'coordinates')
-          as CoordinatesRealmModel;
+          as CoordinatesRealmModel?;
   @override
-  set coordinates(covariant CoordinatesRealmModel value) =>
+  set coordinates(covariant CoordinatesRealmModel? value) =>
       throw RealmUnsupportedSetError();
 
   @override
