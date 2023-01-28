@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_my_nap/database/models/alarm_realm_model.dart';
 
 class Coordinates {
@@ -22,6 +23,15 @@ class Coordinates {
     return Coordinates(
       latitude: coordinatesRealmModel.latitude,
       longitude: coordinatesRealmModel.longitude,
+    );
+  }
+}
+
+extension CoordinatesExt on Coordinates {
+  LatLng get toLatLng {
+    return LatLng(
+      latitude,
+      longitude,
     );
   }
 }

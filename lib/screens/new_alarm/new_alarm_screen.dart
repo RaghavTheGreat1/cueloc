@@ -35,7 +35,9 @@ class NewAlarmScreen extends StatelessWidget {
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(
                                 minHeight: 252, maxHeight: 252),
-                            child: const Maps(),
+                            child: const Maps(
+                              radius: 5000,
+                            ),
                           ),
                         ),
                       ),
