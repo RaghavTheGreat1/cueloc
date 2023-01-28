@@ -3,6 +3,7 @@ import 'package:map_my_nap/widgets/cupertino_back_button.dart';
 import 'package:map_my_nap/widgets/textfields/custom_text_field.dart';
 
 import '../../maps.dart';
+import '../../models/trigger_on.dart';
 import 'widgets/radius_slider.dart';
 import 'widgets/trigger_on_selector.dart';
 

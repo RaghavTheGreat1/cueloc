@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-enum TriggerOn {
-  entry,
-  exit,
-}
+import '../../../models/trigger_on.dart';
+
 
 class TriggerOnSelector extends StatefulWidget {
   const TriggerOnSelector({

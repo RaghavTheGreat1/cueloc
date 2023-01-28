@@ -37,7 +37,9 @@ dependencies:
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.2
   hooks_riverpod: ^2.1.1
+  realm: ^0.10.0+rc
   riverpod_annotation: ^1.0.6
+  uuid: ^3.0.7
 
 dev_dependencies:
   build_runner: ^2.3.3
