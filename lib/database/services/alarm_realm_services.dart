@@ -7,7 +7,8 @@ class AlarmRealmServices {
   late final Realm realm;
 
   AlarmRealmServices() {
-    final config = Configuration.local([AlarmRealmModel.schema, CoordinatesRealmModel.schema]);
+    final config = Configuration.local(
+        [AlarmRealmModel.schema, CoordinatesRealmModel.schema]);
     realm = Realm(config);
   }
 
@@ -15,5 +16,9 @@ class AlarmRealmServices {
     realm.write(() {
       realm.add(alarm.toRealmModel());
     });
+  }
+
+  Stream<RealmResultsChanges<AlarmRealmModel>> getAlarms() {
+    return realm.all<AlarmRealmModel>().changes;
   }
 }

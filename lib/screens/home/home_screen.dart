@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:map_my_nap/models/alarm.dart';
+import 'package:map_my_nap/providers/alarms_stream_provider.dart';
+import 'package:map_my_nap/widgets/maps/maps_preview.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map My Nap"),
@@ -16,160 +21,100 @@ class HomeScreen extends StatelessWidget {
           context.go('/new');
         },
       ),
-      body: Row(
-        children: [
-          Column(
-            children: [
-              const Text("Primary"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.primary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onPrimary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.primaryContainer,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onPrimaryContainer,
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Secondary"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.secondary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onSecondary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.secondaryContainer,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onSecondaryContainer,
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Tertiary"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.tertiary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onTertiary,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.tertiaryContainer,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onTertiaryContainer,
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Background\n&\nSurface"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.background,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onBackground,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.surface,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onSurface,
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Surface\n&\nOutline"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.surfaceVariant,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.outline,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.outlineVariant,
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              const Text("Errors"),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.error,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onError,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.errorContainer,
-              ),
-              Container(
-                height: 48,
-                width: 48,
-                color: theme.colorScheme.onErrorContainer,
-              ),
-            ],
+      body: const CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            sliver: AlarmsSliverList(),
           ),
         ],
       ),
+    );
+  }
+}
+
+class AlarmsSliverList extends HookConsumerWidget {
+  const AlarmsSliverList({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
+    final alarmsListStream = ref.watch(alarmsStreamProvider);
+    return alarmsListStream.when(
+      data: (data) {
+        final results = data.results;
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final currentAlarm = Alarm.fromRealmModel(results[index]);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.tertiaryContainer,
+                    borderRadius: BorderRadius.circular(17),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 128,
+                          width: 128,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(17),
+                            border: Border.all(
+                              width: 0.7,
+                              color: theme.colorScheme.onPrimaryContainer,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(17),
+                            child: MapsPreview(
+                              coordinates: currentAlarm.coordinates,
+                              radius: currentAlarm.radius,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Switch(
+                              value: false,
+                              onChanged: (value) {},
+                            ),
+                            Text(
+                              currentAlarm.label,
+                              style: theme.textTheme.titleMedium!.copyWith(
+                                fontSize: 19,
+                                color: theme.colorScheme.onTertiaryContainer,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+            childCount: results.length,
+          ),
+        );
+      },
+      error: (error, stackTrace) {
+        return SliverToBoxAdapter(
+          child: Text(error.toString()),
+        );
+      },
+      loading: () {
+        return const SliverToBoxAdapter(
+          child: Text("Loading"),
+        );
+      },
     );
   }
 }

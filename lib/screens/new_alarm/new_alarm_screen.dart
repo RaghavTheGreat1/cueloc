@@ -52,12 +52,11 @@ class _NewAlarmScreenState extends ConsumerState<NewAlarmScreen> {
                   delegate: SliverChildListDelegate(
                     [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        padding: const EdgeInsets.only(top: 4, bottom: 24.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(17),
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                                minHeight: 252, maxHeight: 252),
+                          child: SizedBox(
+                            height: 360,
                             child: HookConsumer(
                               builder: (context, ref, _) {
                                 final radius = ref.watch(

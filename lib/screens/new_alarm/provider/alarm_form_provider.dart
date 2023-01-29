@@ -3,7 +3,6 @@ import 'package:map_my_nap/database/services/alarm_realm_services.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/models/coordinates.dart';
 import 'package:map_my_nap/models/trigger_on.dart';
-import 'package:map_my_nap/router/router.dart';
 
 final alarmFormProvider = StateNotifierProvider.autoDispose
     .family<AlarmFormProvider, Alarm, Alarm>((ref, alarm) {
@@ -36,6 +35,5 @@ class AlarmFormProvider extends StateNotifier<Alarm> {
   void saveAlarm() {
     final alarmRealm = AlarmRealmServices();
     alarmRealm.addAlarm(state);
-    ref.read(navigationKeyProvider).currentState!.pop();
   }
 }
