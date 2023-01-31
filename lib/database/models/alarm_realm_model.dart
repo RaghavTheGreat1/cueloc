@@ -5,16 +5,17 @@ part 'alarm_realm_model.g.dart';
 @RealmModel()
 class _AlarmRealmModel {
   @PrimaryKey()
-  late final String id;
+  late String id;
 
-  late final String label;
-  late final _CoordinatesRealmModel? coordinates;
-  late final double radius;
-  late final String triggerOn;
+  late String label;
+  late _CoordinatesRealmModel? coordinates;
+  late double radius;
+  late String triggerOn;
+  late bool isActive = false;
 }
 
 @RealmModel()
 class _CoordinatesRealmModel {
-  late final double latitude;
-  late final double longitude;
+  late double latitude;
+  late double longitude;
 }

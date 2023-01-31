@@ -82,7 +82,7 @@ class AlarmsSliverList extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Switch(
-                              value: false,
+                              value: currentAlarm.isActive,
                               onChanged: (value) {},
                             ),
                             Text(
@@ -106,6 +106,7 @@ class AlarmsSliverList extends HookConsumerWidget {
         );
       },
       error: (error, stackTrace) {
+        debugPrint(error.toString());
         return SliverToBoxAdapter(
           child: Text(error.toString()),
         );

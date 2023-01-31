@@ -8,7 +8,10 @@ class AlarmRealmServices {
 
   AlarmRealmServices() {
     final config = Configuration.local(
-        [AlarmRealmModel.schema, CoordinatesRealmModel.schema]);
+      [AlarmRealmModel.schema, CoordinatesRealmModel.schema],
+      schemaVersion: 1,
+    );
+
     realm = Realm(config);
   }
 

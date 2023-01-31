@@ -16,6 +16,7 @@ class Alarm with _$Alarm {
     required Coordinates coordinates,
     required double radius,
     required TriggerOn triggerOn,
+    required bool isActive,
   }) = _Alarm;
 
   factory Alarm.raw() {
@@ -26,6 +27,7 @@ class Alarm with _$Alarm {
       coordinates: Coordinates.raw(),
       radius: 1000,
       triggerOn: TriggerOn.entry,
+      isActive: false,
     );
   }
 
@@ -46,6 +48,7 @@ class Alarm with _$Alarm {
       coordinates: Coordinates.fromRealmModel(alarmRealmModel.coordinates!),
       radius: alarmRealmModel.radius,
       triggerOn: TriggerOnExt.fromName(alarmRealmModel.triggerOn),
+      isActive: alarmRealmModel.isActive,
     );
   }
 }

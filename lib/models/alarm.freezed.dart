@@ -21,6 +21,7 @@ mixin _$Alarm {
   Coordinates get coordinates => throw _privateConstructorUsedError;
   double get radius => throw _privateConstructorUsedError;
   TriggerOn get triggerOn => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AlarmCopyWith<Alarm> get copyWith => throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ abstract class $AlarmCopyWith<$Res> {
       String label,
       Coordinates coordinates,
       double radius,
-      TriggerOn triggerOn});
+      TriggerOn triggerOn,
+      bool isActive});
 
   $CoordinatesCopyWith<$Res> get coordinates;
 }
@@ -59,6 +61,7 @@ class _$AlarmCopyWithImpl<$Res, $Val extends Alarm>
     Object? coordinates = null,
     Object? radius = null,
     Object? triggerOn = null,
+    Object? isActive = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,6 +84,10 @@ class _$AlarmCopyWithImpl<$Res, $Val extends Alarm>
           ? _value.triggerOn
           : triggerOn // ignore: cast_nullable_to_non_nullable
               as TriggerOn,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -104,7 +111,8 @@ abstract class _$$_AlarmCopyWith<$Res> implements $AlarmCopyWith<$Res> {
       String label,
       Coordinates coordinates,
       double radius,
-      TriggerOn triggerOn});
+      TriggerOn triggerOn,
+      bool isActive});
 
   @override
   $CoordinatesCopyWith<$Res> get coordinates;
@@ -124,6 +132,7 @@ class __$$_AlarmCopyWithImpl<$Res> extends _$AlarmCopyWithImpl<$Res, _$_Alarm>
     Object? coordinates = null,
     Object? radius = null,
     Object? triggerOn = null,
+    Object? isActive = null,
   }) {
     return _then(_$_Alarm(
       id: null == id
@@ -146,6 +155,10 @@ class __$$_AlarmCopyWithImpl<$Res> extends _$AlarmCopyWithImpl<$Res, _$_Alarm>
           ? _value.triggerOn
           : triggerOn // ignore: cast_nullable_to_non_nullable
               as TriggerOn,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -158,7 +171,8 @@ class _$_Alarm extends _Alarm {
       required this.label,
       required this.coordinates,
       required this.radius,
-      required this.triggerOn})
+      required this.triggerOn,
+      required this.isActive})
       : super._();
 
   @override
@@ -171,10 +185,12 @@ class _$_Alarm extends _Alarm {
   final double radius;
   @override
   final TriggerOn triggerOn;
+  @override
+  final bool isActive;
 
   @override
   String toString() {
-    return 'Alarm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn)';
+    return 'Alarm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn, isActive: $isActive)';
   }
 
   @override
@@ -188,12 +204,14 @@ class _$_Alarm extends _Alarm {
                 other.coordinates == coordinates) &&
             (identical(other.radius, radius) || other.radius == radius) &&
             (identical(other.triggerOn, triggerOn) ||
-                other.triggerOn == triggerOn));
+                other.triggerOn == triggerOn) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, label, coordinates, radius, triggerOn);
+  int get hashCode => Object.hash(
+      runtimeType, id, label, coordinates, radius, triggerOn, isActive);
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +226,8 @@ abstract class _Alarm extends Alarm {
       required final String label,
       required final Coordinates coordinates,
       required final double radius,
-      required final TriggerOn triggerOn}) = _$_Alarm;
+      required final TriggerOn triggerOn,
+      required final bool isActive}) = _$_Alarm;
   const _Alarm._() : super._();
 
   @override
@@ -221,6 +240,8 @@ abstract class _Alarm extends Alarm {
   double get radius;
   @override
   TriggerOn get triggerOn;
+  @override
+  bool get isActive;
   @override
   @JsonKey(ignore: true)
   _$$_AlarmCopyWith<_$_Alarm> get copyWith =>

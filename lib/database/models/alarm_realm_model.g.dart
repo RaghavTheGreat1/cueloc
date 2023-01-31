@@ -8,18 +8,27 @@ part of 'alarm_realm_model.dart';
 
 class AlarmRealmModel extends _AlarmRealmModel
     with RealmEntity, RealmObjectBase, RealmObject {
+  static var _defaultsSet = false;
+
   AlarmRealmModel(
     String id,
     String label,
     double radius,
     String triggerOn, {
     CoordinatesRealmModel? coordinates,
+    bool isActive = false,
   }) {
+    if (!_defaultsSet) {
+      _defaultsSet = RealmObjectBase.setDefaults<AlarmRealmModel>({
+        'isActive': false,
+      });
+    }
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'label', label);
     RealmObjectBase.set(this, 'coordinates', coordinates);
     RealmObjectBase.set(this, 'radius', radius);
     RealmObjectBase.set(this, 'triggerOn', triggerOn);
+    RealmObjectBase.set(this, 'isActive', isActive);
   }
 
   AlarmRealmModel._();
@@ -27,12 +36,12 @@ class AlarmRealmModel extends _AlarmRealmModel
   @override
   String get id => RealmObjectBase.get<String>(this, 'id') as String;
   @override
-  set id(String value) => throw RealmUnsupportedSetError();
+  set id(String value) => RealmObjectBase.set(this, 'id', value);
 
   @override
   String get label => RealmObjectBase.get<String>(this, 'label') as String;
   @override
-  set label(String value) => throw RealmUnsupportedSetError();
+  set label(String value) => RealmObjectBase.set(this, 'label', value);
 
   @override
   CoordinatesRealmModel? get coordinates =>
@@ -40,18 +49,23 @@ class AlarmRealmModel extends _AlarmRealmModel
           as CoordinatesRealmModel?;
   @override
   set coordinates(covariant CoordinatesRealmModel? value) =>
-      throw RealmUnsupportedSetError();
+      RealmObjectBase.set(this, 'coordinates', value);
 
   @override
   double get radius => RealmObjectBase.get<double>(this, 'radius') as double;
   @override
-  set radius(double value) => throw RealmUnsupportedSetError();
+  set radius(double value) => RealmObjectBase.set(this, 'radius', value);
 
   @override
   String get triggerOn =>
       RealmObjectBase.get<String>(this, 'triggerOn') as String;
   @override
-  set triggerOn(String value) => throw RealmUnsupportedSetError();
+  set triggerOn(String value) => RealmObjectBase.set(this, 'triggerOn', value);
+
+  @override
+  bool get isActive => RealmObjectBase.get<bool>(this, 'isActive') as bool;
+  @override
+  set isActive(bool value) => RealmObjectBase.set(this, 'isActive', value);
 
   @override
   Stream<RealmObjectChanges<AlarmRealmModel>> get changes =>
@@ -73,6 +87,7 @@ class AlarmRealmModel extends _AlarmRealmModel
           optional: true, linkTarget: 'CoordinatesRealmModel'),
       SchemaProperty('radius', RealmPropertyType.double),
       SchemaProperty('triggerOn', RealmPropertyType.string),
+      SchemaProperty('isActive', RealmPropertyType.bool),
     ]);
   }
 }
@@ -93,13 +108,13 @@ class CoordinatesRealmModel extends _CoordinatesRealmModel
   double get latitude =>
       RealmObjectBase.get<double>(this, 'latitude') as double;
   @override
-  set latitude(double value) => throw RealmUnsupportedSetError();
+  set latitude(double value) => RealmObjectBase.set(this, 'latitude', value);
 
   @override
   double get longitude =>
       RealmObjectBase.get<double>(this, 'longitude') as double;
   @override
-  set longitude(double value) => throw RealmUnsupportedSetError();
+  set longitude(double value) => RealmObjectBase.set(this, 'longitude', value);
 
   @override
   Stream<RealmObjectChanges<CoordinatesRealmModel>> get changes =>
