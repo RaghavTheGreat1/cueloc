@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/models/coordinates.dart';
+import 'package:map_my_nap/themes/custom_colors.dart';
 import 'package:map_my_nap/widgets/cupertino_back_button.dart';
 
 import '../../maps.dart';
@@ -15,13 +16,35 @@ class AlarmPreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
+    final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Map My Nap"),
         leading: const CupertinoBackButton(),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (alarm.isActive ? CustomColors.green : CustomColors.red)
+                    .withOpacity(0.15),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  alarm.isActive ? "Active" : "Inactive",
+                  style: TextStyle(
+                    color:
+                        alarm.isActive ? CustomColors.green : CustomColors.red,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Stack(
         children: [
@@ -37,7 +60,7 @@ class AlarmPreviewScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(17),
                           child: SizedBox(
-                            height: 360,
+                            height: screenSize.height / 1.9,
                             child: Maps(
                               initialLatLng: alarm.coordinates.toLatLng,
                               initialSelectedLatLng: alarm.coordinates,
@@ -46,12 +69,47 @@ class AlarmPreviewScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        alarm.label,
-                        style: theme.textTheme.displaySmall,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              alarm.label,
+                              style: theme.textTheme.headlineLarge!.copyWith(
+                                color: theme.colorScheme.onBackground,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  theme.colorScheme.primary.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "On ${alarm.triggerOn.name.substring(0, 1).toUpperCase()}${alarm.triggerOn.name.substring(1)}",
+                                style: TextStyle(
+                                  color: theme.colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(
                         height: 24,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "${alarm.radius.toStringAsFixed(0)} m",
+                          style: theme.textTheme.headlineMedium,
+                        ),
                       ),
                       const SizedBox(
                         height: 24,
