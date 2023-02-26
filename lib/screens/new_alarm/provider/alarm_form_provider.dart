@@ -6,9 +6,12 @@ import 'package:map_my_nap/repositories/alarm_repository.dart';
 
 import '../../../router/router.dart';
 
-final alarmFormProvider = StateNotifierProvider.autoDispose
-    .family<AlarmFormController, Alarm, Alarm>((ref, alarm) {
-  return AlarmFormController(alarm, ref: ref);
+final alarmFormProvider =
+    StateNotifierProvider.autoDispose<AlarmFormController, Alarm>((ref) {
+  return AlarmFormController(
+    Alarm.raw(),
+    ref: ref,
+  );
 });
 
 class AlarmFormController extends StateNotifier<Alarm> {

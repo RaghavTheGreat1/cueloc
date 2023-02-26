@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/screens/new_alarm/provider/alarm_form_provider.dart';
+import 'package:map_my_nap/models/coordinates.dart';
 import 'package:map_my_nap/widgets/cupertino_back_button.dart';
-import 'package:map_my_nap/widgets/textfields/custom_text_field.dart';
 
 import '../../maps.dart';
-import '../../models/trigger_on.dart';
-import 'widgets/radius_slider.dart';
-import 'widgets/trigger_on_selector.dart';
 
-class NewAlarmScreen extends ConsumerWidget {
-  const NewAlarmScreen({
+class AlarmPreviewScreen extends StatelessWidget {
+  const AlarmPreviewScreen({
     super.key,
-    this.initialAlarm,
+    required this.alarm,
   });
 
-  final Alarm? initialAlarm;
+  final Alarm alarm;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    final alarmRef = ref.read(alarmFormProvider.notifier);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -44,42 +38,23 @@ class NewAlarmScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(17),
                           child: SizedBox(
                             height: 360,
-                            child: HookConsumer(
-                              builder: (context, ref, _) {
-                                final radius = ref.watch(alarmFormProvider
-                                    .select((value) => value.radius));
-                                return Maps(
-                                  radius: radius,
-                                  onLocationSelect: (value) {
-                                    alarmRef.updateCoordinates(value);
-                                  },
-                                );
-                              },
+                            child: Maps(
+                              initialLatLng: alarm.coordinates.toLatLng,
+                              initialSelectedLatLng: alarm.coordinates,
+                              radius: alarm.radius,
                             ),
                           ),
                         ),
                       ),
-                      CustomTextFormField(
-                        label: "Label",
-                        onChanged: (value) {
-                          alarmRef.updateLabel(value);
-                        },
+                      Text(
+                        alarm.label,
+                        style: theme.textTheme.displaySmall,
                       ),
                       const SizedBox(
                         height: 24,
                       ),
-                      RadiusSlider(
-                        onChanged: (double value) {
-                          alarmRef.updateRadius(value);
-                        },
-                      ),
                       const SizedBox(
                         height: 24,
-                      ),
-                      TriggerOnSelector(
-                        onChanged: (TriggerOn value) {
-                          alarmRef.updateTriggerOn(value);
-                        },
                       ),
                       const SizedBox(
                         height: 128,
@@ -109,10 +84,8 @@ class NewAlarmScreen extends ConsumerWidget {
                       child: SizedBox(
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {
-                            alarmRef.saveAlarm();
-                          },
-                          child: const Text("MAP IT"),
+                          onPressed: () {},
+                          child: const Text("EDIT"),
                         ),
                       ),
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:map_my_nap/models/alarm.dart';
+import 'package:map_my_nap/screens/alarm_preview/alarm_preview_screen.dart';
 import 'package:map_my_nap/screens/home/home_screen.dart';
 import 'package:map_my_nap/screens/new_alarm/new_alarm_screen.dart';
 
@@ -37,6 +39,19 @@ class RouterService extends ChangeNotifier {
               key: state.pageKey,
               transitionsBuilder: rightToLeftFadeTransition,
               child: const NewAlarmScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'preview/:id',
+          pageBuilder: (context, state) {
+            final alarm = state.extra as Alarm;
+            return CustomTransitionPage(
+              key: state.pageKey,
+              transitionsBuilder: rightToLeftFadeTransition,
+              child: AlarmPreviewScreen(
+                alarm: alarm,
+              ),
             );
           },
         ),

@@ -11,13 +11,15 @@ class Maps extends StatefulWidget {
     super.key,
     this.initialLatLng,
     required this.radius,
-    required this.onLocationSelect,
+    this.onLocationSelect,
+    this.initialSelectedLatLng,
   });
 
   final LatLng? initialLatLng;
+  final Coordinates? initialSelectedLatLng;
   final double radius;
 
-  final ValueChanged<Coordinates> onLocationSelect;
+  final ValueChanged<Coordinates>? onLocationSelect;
 
   @override
   State<Maps> createState() => _MapsState();
@@ -42,12 +44,15 @@ class _MapsState extends State<Maps> {
     } else {
       currentLocation = widget.initialLatLng!;
     }
-    markers = {
-      Marker(
-        markerId: const MarkerId("alarm_location"),
-        position: currentLocation,
-      ),
-    };
+
+    markers = widget.initialSelectedLatLng != null
+        ? {
+            Marker(
+              markerId: const MarkerId("alarm_location"),
+              position: widget.initialSelectedLatLng!.toLatLng,
+            ),
+          }
+        : {};
   }
 
   void getCurrentLocation() async {
@@ -92,27 +97,29 @@ class _MapsState extends State<Maps> {
       ),
       markers: markers,
       onTap: (argument) {
-        setState(() {
-          currentLocation = argument;
-          markers = {
-            Marker(
-              markerId: const MarkerId("alarm_location"),
-              position: currentLocation,
-            ),
-          };
-          circles = {
-            Circle(
-              circleId: const CircleId("radius"),
-              fillColor: theme.colorScheme.primary.withOpacity(0.15),
-              center: currentLocation,
-              radius: widget.radius,
-              strokeWidth: 1,
-              strokeColor: theme.colorScheme.primary,
-            ),
-          };
-          controller.animateCamera(CameraUpdate.newLatLng(currentLocation));
-          widget.onLocationSelect(argument.toCoordinates);
-        });
+        if (widget.onLocationSelect != null) {
+          setState(() {
+            currentLocation = argument;
+            markers = {
+              Marker(
+                markerId: const MarkerId("alarm_location"),
+                position: currentLocation,
+              ),
+            };
+            circles = {
+              Circle(
+                circleId: const CircleId("radius"),
+                fillColor: theme.colorScheme.primary.withOpacity(0.15),
+                center: currentLocation,
+                radius: widget.radius,
+                strokeWidth: 1,
+                strokeColor: theme.colorScheme.primary,
+              ),
+            };
+            controller.animateCamera(CameraUpdate.newLatLng(currentLocation));
+            widget.onLocationSelect!(argument.toCoordinates);
+          });
+        }
       },
       circles: circles,
       onMapCreated: (value) async {
