@@ -65,4 +65,13 @@ class RealmAlarmRepository extends AlarmRepository {
         RealmModelParsers.parseAlarmRealmModelList, sublistedRealmAlarms);
     return sublistedAlarms;
   }
+
+  @override
+  Future<void> deleteAlarm(Alarm alarm) async {
+    final realmObjectToDelete = realm.find<AlarmRealmModel>(alarm.id);
+
+    if (realmObjectToDelete != null) {
+      realm.write(() => realm.delete<AlarmRealmModel>(realmObjectToDelete));
+    }
+  }
 }

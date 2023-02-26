@@ -15,4 +15,6 @@ abstract class AlarmRepository {
       {required int startIndex, required int endIndex});
 
   Stream<List<Alarm>> streamAlarms();
+
+  Future<void> deleteAlarm(Alarm alarm);
 }
