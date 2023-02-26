@@ -21,6 +21,7 @@ class AlarmCard extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
+        borderRadius: BorderRadius.circular(17),
         onLongPress: () {
           showModalBottomSheet(
             context: context,

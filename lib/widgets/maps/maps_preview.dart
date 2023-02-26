@@ -59,6 +59,7 @@ class _MapsPreviewState extends State<MapsPreview> {
           target: currentLocation,
           zoom: 12,
         ),
+        myLocationButtonEnabled: false,
         mapToolbarEnabled: false,
         zoomControlsEnabled: false,
         markers: markers,
