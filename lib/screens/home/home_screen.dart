@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/providers/alarms_stream_provider.dart';
 import 'package:map_my_nap/widgets/maps/maps_preview.dart';
 
@@ -42,11 +41,11 @@ class AlarmsSliverList extends HookConsumerWidget {
     final alarmsListStream = ref.watch(alarmsStreamProvider);
     return alarmsListStream.when(
       data: (data) {
-        final results = data.results;
+        final results = data;
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              final currentAlarm = Alarm.fromRealmModel(results[index]);
+              final currentAlarm = results[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Container(

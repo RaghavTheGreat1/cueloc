@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  
+//
+//  Created by Raghav Joshi on 26/02/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+MAPS_API_KEY = AIzaSyDLIcN1XcxIa6EulsWkK2XLecWJSC3jQS4

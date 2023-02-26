@@ -5,6 +5,7 @@ import 'package:map_my_nap/services/app_initializer_service.dart';
 import 'package:map_my_nap/themes/light_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   AppInitializerService.instance.initialize();
   runApp(
     const ProviderScope(

@@ -1,17 +1,19 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/database/services/alarm_realm_services.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/models/coordinates.dart';
 import 'package:map_my_nap/models/trigger_on.dart';
+import 'package:map_my_nap/repositories/alarm_repository.dart';
+
+import '../../../router/router.dart';
 
 final alarmFormProvider = StateNotifierProvider.autoDispose
-    .family<AlarmFormProvider, Alarm, Alarm>((ref, alarm) {
-  return AlarmFormProvider(alarm, ref: ref);
+    .family<AlarmFormController, Alarm, Alarm>((ref, alarm) {
+  return AlarmFormController(alarm, ref: ref);
 });
 
-class AlarmFormProvider extends StateNotifier<Alarm> {
+class AlarmFormController extends StateNotifier<Alarm> {
   final Ref ref;
-  AlarmFormProvider(
+  AlarmFormController(
     super.state, {
     required this.ref,
   });
@@ -33,7 +35,8 @@ class AlarmFormProvider extends StateNotifier<Alarm> {
   }
 
   void saveAlarm() {
-    final alarmRealm = AlarmRealmServices();
-    alarmRealm.addAlarm(state);
+    final alarmRepository = ref.read(alarmRepositoryProvider);
+    alarmRepository.addAlarm(state);
+    ref.watch(routerServiceProvider).pop();
   }
 }

@@ -4,15 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/screens/home/home_screen.dart';
 import 'package:map_my_nap/screens/new_alarm/new_alarm_screen.dart';
 
-final navigationKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {
-  return GlobalKey<NavigatorState>();
-});
-
 final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);
-  final key = ref.read(navigationKeyProvider);
+
   return GoRouter(
-    navigatorKey: key,
     routes: router._routes,
   );
 });

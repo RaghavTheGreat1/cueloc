@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 android/secrets.properties
+ios/SecureAPIKeys/Config.xcconfig
+ios/Runner/AppDelegate.swift
