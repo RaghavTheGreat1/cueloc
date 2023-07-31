@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +37,7 @@ class AlarmsSliverList extends HookConsumerWidget {
   const AlarmsSliverList({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final alarmsListStream = ref.watch(alarmsStreamProvider);
+    final alarmsListStream = ref.watch(allAlarmsStreamProvider);
     final activeAlarmServicesProvider = ref.read(activeAlarmsServicesProvider);
     return alarmsListStream.when(
       data: (data) {

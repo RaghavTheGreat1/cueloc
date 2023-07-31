@@ -32,16 +32,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.0
+  flutter_hooks: ^0.20.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
   geolocator: ^9.0.2
-  go_router: ^6.0.1
-  google_fonts: ^3.0.1
+  go_router: ^10.0.0
+  google_fonts: ^5.1.0
   google_maps_flutter: ^2.2.4
   hooks_riverpod: ^2.1.1
-  realm: ^1.0.2
-  riverpod_annotation: ^1.0.6
+  notification_permissions: ^0.6.1
+  permission_handler: ^10.4.3
+  realm: ^1.3.0
+  riverpod_annotation: ^2.1.1
   uuid: ^3.0.7
 
 dev_dependencies:
@@ -49,7 +51,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  riverpod_generator: ^1.0.6
+  riverpod_generator: ^2.2.4
   custom_lint:
   riverpod_lint:
 
