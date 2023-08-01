@@ -109,8 +109,8 @@ class NewAlarmScreen extends ConsumerWidget {
                       child: SizedBox(
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {
-                            alarmRef.saveAlarm();
+                          onPressed: () async {
+                            await alarmRef.saveAlarm();
                           },
                           child: const Text("MAP IT"),
                         ),

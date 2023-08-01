@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/models/alarm.dart';
 
+import '../../../controllers/alarms_controller.dart';
 import '../../../repositories/alarm_repository.dart';
 import '../../../widgets/maps/maps_preview.dart';
 
@@ -91,7 +92,11 @@ class AlarmCard extends HookConsumerWidget {
                       children: [
                         Switch(
                           value: alarm.isActive,
-                          onChanged: (value) {},
+                          onChanged: (value) async {
+                            await ref
+                                .read(alarmsControllerProvider.notifier)
+                                .toggleAlarm(alarm, value);
+                          },
                         ),
                         Text(
                           alarm.label,

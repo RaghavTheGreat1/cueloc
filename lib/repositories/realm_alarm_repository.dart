@@ -19,9 +19,9 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  void addAlarm(Alarm alarm) {
-    realm.write(() {
-      realm.add(alarm.toRealmModel());
+  Future<void> addAlarm(Alarm alarm) async {
+    await realm.writeAsync<AlarmRealmModel>(() {
+      return realm.add<AlarmRealmModel>(alarm.toRealmModel());
     });
   }
 
@@ -67,11 +67,25 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
+  Future<void> toggleAlarm(Alarm alarm, bool isActive) async {
+    final realmObjectToToggle = realm.find<AlarmRealmModel>(alarm.id);
+
+    if (realmObjectToToggle != null) {
+      await realm.writeAsync(
+        () {
+          realmObjectToToggle.isActive = isActive;
+        },
+      );
+    }
+  }
+
+  @override
   Future<void> deleteAlarm(Alarm alarm) async {
     final realmObjectToDelete = realm.find<AlarmRealmModel>(alarm.id);
 
     if (realmObjectToDelete != null) {
-      realm.write(() => realm.delete<AlarmRealmModel>(realmObjectToDelete));
+      await realm
+          .writeAsync(() => realm.delete<AlarmRealmModel>(realmObjectToDelete));
     }
   }
 }

@@ -9,12 +9,14 @@ final alarmRepositoryProvider = Provider<AlarmRepository>((ref) {
 abstract class AlarmRepository {
   Future<List<Alarm>> fetchAllAlarms();
 
-  void addAlarm(Alarm alarm);
+  Future<void> addAlarm(Alarm alarm);
 
   Future<List<Alarm>> fetchAlarms(
       {required int startIndex, required int endIndex});
 
   Stream<List<Alarm>> streamAlarms();
+
+  Future<void> toggleAlarm(Alarm alarm, bool isActive);
 
   Future<void> deleteAlarm(Alarm alarm);
 }
