@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:map_my_nap/controllers/location_alarm_controller.dart';
 import 'package:map_my_nap/router/router.dart';
 import 'package:map_my_nap/services/app_initializer_service.dart';
 import 'package:map_my_nap/themes/light_theme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppInitializerService.instance.initialize();
+
+  final container = ProviderContainer();
+
+  await container.read(locationAlarmControllerProvider.notifier).initialize();
+
   runApp(
-    const ProviderScope(
-      child: MapMyNap(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const MapMyNap(),
     ),
   );
 }

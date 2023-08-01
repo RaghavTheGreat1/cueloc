@@ -1,3 +1,4 @@
+import 'package:alarm/alarm.dart' as alarm;
 import 'package:geolocator/geolocator.dart';
 
 class AppInitializerService {
@@ -7,5 +8,6 @@ class AppInitializerService {
 
   Future<void> initialize() async {
     await Geolocator.requestPermission();
+    await alarm.Alarm.init();
   }
 }
