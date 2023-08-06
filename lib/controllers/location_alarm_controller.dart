@@ -1,27 +1,30 @@
 import 'package:alarm/alarm.dart' as alarm_plugin;
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/providers/alarms_stream_provider.dart';
-import 'package:map_my_nap/providers/location_stream_provider.dart';
-import 'package:map_my_nap/repositories/alarm_repository.dart';
+
+import '../models/alarm.dart';
+import '../providers/alarms_stream_provider.dart';
+import '../providers/location_stream_provider.dart';
+import '../repositories/alarm_repository.dart';
 
 final locationAlarmControllerProvider =
     StateNotifierProvider<LocationAlarmControllerNotifier, AsyncValue<void>>(
         (ref) {
-  final activeAlarms = ref.watch(allAlarmsStreamProvider);
   final alarmRepository = ref.watch(alarmRepositoryProvider);
   return LocationAlarmControllerNotifier(
     ref,
-    activeAlarms: activeAlarms.value ?? [],
     alarmRepository: alarmRepository,
   );
+});
+
+final runningAlarmProvider = StateProvider<Alarm?>((ref) {
+  return null;
 });
 
 class LocationAlarmControllerNotifier extends StateNotifier<AsyncValue<void>> {
   LocationAlarmControllerNotifier(
     this.ref, {
-    this.activeAlarms = const [],
     required this.alarmRepository,
   }) : super(const AsyncValue.data(null));
 
@@ -31,21 +34,27 @@ class LocationAlarmControllerNotifier extends StateNotifier<AsyncValue<void>> {
 
   final AlarmRepository alarmRepository;
 
-  final List<Alarm> activeAlarms;
+  void initialize() {
+    locationStreamSubscription = ref.listen<AsyncValue<Position>>(
+      locationStreamProvider,
+      (previous, next) {
+        next.whenData((position) async {
+          final readyToTriggerAlarms = checkUserInRegionAlarms(next.value!);
 
-  Future<void> initialize() async {
-    locationStreamSubscription =
-        ref.listen(locationStreamProvider, (previous, next) async {
-      if (next.value != null) {
-        final readyToTriggerAlarms = checkUserInRegionAlarms(next.value!);
-        if (readyToTriggerAlarms.isNotEmpty) {
-          await triggerAlarm(readyToTriggerAlarms.first);
-        }
-      }
-    });
+          if (readyToTriggerAlarms.isNotEmpty) {
+            await triggerAlarm(readyToTriggerAlarms.first);
+          }
+        });
+      },
+      onError: (error, stackTrace) {
+        debugPrintStack(stackTrace: stackTrace, label: error.toString());
+      },
+      fireImmediately: true,
+    );
   }
 
   List<Alarm> checkUserInRegionAlarms(Position position) {
+    final activeAlarms = ref.read(activeAlarmsStreamProvider).value ?? [];
     final locationReachedAlarms = activeAlarms.where((element) {
       final distance = Geolocator.distanceBetween(
         element.coordinates.latitude,
@@ -64,12 +73,13 @@ class LocationAlarmControllerNotifier extends StateNotifier<AsyncValue<void>> {
     if (alarm_plugin.Alarm.hasAlarm()) {
       return;
     }
+
     final alarmSettings = alarm_plugin.AlarmSettings(
       id: 0,
-      dateTime: DateTime.now(),
-      assetAudioPath: 'assets/alarm.mp3',
+      dateTime: DateTime.now().add(const Duration(seconds: 2)),
+      assetAudioPath: 'assets/google_pixel_alarm.mp3',
       loopAudio: true,
-      vibrate: true,
+      vibrate: false,
       fadeDuration: 3.0,
       notificationTitle: alarm.label,
       notificationBody: 'You have reached your location',
@@ -80,13 +90,16 @@ class LocationAlarmControllerNotifier extends StateNotifier<AsyncValue<void>> {
       alarmSettings: alarmSettings,
     );
 
-    if (isAlarmSet) {}
+    if (isAlarmSet) {
+      ref.read(runningAlarmProvider.notifier).state = alarm;
+    }
   }
 
   Future<void> stopAlarm(Alarm alarm) async {
     if (alarm_plugin.Alarm.hasAlarm()) {
       await alarm_plugin.Alarm.stop(0);
       await alarmRepository.toggleAlarm(alarm, false);
+      ref.read(runningAlarmProvider.notifier).state = null;
     }
   }
 

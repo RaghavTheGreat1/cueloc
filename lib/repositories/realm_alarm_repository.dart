@@ -43,7 +43,6 @@ class RealmAlarmRepository extends AlarmRepository {
     final alarmsAsRealmModelStream = realm.all<AlarmRealmModel>().changes;
     await for (final event in alarmsAsRealmModelStream) {
       final realmAlarms = event.results.toList();
-
       yield RealmModelParsers.parseAlarmRealmModelList(realmAlarms);
     }
   }

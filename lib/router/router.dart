@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:map_my_nap/controllers/location_alarm_controller.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/screens/alarm_preview/alarm_preview_screen.dart';
 import 'package:map_my_nap/screens/home/home_screen.dart';
@@ -20,44 +23,68 @@ class RouterService extends ChangeNotifier {
   );
 
   final Ref ref;
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+    String? redirectPath;
 
-  final List<RouteBase> _routes = [
-    GoRoute(
-      path: '/',
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          transitionsBuilder: rightToLeftFadeTransition,
-          child: const HomeScreen(),
-        );
-      },
-      routes: [
-        GoRoute(
-          path: 'new',
-          pageBuilder: (context, state) {
-            return CustomTransitionPage(
-              key: state.pageKey,
-              transitionsBuilder: rightToLeftFadeTransition,
-              child: const NewAlarmScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          path: 'preview/:id',
-          pageBuilder: (context, state) {
-            final alarm = state.extra as Alarm;
-            return CustomTransitionPage(
-              key: state.pageKey,
-              transitionsBuilder: rightToLeftFadeTransition,
-              child: AlarmPreviewScreen(
-                alarm: alarm,
-              ),
-            );
-          },
-        ),
-      ],
-    ),
-  ];
+    ref.listen(runningAlarmProvider, (previous, next) {
+
+    });
+
+    return redirectPath;
+  }
+
+  List<RouteBase> get _routes {
+    return [
+      GoRoute(
+        path: '/',
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            transitionsBuilder: rightToLeftFadeTransition,
+            child: const HomeScreen(),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: 'new',
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                transitionsBuilder: rightToLeftFadeTransition,
+                child: const NewAlarmScreen(),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'preview/:id',
+            pageBuilder: (context, state) {
+              final alarm = state.extra as Alarm;
+              return CustomTransitionPage(
+                key: state.pageKey,
+                transitionsBuilder: rightToLeftFadeTransition,
+                child: AlarmPreviewScreen(
+                  alarm: alarm,
+                ),
+              );
+            },
+          ),
+            GoRoute(
+            path: 'alarm/:id',
+            pageBuilder: (context, state) {
+              final alarm = state.extra as Alarm;
+              return CustomTransitionPage(
+                key: state.pageKey,
+                transitionsBuilder: rightToLeftFadeTransition,
+                child: AlarmPreviewScreen(
+                  alarm: alarm,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    ];
+  }
 }
 
 Widget rightToLeftFadeTransition(

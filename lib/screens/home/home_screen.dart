@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/providers/alarms_stream_provider.dart';
 import 'package:map_my_nap/screens/home/widgets/alarm_card.dart';
-import 'package:map_my_nap/services/alarm_services.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,7 +37,7 @@ class AlarmsSliverList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final alarmsListStream = ref.watch(allAlarmsStreamProvider);
-    final activeAlarmServicesProvider = ref.read(activeAlarmsServicesProvider);
+
     return alarmsListStream.when(
       data: (data) {
         final results = data;
