@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           Icons.add_rounded,
         ),
         onPressed: () {
-          context.go('/new');
+          context.go('/alarm/new/_');
         },
       ),
       body: const CustomScrollView(

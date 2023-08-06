@@ -5,10 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/controllers/location_alarm_controller.dart';
 import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/screens/alarm_preview/alarm_preview_screen.dart';
+import 'package:map_my_nap/models/form_type.dart';
 import 'package:map_my_nap/screens/home/home_screen.dart';
-import 'package:map_my_nap/screens/new_alarm/new_alarm_screen.dart';
 import 'package:map_my_nap/screens/triggered_alarm/triggered_alarm_screen.dart';
+
+import '../screens/alarm_form/alarm_form_screen.dart';
 
 final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);
@@ -52,29 +53,6 @@ class RouterService extends ChangeNotifier {
         },
         routes: [
           GoRoute(
-            path: 'new',
-            pageBuilder: (context, state) {
-              return CustomTransitionPage(
-                key: state.pageKey,
-                transitionsBuilder: rightToLeftFadeTransition,
-                child: const NewAlarmScreen(),
-              );
-            },
-          ),
-          GoRoute(
-            path: 'preview/:id',
-            pageBuilder: (context, state) {
-              final alarm = state.extra as Alarm;
-              return CustomTransitionPage(
-                key: state.pageKey,
-                transitionsBuilder: rightToLeftFadeTransition,
-                child: AlarmPreviewScreen(
-                  alarm: alarm,
-                ),
-              );
-            },
-          ),
-          GoRoute(
             path: 'triggered/:alarmId',
             pageBuilder: (context, state) {
               return CustomTransitionPage(
@@ -85,14 +63,16 @@ class RouterService extends ChangeNotifier {
             },
           ),
           GoRoute(
-            path: 'alarm/:id',
+            path: 'alarm/:operation/:busStopId',
             pageBuilder: (context, state) {
-              final alarm = state.extra as Alarm;
               return CustomTransitionPage(
                 key: state.pageKey,
                 transitionsBuilder: rightToLeftFadeTransition,
-                child: AlarmPreviewScreen(
-                  alarm: alarm,
+                child: AlarmFormScreen(
+                  formType: FormTypeExt.fromString(
+                      state.pathParameters['operation'].toString()),
+                  alarm:
+                      state.extra == null ? Alarm.raw() : state.extra as Alarm,
                 ),
               );
             },

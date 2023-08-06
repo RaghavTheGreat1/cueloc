@@ -11,6 +11,8 @@ abstract class AlarmRepository {
 
   Future<void> addAlarm(Alarm alarm);
 
+  Future<void> updateAlarm(Alarm alarm);
+
   Future<List<Alarm>> fetchAlarms(
       {required int startIndex, required int endIndex});
 

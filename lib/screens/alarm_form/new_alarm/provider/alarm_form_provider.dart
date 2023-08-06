@@ -4,27 +4,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/controllers/alarms_controller.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/models/coordinates.dart';
+import 'package:map_my_nap/models/form_type.dart';
 import 'package:map_my_nap/models/trigger_on.dart';
 
-import '../../../router/router.dart';
+import '../../../../router/router.dart';
 
 final alarmFormProvider =
     StateNotifierProvider.autoDispose<AlarmFormController, Alarm>((ref) {
-  final alarmControllerNotifier = ref.watch(alarmsControllerProvider.notifier);
   return AlarmFormController(
-    Alarm.raw(),
-    ref: ref,
-    alarmsControllerNotifier: alarmControllerNotifier,
+    ref,
+    alarm: Alarm.raw(),
   );
 });
 
 final class AlarmFormController extends StateNotifier<Alarm> {
   final Ref ref;
   AlarmFormController(
-    super.state, {
-    required this.ref,
-    required this.alarmsControllerNotifier,
-  });
+    this.ref, {
+    required this.alarm,
+  }) : super(alarm);
+
+  final Alarm alarm;
 
   TextEditingController get labelTextController =>
       TextEditingController.fromValue(
@@ -36,7 +36,8 @@ final class AlarmFormController extends StateNotifier<Alarm> {
         ),
       );
 
-  final AlarmsControllerNotifier alarmsControllerNotifier;
+  AlarmsControllerNotifier get alarmsControllerNotifier =>
+      ref.watch(alarmsControllerProvider.notifier);
 
   void updateLabel(String label) {
     state = state.copyWith(label: label);
@@ -75,8 +76,16 @@ final class AlarmFormController extends StateNotifier<Alarm> {
     }
   }
 
-  Future<void> saveAlarm() async {
-    await alarmsControllerNotifier.saveAlarm(state);
+  Future<void> saveAlarm(FormType formType) async {
+    switch (formType) {
+      case FormType.create:
+        await alarmsControllerNotifier.saveAlarm(state);
+      case FormType.edit:
+        await alarmsControllerNotifier.updateAlarm(state);
+        break;  
+
+      default:
+    }
 
     ref.watch(routerServiceProvider).pop();
   }

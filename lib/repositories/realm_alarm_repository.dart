@@ -87,4 +87,18 @@ class RealmAlarmRepository extends AlarmRepository {
           .writeAsync(() => realm.delete<AlarmRealmModel>(realmObjectToDelete));
     }
   }
+
+  @override
+  Future<void> updateAlarm(Alarm alarm) async {
+    final realmObjectToToggle = realm.find<AlarmRealmModel>(alarm.id);
+
+    if (realmObjectToToggle != null) {
+      await realm.writeAsync(
+        () {
+          realm.delete<AlarmRealmModel>(realmObjectToToggle);
+          realm.add(alarm.toRealmModel());
+        },
+      );
+    }
+  }
 }

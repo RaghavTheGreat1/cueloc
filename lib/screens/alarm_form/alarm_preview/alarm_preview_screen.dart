@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/models/coordinates.dart';
 import 'package:map_my_nap/themes/custom_colors.dart';
 import 'package:map_my_nap/widgets/cupertino_back_button.dart';
 
-import '../../maps.dart';
+import '../../../maps.dart';
 
 class AlarmPreviewScreen extends StatelessWidget {
   const AlarmPreviewScreen({
@@ -142,7 +143,12 @@ class AlarmPreviewScreen extends StatelessWidget {
                       child: SizedBox(
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.go(
+                              '/alarm/edit/${alarm.id}',
+                              extra: alarm,
+                            );
+                          },
                           child: const Text("EDIT"),
                         ),
                       ),

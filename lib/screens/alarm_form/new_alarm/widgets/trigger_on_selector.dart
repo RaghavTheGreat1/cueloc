@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/trigger_on.dart';
+import '../../../../models/trigger_on.dart';
 
 
 class TriggerOnSelector extends StatefulWidget {

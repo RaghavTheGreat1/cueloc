@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/screens/new_alarm/provider/alarm_form_provider.dart';
+import 'package:map_my_nap/models/coordinates.dart';
+import 'package:map_my_nap/models/form_type.dart';
+import 'package:map_my_nap/screens/alarm_form/new_alarm/provider/alarm_form_provider.dart';
 import 'package:map_my_nap/widgets/cupertino_back_button.dart';
 import 'package:map_my_nap/widgets/textfields/custom_text_field.dart';
 
-import '../../maps.dart';
-import '../../models/trigger_on.dart';
+import '../../../maps.dart';
+import '../../../models/trigger_on.dart';
 import 'widgets/radius_slider.dart';
 import 'widgets/trigger_on_selector.dart';
 
@@ -14,9 +16,12 @@ class NewAlarmScreen extends ConsumerWidget {
   const NewAlarmScreen({
     super.key,
     this.initialAlarm,
+    required this.formType,
   });
 
   final Alarm? initialAlarm;
+
+  final FormType formType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,6 +54,10 @@ class NewAlarmScreen extends ConsumerWidget {
                                 final radius = ref.watch(alarmFormProvider
                                     .select((value) => value.radius));
                                 return Maps(
+                                  initialLatLng:
+                                      initialAlarm?.coordinates.toLatLng,
+                                  initialSelectedLatLng:
+                                      initialAlarm?.coordinates,
                                   radius: radius,
                                   onLocationSelect: (value) async {
                                     await alarmRef.updateCoordinates(value);
@@ -114,7 +123,7 @@ class NewAlarmScreen extends ConsumerWidget {
                         height: 56,
                         child: ElevatedButton(
                           onPressed: () async {
-                            await alarmRef.saveAlarm();
+                            await alarmRef.saveAlarm(formType);
                           },
                           child: const Text("MAP IT"),
                         ),

@@ -21,14 +21,21 @@ final class AlarmsControllerNotifier extends StateNotifier<AsyncValue> {
   Future<void> saveAlarm(Alarm alarm) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      alarmRepository.addAlarm(alarm);
+      await alarmRepository.addAlarm(alarm);
+    });
+  }
+
+  Future<void> updateAlarm(Alarm alarm) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await alarmRepository.updateAlarm(alarm);
     });
   }
 
   Future<void> toggleAlarm(Alarm alarm, bool isActive) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      alarmRepository.toggleAlarm(alarm, isActive);
+      await alarmRepository.toggleAlarm(alarm, isActive);
     });
   }
 

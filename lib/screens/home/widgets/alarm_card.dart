@@ -25,7 +25,7 @@ class AlarmCard extends HookConsumerWidget {
         borderRadius: BorderRadius.circular(17),
         onTap: () {
           context.go(
-            '/preview/${alarm.id}',
+            '/alarm/read/${alarm.id}',
             extra: alarm,
           );
         },
