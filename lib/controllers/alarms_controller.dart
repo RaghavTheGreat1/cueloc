@@ -11,7 +11,7 @@ final alarmsControllerProvider =
   );
 });
 
-class AlarmsControllerNotifier extends StateNotifier<AsyncValue> {
+final class AlarmsControllerNotifier extends StateNotifier<AsyncValue> {
   AlarmsControllerNotifier({
     required this.alarmRepository,
   }) : super(const AsyncValue.data(null));

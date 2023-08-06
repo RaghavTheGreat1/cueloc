@@ -16,7 +16,7 @@ final alarmFormProvider =
   );
 });
 
-class AlarmFormController extends StateNotifier<Alarm> {
+final class AlarmFormController extends StateNotifier<Alarm> {
   final Ref ref;
   AlarmFormController(
     super.state, {

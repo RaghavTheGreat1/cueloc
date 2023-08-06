@@ -29,7 +29,7 @@ final appPermissionsControllerProvider =
   );
 });
 
-class AppPermissionsController extends StateNotifier<AppPermissions> {
+final class AppPermissionsController extends StateNotifier<AppPermissions> {
   AppPermissionsController({
     required this.initialPermissions,
   }) : super(initialPermissions);

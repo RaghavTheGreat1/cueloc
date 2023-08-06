@@ -22,7 +22,8 @@ final runningAlarmProvider = StateProvider<Alarm?>((ref) {
   return null;
 });
 
-class LocationAlarmControllerNotifier extends StateNotifier<AsyncValue<void>> {
+final class LocationAlarmControllerNotifier
+    extends StateNotifier<AsyncValue<void>> {
   LocationAlarmControllerNotifier(
     this.ref, {
     required this.alarmRepository,
