@@ -36,6 +36,7 @@ dependencies:
   flutter_hooks: ^0.20.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
+  geocoding: ^2.1.0
   geolocator: ^9.0.2
   go_router: ^10.0.0
   google_fonts: ^5.1.0

@@ -95,6 +95,8 @@ class _MapsState extends State<Maps> {
         target: currentLocation,
         zoom: 14,
       ),
+      zoomControlsEnabled: false,
+      myLocationButtonEnabled: true,
       markers: markers,
       onTap: (argument) {
         if (widget.onLocationSelect != null) {
@@ -117,7 +119,7 @@ class _MapsState extends State<Maps> {
               ),
             };
             controller.animateCamera(CameraUpdate.newLatLng(currentLocation));
-            widget.onLocationSelect!(argument.toCoordinates);
+            widget.onLocationSelect?.call(argument.toCoordinates);
           });
         }
       },

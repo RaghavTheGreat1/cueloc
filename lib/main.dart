@@ -29,9 +29,10 @@ class MapMyNap extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.read(routerServiceProvider);
+    final router = ref.watch(routerServiceProvider);
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,

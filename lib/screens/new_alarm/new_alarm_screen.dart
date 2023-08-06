@@ -50,8 +50,8 @@ class NewAlarmScreen extends ConsumerWidget {
                                     .select((value) => value.radius));
                                 return Maps(
                                   radius: radius,
-                                  onLocationSelect: (value) {
-                                    alarmRef.updateCoordinates(value);
+                                  onLocationSelect: (value) async {
+                                    await alarmRef.updateCoordinates(value);
                                   },
                                 );
                               },
@@ -60,6 +60,10 @@ class NewAlarmScreen extends ConsumerWidget {
                         ),
                       ),
                       CustomTextFormField(
+                        key: const ValueKey("label"),
+                        controller: ref
+                            .read(alarmFormProvider.notifier)
+                            .labelTextController,
                         label: "Label",
                         onChanged: (value) {
                           alarmRef.updateLabel(value);

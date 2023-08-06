@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:map_my_nap/controllers/alarms_controller.dart';
 import 'package:map_my_nap/models/alarm.dart';
@@ -24,6 +26,16 @@ final class AlarmFormController extends StateNotifier<Alarm> {
     required this.alarmsControllerNotifier,
   });
 
+  TextEditingController get labelTextController =>
+      TextEditingController.fromValue(
+        TextEditingValue(
+          text: state.label,
+          selection: TextSelection.collapsed(
+            offset: state.label.length,
+          ),
+        ),
+      );
+
   final AlarmsControllerNotifier alarmsControllerNotifier;
 
   void updateLabel(String label) {
@@ -38,8 +50,29 @@ final class AlarmFormController extends StateNotifier<Alarm> {
     state = state.copyWith(triggerOn: triggerOn);
   }
 
-  void updateCoordinates(Coordinates coordinates) {
+  Future<void> updateCoordinates(Coordinates coordinates) async {
     state = state.copyWith(coordinates: coordinates);
+
+    try {
+      final places = await placemarkFromCoordinates(
+        coordinates.latitude,
+        coordinates.longitude,
+        localeIdentifier: "+91IN",
+      );
+
+      state = state.copyWith(
+        label: places.first.name ?? '',
+        coordinates: coordinates,
+      );
+
+      labelTextController.value = TextEditingValue(
+        text: places.first.name ?? '',
+      );
+    } finally {
+      state = state.copyWith(
+        coordinates: coordinates,
+      );
+    }
   }
 
   Future<void> saveAlarm() async {

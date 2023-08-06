@@ -9,13 +9,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map My Nap"),
       ),
       floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.add_rounded,
+        ),
         onPressed: () {
           context.go('/new');
         },

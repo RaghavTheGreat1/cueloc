@@ -8,12 +8,16 @@ import 'package:map_my_nap/models/alarm.dart';
 import 'package:map_my_nap/screens/alarm_preview/alarm_preview_screen.dart';
 import 'package:map_my_nap/screens/home/home_screen.dart';
 import 'package:map_my_nap/screens/new_alarm/new_alarm_screen.dart';
+import 'package:map_my_nap/screens/triggered_alarm/triggered_alarm_screen.dart';
 
 final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);
 
   return GoRouter(
+    initialLocation: '/',
+    debugLogDiagnostics: true,
     routes: router._routes,
+    redirect: router.redirect,
   );
 });
 
@@ -23,13 +27,15 @@ class RouterService extends ChangeNotifier {
   );
 
   final Ref ref;
+
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     String? redirectPath;
 
-    ref.listen(runningAlarmProvider, (previous, next) {
+    final alarm = ref.watch(runningAlarmProvider);
 
-    });
-
+    if (alarm != null) {
+      redirectPath = '/triggered/${alarm.id}';
+    }
     return redirectPath;
   }
 
@@ -68,7 +74,17 @@ class RouterService extends ChangeNotifier {
               );
             },
           ),
-            GoRoute(
+          GoRoute(
+            path: 'triggered/:alarmId',
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                transitionsBuilder: rightToLeftFadeTransition,
+                child: const TriggeredAlarmScreen(),
+              );
+            },
+          ),
+          GoRoute(
             path: 'alarm/:id',
             pageBuilder: (context, state) {
               final alarm = state.extra as Alarm;
