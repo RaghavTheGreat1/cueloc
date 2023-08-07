@@ -54,8 +54,15 @@ class NewAlarmScreen extends ConsumerWidget {
                                 final radius = ref.watch(alarmFormProvider
                                     .select((value) => value.radius));
                                 return Maps(
-                                  initialLatLng:
-                                      initialAlarm?.coordinates.toLatLng,
+                                  initialLatLng: initialAlarm != null
+                                      ? (initialAlarm!.coordinates.latitude ==
+                                                  0 &&
+                                              initialAlarm!
+                                                      .coordinates.longitude ==
+                                                  0
+                                          ? null
+                                          : initialAlarm?.coordinates.toLatLng)
+                                      : null,
                                   initialSelectedLatLng:
                                       initialAlarm?.coordinates,
                                   radius: radius,
