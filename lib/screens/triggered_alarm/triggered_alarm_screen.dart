@@ -49,9 +49,9 @@ class TriggeredAlarmScreen extends HookConsumerWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Text(
-                  "Destination Arrived",
+                  "Alarm Destination Reached!",
                   style: theme.textTheme.titleLarge,
                 ),
               ),

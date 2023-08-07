@@ -30,9 +30,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   alarm: ^1.1.7
+  android_alarm_manager_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_foreground_task: ^6.0.0+1
   flutter_hooks: ^0.20.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0

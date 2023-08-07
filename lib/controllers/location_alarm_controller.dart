@@ -1,5 +1,7 @@
 import 'package:alarm/alarm.dart' as alarm_plugin;
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -93,12 +95,26 @@ final class LocationAlarmControllerNotifier
 
     if (isAlarmSet) {
       ref.read(runningAlarmProvider.notifier).state = alarm;
+      try {
+        AndroidAlarmManager.oneShot(
+          const Duration(seconds: 2),
+          1,
+          LocationAlarmControllerNotifier.launchApp,
+          alarmClock: true,
+          exact: true,
+          wakeup: true,
+          rescheduleOnReboot: true,
+        );
+      } catch (e, stack) {
+        debugPrintStack(stackTrace: stack, label: e.toString());
+      }
     }
   }
 
   Future<void> stopAlarm(Alarm alarm) async {
     if (alarm_plugin.Alarm.hasAlarm()) {
       await alarm_plugin.Alarm.stop(0);
+      await AndroidAlarmManager.cancel(1);
       await alarmRepository.toggleAlarm(alarm, false);
       ref.read(runningAlarmProvider.notifier).state = null;
     }
@@ -106,5 +122,9 @@ final class LocationAlarmControllerNotifier
 
   closeLocationStream() {
     locationStreamSubscription.close();
+  }
+
+  static launchApp() {
+    FlutterForegroundTask.launchApp();
   }
 }
