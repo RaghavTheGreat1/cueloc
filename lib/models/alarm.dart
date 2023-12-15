@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:map_my_nap/database/models/alarm_realm_model.dart';
-import 'package:map_my_nap/models/coordinates.dart';
-import 'package:map_my_nap/models/trigger_on.dart';
+import '../database/models/alarm_realm_model.dart';
+import 'coordinates.dart';
+import 'trigger_on.dart';
 import 'package:uuid/uuid.dart';
 
 part 'alarm.freezed.dart';

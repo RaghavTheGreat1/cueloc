@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/models/coordinates.dart';
-import 'package:map_my_nap/themes/custom_colors.dart';
-import 'package:map_my_nap/widgets/cupertino_back_button.dart';
+import '../../../models/alarm.dart';
+import '../../../models/coordinates.dart';
+import '../../../themes/custom_colors.dart';
+import '../../../widgets/cupertino_back_button.dart';
 
 import '../../../maps.dart';
 

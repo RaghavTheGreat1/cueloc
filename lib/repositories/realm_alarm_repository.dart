@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:map_my_nap/database/models/alarm_realm_model.dart';
-import 'package:map_my_nap/models/alarm.dart';
+import '../database/models/alarm_realm_model.dart';
+import '../models/alarm.dart';
 import 'package:realm/realm.dart';
 
 import '../database/services/realm_model_parsers.dart';

@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/controllers/location_alarm_controller.dart';
-import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/models/form_type.dart';
-import 'package:map_my_nap/screens/home/home_screen.dart';
-import 'package:map_my_nap/screens/triggered_alarm/triggered_alarm_screen.dart';
+import '../controllers/location_alarm_controller.dart';
+import '../models/alarm.dart';
+import '../models/form_type.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/triggered_alarm/triggered_alarm_screen.dart';
 
 import '../screens/alarm_form/alarm_form_screen.dart';
 

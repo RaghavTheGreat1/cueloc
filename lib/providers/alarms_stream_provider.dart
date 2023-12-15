@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/repositories/alarm_repository.dart';
+import '../models/alarm.dart';
+import '../repositories/alarm_repository.dart';
 
 /// Provides all alarms that has been created irrespective of their status(active or inactive).
 final allAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {

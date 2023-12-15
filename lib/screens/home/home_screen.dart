@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/providers/alarms_stream_provider.dart';
-import 'package:map_my_nap/screens/home/widgets/alarm_card.dart';
+import '../../providers/alarms_stream_provider.dart';
+import 'widgets/alarm_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

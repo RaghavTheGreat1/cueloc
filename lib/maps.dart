@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map_my_nap/extensions/lat_lng_extension.dart';
-import 'package:map_my_nap/models/coordinates.dart';
-import 'package:map_my_nap/services/location_services.dart';
+import 'extensions/lat_lng_extension.dart';
+import 'models/coordinates.dart';
+import 'services/location_services.dart';
 
 class Maps extends StatefulWidget {
   const Maps({

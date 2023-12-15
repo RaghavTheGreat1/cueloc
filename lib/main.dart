@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/router/router.dart';
-import 'package:map_my_nap/services/app_initializer_service.dart';
-import 'package:map_my_nap/themes/light_theme.dart';
+import 'router/router.dart';
+import 'services/app_initializer_service.dart';
+import 'themes/light_theme.dart';
 
 import 'controllers/location_alarm_controller.dart';
 import 'providers/location_stream_provider.dart';

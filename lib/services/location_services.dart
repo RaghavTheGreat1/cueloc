@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:map_my_nap/extensions/position_extension.dart';
-import 'package:map_my_nap/models/coordinates.dart';
+import '../extensions/position_extension.dart';
+import '../models/coordinates.dart';
 
 class LocationServices {
   /// Returns the current coordinates of device.

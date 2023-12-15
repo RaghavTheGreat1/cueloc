@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map_my_nap/database/models/alarm_realm_model.dart';
+import '../database/models/alarm_realm_model.dart';
 
 part 'coordinates.freezed.dart';
 

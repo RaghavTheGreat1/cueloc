@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/controllers/location_alarm_controller.dart';
-import 'package:map_my_nap/models/coordinates.dart';
+import '../../controllers/location_alarm_controller.dart';
+import '../../models/coordinates.dart';
 
 import '../../maps.dart';
 

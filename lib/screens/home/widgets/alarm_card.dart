@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/alarm.dart';
+import '../../../models/alarm.dart';
 
 import '../../../controllers/alarms_controller.dart';
 import '../../../repositories/alarm_repository.dart';

@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/repositories/alarm_repository.dart';
+import '../repositories/alarm_repository.dart';
 
 import '../models/alarm.dart';
 

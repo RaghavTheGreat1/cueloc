@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/form_type.dart';
-import 'package:map_my_nap/screens/alarm_form/alarm_preview/alarm_preview_screen.dart';
-import 'package:map_my_nap/screens/alarm_form/new_alarm/new_alarm_screen.dart';
-import 'package:map_my_nap/screens/alarm_form/new_alarm/provider/alarm_form_provider.dart';
+import '../../models/form_type.dart';
+import 'alarm_preview/alarm_preview_screen.dart';
+import 'new_alarm/new_alarm_screen.dart';
+import 'new_alarm/provider/alarm_form_provider.dart';
 
 import '../../builders/read_only_builder.dart';
 import '../../models/alarm.dart';

@@ -1,4 +1,4 @@
-import 'package:map_my_nap/models/alarm.dart';
+import '../../models/alarm.dart';
 
 import '../models/alarm_realm_model.dart';
 

@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/models/alarm.dart';
-import 'package:map_my_nap/repositories/realm_alarm_repository.dart';
+import '../models/alarm.dart';
+import 'realm_alarm_repository.dart';
 
 final alarmRepositoryProvider = Provider<AlarmRepository>((ref) {
   return RealmAlarmRepository();
