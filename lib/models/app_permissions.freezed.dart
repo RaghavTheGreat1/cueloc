@@ -12,7 +12,7 @@ part of 'app_permissions.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AppPermissions {
@@ -72,11 +72,11 @@ class _$AppPermissionsCopyWithImpl<$Res, $Val extends AppPermissions>
 }
 
 /// @nodoc
-abstract class _$$_AppPermissionsCopyWith<$Res>
+abstract class _$$AppPermissionsImplCopyWith<$Res>
     implements $AppPermissionsCopyWith<$Res> {
-  factory _$$_AppPermissionsCopyWith(
-          _$_AppPermissions value, $Res Function(_$_AppPermissions) then) =
-      __$$_AppPermissionsCopyWithImpl<$Res>;
+  factory _$$AppPermissionsImplCopyWith(_$AppPermissionsImpl value,
+          $Res Function(_$AppPermissionsImpl) then) =
+      __$$AppPermissionsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -86,11 +86,11 @@ abstract class _$$_AppPermissionsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppPermissionsCopyWithImpl<$Res>
-    extends _$AppPermissionsCopyWithImpl<$Res, _$_AppPermissions>
-    implements _$$_AppPermissionsCopyWith<$Res> {
-  __$$_AppPermissionsCopyWithImpl(
-      _$_AppPermissions _value, $Res Function(_$_AppPermissions) _then)
+class __$$AppPermissionsImplCopyWithImpl<$Res>
+    extends _$AppPermissionsCopyWithImpl<$Res, _$AppPermissionsImpl>
+    implements _$$AppPermissionsImplCopyWith<$Res> {
+  __$$AppPermissionsImplCopyWithImpl(
+      _$AppPermissionsImpl _value, $Res Function(_$AppPermissionsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$_AppPermissionsCopyWithImpl<$Res>
     Object? isGpsEnabled = null,
     Object? isAppNotificationsAllowed = null,
   }) {
-    return _then(_$_AppPermissions(
+    return _then(_$AppPermissionsImpl(
       isBatteryOptimizationDisabled: null == isBatteryOptimizationDisabled
           ? _value.isBatteryOptimizationDisabled
           : isBatteryOptimizationDisabled // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$$_AppPermissionsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AppPermissions implements _AppPermissions {
-  const _$_AppPermissions(
+class _$AppPermissionsImpl implements _AppPermissions {
+  const _$AppPermissionsImpl(
       {required this.isBatteryOptimizationDisabled,
       required this.isGpsEnabled,
       required this.isAppNotificationsAllowed});
@@ -138,10 +138,10 @@ class _$_AppPermissions implements _AppPermissions {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppPermissions &&
+            other is _$AppPermissionsImpl &&
             (identical(other.isBatteryOptimizationDisabled,
                     isBatteryOptimizationDisabled) ||
                 other.isBatteryOptimizationDisabled ==
@@ -160,15 +160,16 @@ class _$_AppPermissions implements _AppPermissions {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppPermissionsCopyWith<_$_AppPermissions> get copyWith =>
-      __$$_AppPermissionsCopyWithImpl<_$_AppPermissions>(this, _$identity);
+  _$$AppPermissionsImplCopyWith<_$AppPermissionsImpl> get copyWith =>
+      __$$AppPermissionsImplCopyWithImpl<_$AppPermissionsImpl>(
+          this, _$identity);
 }
 
 abstract class _AppPermissions implements AppPermissions {
   const factory _AppPermissions(
       {required final bool isBatteryOptimizationDisabled,
       required final bool isGpsEnabled,
-      required final bool isAppNotificationsAllowed}) = _$_AppPermissions;
+      required final bool isAppNotificationsAllowed}) = _$AppPermissionsImpl;
 
   @override
   bool get isBatteryOptimizationDisabled;
@@ -178,6 +179,6 @@ abstract class _AppPermissions implements AppPermissions {
   bool get isAppNotificationsAllowed;
   @override
   @JsonKey(ignore: true)
-  _$$_AppPermissionsCopyWith<_$_AppPermissions> get copyWith =>
+  _$$AppPermissionsImplCopyWith<_$AppPermissionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

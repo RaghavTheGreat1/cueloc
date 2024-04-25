@@ -1,6 +1,6 @@
 import 'package:realm/realm.dart';
 
-part 'alarm_realm_model.g.dart';
+part 'alarm_realm_model.realm.dart';
 
 @RealmModel()
 class _AlarmRealmModel {

@@ -1,6 +1,8 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../providers/alarms_stream_provider.dart';
 import 'widgets/alarm_card.dart';
 
@@ -12,6 +14,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Map My Nap"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.go('/settings');
+            },
+            icon: const Icon(
+              FeatherIcons.settings,
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(

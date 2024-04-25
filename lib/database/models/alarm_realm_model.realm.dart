@@ -6,6 +6,7 @@ part of 'alarm_realm_model.dart';
 // RealmObjectGenerator
 // **************************************************************************
 
+// ignore_for_file: type=lint
 class AlarmRealmModel extends _AlarmRealmModel
     with RealmEntity, RealmObjectBase, RealmObject {
   static var _defaultsSet = false;
@@ -75,11 +76,44 @@ class AlarmRealmModel extends _AlarmRealmModel
   AlarmRealmModel freeze() =>
       RealmObjectBase.freezeObject<AlarmRealmModel>(this);
 
-  static SchemaObject get schema => _schema ??= _initSchema();
-  static SchemaObject? _schema;
-  static SchemaObject _initSchema() {
+  EJsonValue toEJson() {
+    return <String, dynamic>{
+      'id': id.toEJson(),
+      'label': label.toEJson(),
+      'coordinates': coordinates.toEJson(),
+      'radius': radius.toEJson(),
+      'triggerOn': triggerOn.toEJson(),
+      'isActive': isActive.toEJson(),
+    };
+  }
+
+  static EJsonValue _toEJson(AlarmRealmModel value) => value.toEJson();
+  static AlarmRealmModel _fromEJson(EJsonValue ejson) {
+    return switch (ejson) {
+      {
+        'id': EJsonValue id,
+        'label': EJsonValue label,
+        'coordinates': EJsonValue coordinates,
+        'radius': EJsonValue radius,
+        'triggerOn': EJsonValue triggerOn,
+        'isActive': EJsonValue isActive,
+      } =>
+        AlarmRealmModel(
+          fromEJson(id),
+          fromEJson(label),
+          fromEJson(radius),
+          fromEJson(triggerOn),
+          coordinates: fromEJson(coordinates),
+          isActive: fromEJson(isActive),
+        ),
+      _ => raiseInvalidEJson(ejson),
+    };
+  }
+
+  static final schema = () {
     RealmObjectBase.registerFactory(AlarmRealmModel._);
-    return const SchemaObject(
+    register(_toEJson, _fromEJson);
+    return SchemaObject(
         ObjectType.realmObject, AlarmRealmModel, 'AlarmRealmModel', [
       SchemaProperty('id', RealmPropertyType.string, primaryKey: true),
       SchemaProperty('label', RealmPropertyType.string),
@@ -89,7 +123,10 @@ class AlarmRealmModel extends _AlarmRealmModel
       SchemaProperty('triggerOn', RealmPropertyType.string),
       SchemaProperty('isActive', RealmPropertyType.bool),
     ]);
-  }
+  }();
+
+  @override
+  SchemaObject get objectSchema => RealmObjectBase.getSchema(this) ?? schema;
 }
 
 class CoordinatesRealmModel extends _CoordinatesRealmModel
@@ -124,14 +161,38 @@ class CoordinatesRealmModel extends _CoordinatesRealmModel
   CoordinatesRealmModel freeze() =>
       RealmObjectBase.freezeObject<CoordinatesRealmModel>(this);
 
-  static SchemaObject get schema => _schema ??= _initSchema();
-  static SchemaObject? _schema;
-  static SchemaObject _initSchema() {
+  EJsonValue toEJson() {
+    return <String, dynamic>{
+      'latitude': latitude.toEJson(),
+      'longitude': longitude.toEJson(),
+    };
+  }
+
+  static EJsonValue _toEJson(CoordinatesRealmModel value) => value.toEJson();
+  static CoordinatesRealmModel _fromEJson(EJsonValue ejson) {
+    return switch (ejson) {
+      {
+        'latitude': EJsonValue latitude,
+        'longitude': EJsonValue longitude,
+      } =>
+        CoordinatesRealmModel(
+          fromEJson(latitude),
+          fromEJson(longitude),
+        ),
+      _ => raiseInvalidEJson(ejson),
+    };
+  }
+
+  static final schema = () {
     RealmObjectBase.registerFactory(CoordinatesRealmModel._);
-    return const SchemaObject(ObjectType.realmObject, CoordinatesRealmModel,
+    register(_toEJson, _fromEJson);
+    return SchemaObject(ObjectType.realmObject, CoordinatesRealmModel,
         'CoordinatesRealmModel', [
       SchemaProperty('latitude', RealmPropertyType.double),
       SchemaProperty('longitude', RealmPropertyType.double),
     ]);
-  }
+  }();
+
+  @override
+  SchemaObject get objectSchema => RealmObjectBase.getSchema(this) ?? schema;
 }

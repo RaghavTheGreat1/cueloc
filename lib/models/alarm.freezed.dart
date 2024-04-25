@@ -12,7 +12,7 @@ part of 'alarm.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Alarm {
@@ -101,9 +101,10 @@ class _$AlarmCopyWithImpl<$Res, $Val extends Alarm>
 }
 
 /// @nodoc
-abstract class _$$_AlarmCopyWith<$Res> implements $AlarmCopyWith<$Res> {
-  factory _$$_AlarmCopyWith(_$_Alarm value, $Res Function(_$_Alarm) then) =
-      __$$_AlarmCopyWithImpl<$Res>;
+abstract class _$$AlarmImplCopyWith<$Res> implements $AlarmCopyWith<$Res> {
+  factory _$$AlarmImplCopyWith(
+          _$AlarmImpl value, $Res Function(_$AlarmImpl) then) =
+      __$$AlarmImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,9 +120,11 @@ abstract class _$$_AlarmCopyWith<$Res> implements $AlarmCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AlarmCopyWithImpl<$Res> extends _$AlarmCopyWithImpl<$Res, _$_Alarm>
-    implements _$$_AlarmCopyWith<$Res> {
-  __$$_AlarmCopyWithImpl(_$_Alarm _value, $Res Function(_$_Alarm) _then)
+class __$$AlarmImplCopyWithImpl<$Res>
+    extends _$AlarmCopyWithImpl<$Res, _$AlarmImpl>
+    implements _$$AlarmImplCopyWith<$Res> {
+  __$$AlarmImplCopyWithImpl(
+      _$AlarmImpl _value, $Res Function(_$AlarmImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -134,7 +137,7 @@ class __$$_AlarmCopyWithImpl<$Res> extends _$AlarmCopyWithImpl<$Res, _$_Alarm>
     Object? triggerOn = null,
     Object? isActive = null,
   }) {
-    return _then(_$_Alarm(
+    return _then(_$AlarmImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -165,8 +168,8 @@ class __$$_AlarmCopyWithImpl<$Res> extends _$AlarmCopyWithImpl<$Res, _$_Alarm>
 
 /// @nodoc
 
-class _$_Alarm extends _Alarm {
-  const _$_Alarm(
+class _$AlarmImpl extends _Alarm {
+  const _$AlarmImpl(
       {required this.id,
       required this.label,
       required this.coordinates,
@@ -194,10 +197,10 @@ class _$_Alarm extends _Alarm {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Alarm &&
+            other is _$AlarmImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.coordinates, coordinates) ||
@@ -216,8 +219,8 @@ class _$_Alarm extends _Alarm {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AlarmCopyWith<_$_Alarm> get copyWith =>
-      __$$_AlarmCopyWithImpl<_$_Alarm>(this, _$identity);
+  _$$AlarmImplCopyWith<_$AlarmImpl> get copyWith =>
+      __$$AlarmImplCopyWithImpl<_$AlarmImpl>(this, _$identity);
 }
 
 abstract class _Alarm extends Alarm {
@@ -227,7 +230,7 @@ abstract class _Alarm extends Alarm {
       required final Coordinates coordinates,
       required final double radius,
       required final TriggerOn triggerOn,
-      required final bool isActive}) = _$_Alarm;
+      required final bool isActive}) = _$AlarmImpl;
   const _Alarm._() : super._();
 
   @override
@@ -244,6 +247,6 @@ abstract class _Alarm extends Alarm {
   bool get isActive;
   @override
   @JsonKey(ignore: true)
-  _$$_AlarmCopyWith<_$_Alarm> get copyWith =>
+  _$$AlarmImplCopyWith<_$AlarmImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

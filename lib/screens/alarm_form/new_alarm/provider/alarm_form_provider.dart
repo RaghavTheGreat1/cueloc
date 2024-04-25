@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../../controllers/alarms_controller.dart';
 import '../../../../models/alarm.dart';
 import '../../../../models/coordinates.dart';
 import '../../../../models/form_type.dart';
 import '../../../../models/trigger_on.dart';
-
 import '../../../../router/router.dart';
 
 final alarmFormProvider =
@@ -58,7 +58,6 @@ final class AlarmFormController extends StateNotifier<Alarm> {
       final places = await placemarkFromCoordinates(
         coordinates.latitude,
         coordinates.longitude,
-        localeIdentifier: "+91IN",
       );
 
       state = state.copyWith(
@@ -82,7 +81,7 @@ final class AlarmFormController extends StateNotifier<Alarm> {
         await alarmsControllerNotifier.saveAlarm(state);
       case FormType.edit:
         await alarmsControllerNotifier.updateAlarm(state);
-        break;  
+        break;
 
       default:
     }

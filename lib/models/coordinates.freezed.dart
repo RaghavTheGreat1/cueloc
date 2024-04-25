@@ -12,7 +12,7 @@ part of 'coordinates.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Coordinates {
@@ -63,22 +63,22 @@ class _$CoordinatesCopyWithImpl<$Res, $Val extends Coordinates>
 }
 
 /// @nodoc
-abstract class _$$_CoordinatesCopyWith<$Res>
+abstract class _$$CoordinatesImplCopyWith<$Res>
     implements $CoordinatesCopyWith<$Res> {
-  factory _$$_CoordinatesCopyWith(
-          _$_Coordinates value, $Res Function(_$_Coordinates) then) =
-      __$$_CoordinatesCopyWithImpl<$Res>;
+  factory _$$CoordinatesImplCopyWith(
+          _$CoordinatesImpl value, $Res Function(_$CoordinatesImpl) then) =
+      __$$CoordinatesImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double latitude, double longitude});
 }
 
 /// @nodoc
-class __$$_CoordinatesCopyWithImpl<$Res>
-    extends _$CoordinatesCopyWithImpl<$Res, _$_Coordinates>
-    implements _$$_CoordinatesCopyWith<$Res> {
-  __$$_CoordinatesCopyWithImpl(
-      _$_Coordinates _value, $Res Function(_$_Coordinates) _then)
+class __$$CoordinatesImplCopyWithImpl<$Res>
+    extends _$CoordinatesCopyWithImpl<$Res, _$CoordinatesImpl>
+    implements _$$CoordinatesImplCopyWith<$Res> {
+  __$$CoordinatesImplCopyWithImpl(
+      _$CoordinatesImpl _value, $Res Function(_$CoordinatesImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_CoordinatesCopyWithImpl<$Res>
     Object? latitude = null,
     Object? longitude = null,
   }) {
-    return _then(_$_Coordinates(
+    return _then(_$CoordinatesImpl(
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_CoordinatesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Coordinates extends _Coordinates {
-  const _$_Coordinates({required this.latitude, required this.longitude})
+class _$CoordinatesImpl extends _Coordinates {
+  const _$CoordinatesImpl({required this.latitude, required this.longitude})
       : super._();
 
   @override
@@ -117,10 +117,10 @@ class _$_Coordinates extends _Coordinates {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Coordinates &&
+            other is _$CoordinatesImpl &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -133,14 +133,14 @@ class _$_Coordinates extends _Coordinates {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CoordinatesCopyWith<_$_Coordinates> get copyWith =>
-      __$$_CoordinatesCopyWithImpl<_$_Coordinates>(this, _$identity);
+  _$$CoordinatesImplCopyWith<_$CoordinatesImpl> get copyWith =>
+      __$$CoordinatesImplCopyWithImpl<_$CoordinatesImpl>(this, _$identity);
 }
 
 abstract class _Coordinates extends Coordinates {
   const factory _Coordinates(
       {required final double latitude,
-      required final double longitude}) = _$_Coordinates;
+      required final double longitude}) = _$CoordinatesImpl;
   const _Coordinates._() : super._();
 
   @override
@@ -149,6 +149,6 @@ abstract class _Coordinates extends Coordinates {
   double get longitude;
   @override
   @JsonKey(ignore: true)
-  _$$_CoordinatesCopyWith<_$_Coordinates> get copyWith =>
+  _$$CoordinatesImplCopyWith<_$CoordinatesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

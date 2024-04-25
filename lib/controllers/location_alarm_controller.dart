@@ -1,4 +1,5 @@
 import 'package:alarm/alarm.dart' as alarm_plugin;
+import 'package:alarm/model/alarm_settings.dart' as alarm_plugin_settings;
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -77,7 +78,7 @@ final class LocationAlarmControllerNotifier
       return;
     }
 
-    final alarmSettings = alarm_plugin.AlarmSettings(
+    final alarmSettings = alarm_plugin_settings.AlarmSettings(
       id: 0,
       dateTime: DateTime.now().add(const Duration(seconds: 2)),
       assetAudioPath: 'assets/google_pixel_alarm.mp3',
@@ -87,7 +88,6 @@ final class LocationAlarmControllerNotifier
       notificationTitle: alarm.label,
       notificationBody: 'You have reached your location',
       enableNotificationOnKill: true,
-      stopOnNotificationOpen: false,
     );
     final isAlarmSet = await alarm_plugin.Alarm.set(
       alarmSettings: alarmSettings,
