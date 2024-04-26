@@ -36,7 +36,7 @@ final class AlarmFormController extends StateNotifier<Alarm> {
         ),
       );
 
-  AlarmsControllerNotifier get alarmsControllerNotifier =>
+  AlarmsNotifier get alarmsControllerNotifier =>
       ref.watch(alarmsControllerProvider.notifier);
 
   void updateLabel(String label) {

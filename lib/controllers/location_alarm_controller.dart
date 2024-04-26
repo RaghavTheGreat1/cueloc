@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alarm/alarm.dart' as alarm_plugin;
 import 'package:alarm/model/alarm_settings.dart' as alarm_plugin_settings;
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
@@ -11,35 +13,25 @@ import '../providers/alarms_stream_provider.dart';
 import '../providers/location_stream_provider.dart';
 import '../repositories/alarm_repository.dart';
 
-final locationAlarmControllerProvider =
-    StateNotifierProvider<LocationAlarmControllerNotifier, AsyncValue<void>>(
-        (ref) {
-  final alarmRepository = ref.watch(alarmRepositoryProvider);
-  return LocationAlarmControllerNotifier(
-    ref,
-    alarmRepository: alarmRepository,
-  );
-});
-
 final runningAlarmProvider = StateProvider<Alarm?>((ref) {
   return null;
 });
 
-final class LocationAlarmControllerNotifier
-    extends StateNotifier<AsyncValue<void>> {
-  LocationAlarmControllerNotifier(
-    this.ref, {
-    required this.alarmRepository,
-  }) : super(const AsyncValue.data(null));
+final locationAlarmControllerProvider =
+    AsyncNotifierProvider<LocationAlarmControllerNotifier, void>(
+  LocationAlarmControllerNotifier.new,
+);
 
-  final Ref ref;
+class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
+  AlarmRepository get _alarmRepository => ref.watch(alarmRepositoryProvider);
+
   late final ProviderSubscription<AsyncValue<Position>>
-      locationStreamSubscription;
+      _locationStreamSubscription;
 
-  final AlarmRepository alarmRepository;
-
-  void initialize() {
-    locationStreamSubscription = ref.listen<AsyncValue<Position>>(
+  @override
+  build() async {
+    debugPrint("INITIALIZE LOCATION STREAM");
+    _locationStreamSubscription = ref.listen<AsyncValue<Position>>(
       locationStreamProvider,
       (previous, next) {
         next.whenData((position) async {
@@ -77,9 +69,9 @@ final class LocationAlarmControllerNotifier
     if (alarm_plugin.Alarm.hasAlarm()) {
       return;
     }
-
+    final id = alarmIntHash(alarm);
     final alarmSettings = alarm_plugin_settings.AlarmSettings(
-      id: 0,
+      id: id,
       dateTime: DateTime.now().add(const Duration(seconds: 2)),
       assetAudioPath: 'assets/google_pixel_alarm.mp3',
       loopAudio: true,
@@ -95,10 +87,12 @@ final class LocationAlarmControllerNotifier
 
     if (isAlarmSet) {
       ref.read(runningAlarmProvider.notifier).state = alarm;
+      FlutterForegroundTask.wakeUpScreen();
+      FlutterForegroundTask.launchApp();
       try {
         AndroidAlarmManager.oneShot(
           const Duration(seconds: 2),
-          1,
+          id,
           LocationAlarmControllerNotifier.launchApp,
           alarmClock: true,
           exact: true,
@@ -113,18 +107,28 @@ final class LocationAlarmControllerNotifier
 
   Future<void> stopAlarm(Alarm alarm) async {
     if (alarm_plugin.Alarm.hasAlarm()) {
-      await alarm_plugin.Alarm.stop(0);
-      await AndroidAlarmManager.cancel(1);
-      await alarmRepository.toggleAlarm(alarm, false);
+      final id = alarmIntHash(alarm);
+      await alarm_plugin.Alarm.stop(id);
+      await AndroidAlarmManager.cancel(id);
+      await _alarmRepository.toggleAlarm(alarm, false);
       ref.read(runningAlarmProvider.notifier).state = null;
     }
   }
 
   closeLocationStream() {
-    locationStreamSubscription.close();
+    _locationStreamSubscription.close();
   }
 
   static launchApp() {
     FlutterForegroundTask.launchApp();
+  }
+
+  int alarmIntHash(Alarm alarm) {
+    final coordinatesSum =
+        alarm.coordinates.latitude + alarm.coordinates.longitude;
+
+    final coordinatesHash =
+        int.parse(coordinatesSum.toString().split('.').join().substring(7));
+    return coordinatesHash;
   }
 }

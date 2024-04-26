@@ -1,41 +1,37 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../repositories/alarm_repository.dart';
 
 import '../models/alarm.dart';
+import '../repositories/alarm_repository.dart';
 
 final alarmsControllerProvider =
-    StateNotifierProvider<AlarmsControllerNotifier, AsyncValue>((ref) {
-  final alarmRepository = ref.watch(alarmRepositoryProvider);
-  return AlarmsControllerNotifier(
-    alarmRepository: alarmRepository,
-  );
-});
+    AsyncNotifierProvider<AlarmsNotifier, void>(AlarmsNotifier.new);
 
-final class AlarmsControllerNotifier extends StateNotifier<AsyncValue> {
-  AlarmsControllerNotifier({
-    required this.alarmRepository,
-  }) : super(const AsyncValue.data(null));
+class AlarmsNotifier extends AsyncNotifier<void> {
+  AlarmRepository get _alarmRepository => ref.watch(alarmRepositoryProvider);
 
-  final AlarmRepository alarmRepository;
+  @override
+  build() {
+    return const AsyncValue.data(null);
+  }
 
   Future<void> saveAlarm(Alarm alarm) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await alarmRepository.addAlarm(alarm);
+      await _alarmRepository.addAlarm(alarm);
     });
   }
 
   Future<void> updateAlarm(Alarm alarm) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await alarmRepository.updateAlarm(alarm);
+      await _alarmRepository.updateAlarm(alarm);
     });
   }
 
   Future<void> toggleAlarm(Alarm alarm, bool isActive) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await alarmRepository.toggleAlarm(alarm, isActive);
+      await _alarmRepository.toggleAlarm(alarm, isActive);
     });
   }
 
