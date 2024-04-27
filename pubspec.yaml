@@ -56,6 +56,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.9
+  flutter_gen_runner:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
@@ -73,7 +74,9 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/google_pixel_alarm.mp3
+    - assets/
+    - assets/alarm_sounds/
+
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -98,3 +101,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_gen:
+  assets:
+    outputs:
+      package_parameter_enabled: false

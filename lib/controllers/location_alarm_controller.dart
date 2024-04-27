@@ -8,6 +8,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../gen/assets.gen.dart';
 import '../models/alarm.dart';
 import '../providers/alarms_stream_provider.dart';
 import '../providers/location_stream_provider.dart';
@@ -73,7 +74,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
     final alarmSettings = alarm_plugin_settings.AlarmSettings(
       id: id,
       dateTime: DateTime.now().add(const Duration(seconds: 2)),
-      assetAudioPath: 'assets/google_pixel_alarm.mp3',
+      assetAudioPath: Assets.alarmSounds.morning,
       loopAudio: true,
       vibrate: false,
       fadeDuration: 3.0,
