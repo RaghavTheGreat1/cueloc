@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../app_permissions/providers/app_permissions_controller.dart';
+import '../../maps.dart';
 import '../../providers/alarms_stream_provider.dart';
 import 'widgets/alarm_card.dart';
 
@@ -33,9 +35,54 @@ class HomeScreen extends StatelessWidget {
           context.go('/alarm/new/_');
         },
       ),
-      body: const CustomScrollView(
+      body: CustomScrollView(
         slivers: [
-          SliverPadding(
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(17),
+                child: const SizedBox(
+                  height: 360,
+                  child: Maps(
+                    radius: 1000,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final appPermission =
+                            ref.watch(appPermissionsControllerProvider);
+                        if (appPermission.isAppNotificationsAllowed &&
+                            appPermission.isBatteryOptimizationDisabled &&
+                            appPermission.isGpsEnabled) {
+                          return const SizedBox();
+                        }
+                        return InputChip(
+                          onPressed: () async {
+                            await ref
+                                .read(appPermissionsControllerProvider.notifier)
+                                .requestPerimssions();
+                          },
+                          label: const Text('Grant Permissions'),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             sliver: AlarmsSliverList(),
           ),

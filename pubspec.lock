@@ -201,6 +201,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  carbon_icons:
+    dependency: "direct dev"
+    description:
+      name: carbon_icons
+      sha256: f962b7cbfe88a6229656cb3ef77afe33e69e5702a70a556352f940d82d5be2d8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+2"
   characters:
     dependency: transitive
     description:

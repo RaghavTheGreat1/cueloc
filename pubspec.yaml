@@ -63,6 +63,7 @@ dev_dependencies:
   riverpod_generator: ^2.2.4
   custom_lint:
   riverpod_lint:
+  carbon_icons: ^0.0.1+2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
