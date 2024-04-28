@@ -13,7 +13,6 @@ final userLocationStreamProvider = StreamProvider<Position>((ref) async* {
   );
 
   await for (final position in geolocatorStream) {
-    print('locationAccuracy: $locationAccuracy');
     yield position;
   }
 });
