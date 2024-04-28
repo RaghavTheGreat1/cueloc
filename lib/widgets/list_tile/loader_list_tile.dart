@@ -137,6 +137,9 @@ class _LoaderListTileState extends State<LoaderListTile> {
       valueListenable: isLoadingNotifier,
       builder: (context, isLoading, kid) {
         return InkWell(
+          borderRadius: BorderRadius.circular(24),
+          splashColor: theme.colorScheme.primaryContainer,
+          highlightColor: theme.colorScheme.primaryContainer.withOpacity(0.2),
           onLongPress: () {},
           onTap: isLoading
               ? null
@@ -150,61 +153,63 @@ class _LoaderListTileState extends State<LoaderListTile> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
             child: ValueListenableBuilder(
               valueListenable: isLoadingNotifier,
               builder: (context, isLoading, _) {
-                return ListTile(
-                  leading: widget.leading,
-                  title: widget.title,
-                  subtitle: widget.subtitle,
-                  trailing: Builder(
-                    builder: (context) {
-                      if (isLoading) {
-                        return SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: theme.colorScheme.onBackground,
-                          ),
-                        );
-                      }
-                      return widget.trailing ??
-                          const Icon(
-                            FeatherIcons.chevronRight,
+                return IgnorePointer(
+                  child: ListTile(
+                    leading: widget.leading,
+                    title: widget.title,
+                    subtitle: widget.subtitle,
+                    trailing: Builder(
+                      builder: (context) {
+                        if (isLoading) {
+                          return SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: theme.colorScheme.onBackground,
+                            ),
                           );
-                    },
+                        }
+                        return widget.trailing ??
+                            const Icon(
+                              FeatherIcons.chevronRight,
+                            );
+                      },
+                    ),
+                    isThreeLine: widget.isThreeLine,
+                    dense: widget.dense,
+                    visualDensity: widget.visualDensity,
+                    shape: widget.shape,
+                    style: widget.style,
+                    selectedColor: widget.selectedColor,
+                    iconColor: widget.iconColor,
+                    textColor: widget.textColor,
+                    titleTextStyle: widget.titleTextStyle,
+                    subtitleTextStyle: widget.subtitleTextStyle,
+                    leadingAndTrailingTextStyle:
+                        widget.leadingAndTrailingTextStyle,
+                    contentPadding: widget.contentPadding,
+                    enabled: widget.enabled,
+                    onFocusChange: widget.onFocusChange,
+                    mouseCursor: widget.mouseCursor,
+                    selected: widget.selected,
+                    focusColor: widget.focusColor,
+                    hoverColor: widget.hoverColor,
+                    splashColor: widget.splashColor,
+                    focusNode: widget.focusNode,
+                    autofocus: widget.autofocus,
+                    tileColor: widget.tileColor,
+                    selectedTileColor: widget.selectedTileColor,
+                    enableFeedback: widget.enableFeedback,
+                    horizontalTitleGap: widget.horizontalTitleGap,
+                    minVerticalPadding: widget.minVerticalPadding,
+                    minLeadingWidth: widget.minLeadingWidth,
+                    titleAlignment: widget.titleAlignment,
                   ),
-                  isThreeLine: widget.isThreeLine,
-                  dense: widget.dense,
-                  visualDensity: widget.visualDensity,
-                  shape: widget.shape,
-                  style: widget.style,
-                  selectedColor: widget.selectedColor,
-                  iconColor: widget.iconColor,
-                  textColor: widget.textColor,
-                  titleTextStyle: widget.titleTextStyle,
-                  subtitleTextStyle: widget.subtitleTextStyle,
-                  leadingAndTrailingTextStyle:
-                      widget.leadingAndTrailingTextStyle,
-                  contentPadding: widget.contentPadding,
-                  enabled: widget.enabled,
-                  onFocusChange: widget.onFocusChange,
-                  mouseCursor: widget.mouseCursor,
-                  selected: widget.selected,
-                  focusColor: widget.focusColor,
-                  hoverColor: widget.hoverColor,
-                  splashColor: widget.splashColor,
-                  focusNode: widget.focusNode,
-                  autofocus: widget.autofocus,
-                  tileColor: widget.tileColor,
-                  selectedTileColor: widget.selectedTileColor,
-                  enableFeedback: widget.enableFeedback,
-                  horizontalTitleGap: widget.horizontalTitleGap,
-                  minVerticalPadding: widget.minVerticalPadding,
-                  minLeadingWidth: widget.minLeadingWidth,
-                  titleAlignment: widget.titleAlignment,
                 );
               },
             ),
