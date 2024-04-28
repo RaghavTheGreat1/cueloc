@@ -2,6 +2,7 @@ import 'package:extension_utilities/extension_utilities.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
@@ -223,6 +224,9 @@ class SettingsScreen extends HookConsumerWidget {
                     title: const Text(
                       'Licenses',
                     ),
+                    onTap: () {
+                      context.go('/settings/license');
+                    },
                   ),
                   LoaderListTile(
                     leading: Icon(

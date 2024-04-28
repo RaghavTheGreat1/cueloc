@@ -87,6 +87,17 @@ class RouterService extends ChangeNotifier {
                 transitionsBuilder: rightToLeftFadeTransition,
               );
             },
+            routes: [
+              GoRoute(
+                path: 'license',
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: LicensePage(),
+                    transitionsBuilder: rightToLeftFadeTransition,
+                  );
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: 'pick-audio',
