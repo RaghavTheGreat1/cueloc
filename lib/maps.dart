@@ -1,13 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'app_preferences/providers/app_user_preferences_provider.dart';
 import 'extensions/lat_lng_extension.dart';
 import 'models/coordinates.dart';
 import 'services/location_services.dart';
 
-class Maps extends StatefulWidget {
+class Maps extends StatefulHookConsumerWidget {
   const Maps({
     super.key,
     this.initialLatLng,
@@ -23,10 +26,10 @@ class Maps extends StatefulWidget {
   final ValueChanged<Coordinates>? onLocationSelect;
 
   @override
-  State<Maps> createState() => _MapsState();
+  ConsumerState<Maps> createState() => _MapsState();
 }
 
-class _MapsState extends State<Maps> {
+class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
   late GoogleMapController controller;
 
   late LatLng currentLocation;
@@ -35,9 +38,17 @@ class _MapsState extends State<Maps> {
 
   late Set<Circle> circles;
 
+  late String darkMapStyle;
+  late String lightMapStyle;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    Future.microtask(() async {
+      await loadMapStyles();
+      await setMapStyle();
+    });
 
     currentLocation = const LatLng(13.004033, 77.6079901);
     if (widget.initialLatLng == null) {
@@ -56,15 +67,6 @@ class _MapsState extends State<Maps> {
         : {};
   }
 
-  void getCurrentLocation() async {
-    try {
-      final coordinates = await LocationServices.getCurrentLocation();
-      currentLocation = coordinates.toLatLng;
-    } catch (e) {
-      currentLocation = const LatLng(13.004033, 77.6079901);
-    }
-  }
-
   @override
   void didUpdateWidget(covariant Maps oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -79,8 +81,56 @@ class _MapsState extends State<Maps> {
   }
 
   @override
+  void didChangePlatformBrightness() {
+    setMapStyle();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void getCurrentLocation() async {
+    try {
+      final coordinates = await LocationServices.getCurrentLocation();
+      currentLocation = coordinates.toLatLng;
+    } catch (e) {
+      currentLocation = const LatLng(13.004033, 77.6079901);
+    }
+  }
+
+  Future loadMapStyles() async {
+    darkMapStyle = await rootBundle.loadString('map_styles/dark_theme.json');
+    lightMapStyle = await rootBundle.loadString('map_styles/light_theme.json');
+  }
+
+  Future setMapStyle() async {
+    final theme = View.of(context).platformDispatcher.platformBrightness;
+    if (theme == Brightness.dark) {
+      await controller.setMapStyle(darkMapStyle);
+    } else {
+      await controller.setMapStyle(lightMapStyle);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    ref.listen(
+      appUserPreferencesProvider
+          .select((value) => value.requireValue.themeMode),
+      (previous, next) async {
+        if (next == ThemeMode.system) {
+          await setMapStyle();
+        } else if (next == ThemeMode.dark) {
+          await controller.setMapStyle(darkMapStyle);
+        } else {
+          await controller.setMapStyle(lightMapStyle);
+        }
+        setState(() {});
+      },
+    );
     circles = {
       Circle(
         circleId: const CircleId("radius"),

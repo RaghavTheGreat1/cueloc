@@ -8,6 +8,7 @@ import 'controllers/location_alarm_controller.dart';
 import 'providers/user_location_stream_provider.dart';
 import 'router/router.dart';
 import 'services/app_initializer_service.dart';
+import 'themes/dark_theme.dart';
 import 'themes/light_theme.dart';
 
 void main() async {
@@ -27,7 +28,8 @@ class MapMyNap extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerServiceProvider);
-
+    final themeMode = ref.watch(
+        appUserPreferencesProvider.select((value) => value.value?.themeMode));
     return _EagerInitialization(
       child: WillStartForegroundTask(
         onWillStart: () async {
@@ -65,7 +67,9 @@ class MapMyNap extends HookConsumerWidget {
           routeInformationParser: router.routeInformationParser,
           routeInformationProvider: router.routeInformationProvider,
           routerDelegate: router.routerDelegate,
+          themeMode: themeMode,
           theme: lightTheme(),
+          darkTheme: darkTheme(),
         ),
       ),
     );
@@ -80,7 +84,7 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(appUserPreferencesProvider);
     ref.watch(appPermissionsControllerProvider);
-    ref.watch(userLocationStreamProvider);  
+    ref.watch(userLocationStreamProvider);
     ref.watch(locationAlarmControllerProvider.future);
     return child;
   }
