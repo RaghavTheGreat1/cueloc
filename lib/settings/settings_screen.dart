@@ -8,6 +8,7 @@ import 'package:unicons/unicons.dart';
 
 import '../app_permissions/providers/app_permissions_controller.dart';
 import '../app_preferences/providers/app_user_preferences_provider.dart';
+import '../extensions/location_accuracy_extension.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
 import 'widgets/settings_card.dart';
 
@@ -66,6 +67,33 @@ class SettingsScreen extends HookConsumerWidget {
                             color: theme.colorScheme.onPrimaryContainer,
                           ),
                         ),
+                      );
+                    },
+                  ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final locationAccuracy = ref.watch(
+                          appUserPreferencesProvider.select(
+                              (value) => value.value?.locationAccuracy));
+                      return LoaderListTile(
+                        leading: Icon(
+                          FeatherIcons.mapPin,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        title: const Text(
+                          'Location Accuracy',
+                        ),
+                        trailing: Text(
+                          (locationAccuracy?.displayName ?? ''),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
+                        ),
+                        onTap: () async {
+                          await ref
+                              .read(appUserPreferencesProvider.notifier)
+                              .updateNextLocationAccuracy();
+                        },
                       );
                     },
                   ),

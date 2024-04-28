@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppUserPreferences {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   Locale get locale => throw _privateConstructorUsedError;
+  LocationAccuracy get locationAccuracy => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppUserPreferencesCopyWith<AppUserPreferences> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $AppUserPreferencesCopyWith<$Res> {
           AppUserPreferences value, $Res Function(AppUserPreferences) then) =
       _$AppUserPreferencesCopyWithImpl<$Res, AppUserPreferences>;
   @useResult
-  $Res call({ThemeMode themeMode, Locale locale});
+  $Res call(
+      {ThemeMode themeMode, Locale locale, LocationAccuracy locationAccuracy});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
   $Res call({
     Object? themeMode = null,
     Object? locale = null,
+    Object? locationAccuracy = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
@@ -58,6 +61,10 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as Locale,
+      locationAccuracy: null == locationAccuracy
+          ? _value.locationAccuracy
+          : locationAccuracy // ignore: cast_nullable_to_non_nullable
+              as LocationAccuracy,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$AppUserPreferencesImplCopyWith<$Res>
       __$$AppUserPreferencesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeMode themeMode, Locale locale});
+  $Res call(
+      {ThemeMode themeMode, Locale locale, LocationAccuracy locationAccuracy});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
   $Res call({
     Object? themeMode = null,
     Object? locale = null,
+    Object? locationAccuracy = null,
   }) {
     return _then(_$AppUserPreferencesImpl(
       themeMode: null == themeMode
@@ -96,6 +105,10 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as Locale,
+      locationAccuracy: null == locationAccuracy
+          ? _value.locationAccuracy
+          : locationAccuracy // ignore: cast_nullable_to_non_nullable
+              as LocationAccuracy,
     ));
   }
 }
@@ -104,16 +117,20 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
 
 class _$AppUserPreferencesImpl implements _AppUserPreferences {
   const _$AppUserPreferencesImpl(
-      {required this.themeMode, required this.locale});
+      {required this.themeMode,
+      required this.locale,
+      required this.locationAccuracy});
 
   @override
   final ThemeMode themeMode;
   @override
   final Locale locale;
+  @override
+  final LocationAccuracy locationAccuracy;
 
   @override
   String toString() {
-    return 'AppUserPreferences(themeMode: $themeMode, locale: $locale)';
+    return 'AppUserPreferences(themeMode: $themeMode, locale: $locale, locationAccuracy: $locationAccuracy)';
   }
 
   @override
@@ -123,11 +140,14 @@ class _$AppUserPreferencesImpl implements _AppUserPreferences {
             other is _$AppUserPreferencesImpl &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
-            (identical(other.locale, locale) || other.locale == locale));
+            (identical(other.locale, locale) || other.locale == locale) &&
+            (identical(other.locationAccuracy, locationAccuracy) ||
+                other.locationAccuracy == locationAccuracy));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, themeMode, locale);
+  int get hashCode =>
+      Object.hash(runtimeType, themeMode, locale, locationAccuracy);
 
   @JsonKey(ignore: true)
   @override
@@ -139,13 +159,17 @@ class _$AppUserPreferencesImpl implements _AppUserPreferences {
 
 abstract class _AppUserPreferences implements AppUserPreferences {
   const factory _AppUserPreferences(
-      {required final ThemeMode themeMode,
-      required final Locale locale}) = _$AppUserPreferencesImpl;
+          {required final ThemeMode themeMode,
+          required final Locale locale,
+          required final LocationAccuracy locationAccuracy}) =
+      _$AppUserPreferencesImpl;
 
   @override
   ThemeMode get themeMode;
   @override
   Locale get locale;
+  @override
+  LocationAccuracy get locationAccuracy;
   @override
   @JsonKey(ignore: true)
   _$$AppUserPreferencesImplCopyWith<_$AppUserPreferencesImpl> get copyWith =>
