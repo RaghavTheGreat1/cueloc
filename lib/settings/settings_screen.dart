@@ -1,6 +1,7 @@
 import 'package:extension_utilities/extension_utilities.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
@@ -95,16 +96,34 @@ class SettingsScreen extends HookConsumerWidget {
                         title: const Text(
                           'Location',
                         ),
-                        trailing: appPermissions != null &&
-                                appPermissions.isGpsEnabled
-                            ? Icon(
-                                UniconsSolid.check_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              )
-                            : Icon(
-                                UniconsSolid.times_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              ),
+                        trailing: (appPermissions != null &&
+                                    appPermissions.isGpsEnabled
+                                ? Icon(
+                                    UniconsSolid.check_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  )
+                                : Icon(
+                                    UniconsSolid.times_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  ))
+                            .animate(
+                              delay: const Duration(milliseconds: 200),
+                            )
+                            .fadeIn(
+                              begin: 0,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            )
+                            .slideY(
+                              begin: 0.5,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            ),
+                        onTap: () async {
+                          await ref
+                              .read(appPermissionsControllerProvider.notifier)
+                              .requestLocationServices();
+                        },
                       ),
                       LoaderListTile(
                         leading: Icon(
@@ -114,16 +133,34 @@ class SettingsScreen extends HookConsumerWidget {
                         title: const Text(
                           'Notifications',
                         ),
-                        trailing: appPermissions != null &&
-                                appPermissions.isAppNotificationsAllowed
-                            ? Icon(
-                                UniconsSolid.check_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              )
-                            : Icon(
-                                UniconsSolid.times_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              ),
+                        trailing: (appPermissions != null &&
+                                    appPermissions.isAppNotificationsAllowed
+                                ? Icon(
+                                    UniconsSolid.check_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  )
+                                : Icon(
+                                    UniconsSolid.times_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  ))
+                            .animate(
+                              delay: const Duration(milliseconds: 200),
+                            )
+                            .fadeIn(
+                              begin: 0,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            )
+                            .slideY(
+                              begin: 0.5,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            ),
+                        onTap: () async {
+                          await ref
+                              .read(appPermissionsControllerProvider.notifier)
+                              .requestNotificationService();
+                        },
                       ),
                       LoaderListTile(
                         leading: Icon(
@@ -133,16 +170,34 @@ class SettingsScreen extends HookConsumerWidget {
                         title: const Text(
                           'Battery Optimization',
                         ),
-                        trailing: appPermissions != null &&
-                                appPermissions.isBatteryOptimizationDisabled
-                            ? Icon(
-                                UniconsSolid.check_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              )
-                            : Icon(
-                                UniconsSolid.times_circle,
-                                color: theme.colorScheme.onPrimaryContainer,
-                              ),
+                        trailing: (appPermissions != null &&
+                                    appPermissions.isBatteryOptimizationDisabled
+                                ? Icon(
+                                    UniconsSolid.check_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  )
+                                : Icon(
+                                    UniconsSolid.times_circle,
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                  ))
+                            .animate(
+                              delay: const Duration(milliseconds: 200),
+                            )
+                            .fadeIn(
+                              begin: 0,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            )
+                            .slideY(
+                              begin: 0.5,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 500),
+                            ),
+                        onTap: () async {
+                          await ref
+                              .read(appPermissionsControllerProvider.notifier)
+                              .requestDisableBatteryOptimization();
+                        },
                       ),
                     ],
                   );

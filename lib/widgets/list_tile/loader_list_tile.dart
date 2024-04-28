@@ -169,7 +169,7 @@ class _LoaderListTileState extends State<LoaderListTile> {
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: theme.colorScheme.onBackground,
+                            color: theme.colorScheme.onPrimaryContainer,
                           ),
                         );
                       }

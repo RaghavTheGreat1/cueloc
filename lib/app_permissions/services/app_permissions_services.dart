@@ -44,9 +44,15 @@ class AppPermissionsServices {
   }
 
   Future<bool> requestLocationService() async {
-    final status = await permission_handler.Permission.location.request();
+    final serviceStatus =
+        await permission_handler.Permission.location.serviceStatus;
 
-    return status.isGranted;
+    if (serviceStatus == permission_handler.ServiceStatus.enabled) {
+      final status = await permission_handler.Permission.location.request();
+      return status.isGranted;
+    }
+
+    return false;
   }
 
   /// Requests permissions based on the current state of location status which includes both permission & service status.
