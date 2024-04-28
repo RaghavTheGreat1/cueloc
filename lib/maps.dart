@@ -45,7 +45,7 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    Future.microtask(() async {
+    Future(() async {
       await loadMapStyles();
       await setMapStyle();
     });
