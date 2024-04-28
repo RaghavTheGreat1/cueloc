@@ -125,27 +125,27 @@ class CustomTextFormField extends StatelessWidget {
               borderSide: BorderSide(
                 color: theme.colorScheme.primaryContainer,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(24),
             ),
             errorBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: CustomColors.red,
                 width: 0.0,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(24),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: theme.colorScheme.tertiary,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(24),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: theme.colorScheme.primary,
                 width: 1.75,
               ),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(24),
             ),
           ),
         ),

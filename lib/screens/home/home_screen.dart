@@ -27,10 +27,11 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(
           Icons.add_rounded,
         ),
+        label: const Text('New Alarm'),
         onPressed: () {
           context.go('/alarm/new/_');
         },
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(17),
+                borderRadius: BorderRadius.circular(24),
                 child: const SizedBox(
                   height: 360,
                   child: Maps(

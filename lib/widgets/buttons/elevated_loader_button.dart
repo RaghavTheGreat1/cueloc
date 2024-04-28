@@ -90,7 +90,7 @@ class _ElevatedLoaderButtonState extends State<ElevatedLoaderButton> {
             }),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(24),
               ),
             ),
           ),

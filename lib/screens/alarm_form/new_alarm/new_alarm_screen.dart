@@ -47,7 +47,7 @@ class NewAlarmScreen extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 4, bottom: 24.0),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(17),
+                          borderRadius: BorderRadius.circular(24),
                           child: SizedBox(
                             height: 360,
                             child: HookConsumer(

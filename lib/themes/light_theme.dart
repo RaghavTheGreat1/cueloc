@@ -8,6 +8,13 @@ ThemeData lightTheme() {
     useMaterial3: true,
     colorScheme: colorScheme,
     textTheme: GoogleFonts.rubikTextTheme(),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: colorScheme.onPrimaryContainer,
+      foregroundColor: colorScheme.primaryContainer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+    ),
     appBarTheme: AppBarTheme(
       centerTitle: true,
       foregroundColor: Colors.black,
@@ -21,7 +28,7 @@ ThemeData lightTheme() {
       style: ButtonStyle(
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(17),
+            borderRadius: BorderRadius.circular(24),
           ),
         ),
         backgroundColor:

@@ -45,7 +45,7 @@ class _TriggerOnSelectorState extends State<TriggerOnSelector> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(17),
+            borderRadius: BorderRadius.circular(24),
             child: Row(
               children: List.generate(
                 2,
