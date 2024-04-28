@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
+import '../app_permissions/providers/app_permissions_controller.dart';
 import '../app_preferences/providers/app_user_preferences_provider.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
 import 'widgets/settings_card.dart';
@@ -77,37 +78,75 @@ class SettingsScreen extends HookConsumerWidget {
                   ),
                 ],
               ),
-              SettingsCard(
-                title: 'Permissions',
-                subSections: [
-                  LoaderListTile(
-                    leading: Icon(
-                      UniconsLine.location_arrow,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                    title: const Text(
-                      'Location',
-                    ),
-                  ),
-                  LoaderListTile(
-                    leading: Icon(
-                      FeatherIcons.bell,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                    title: const Text(
-                      'Notifications',
-                    ),
-                  ),
-                  LoaderListTile(
-                    leading: Icon(
-                      FeatherIcons.battery,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                    title: const Text(
-                      'Battery Optimization',
-                    ),
-                  ),
-                ],
+              Consumer(
+                builder: (context, ref, child) {
+                  final appPermissions = ref.watch(
+                      appPermissionsControllerProvider
+                          .select((value) => value.value));
+
+                  return SettingsCard(
+                    title: 'Permissions',
+                    subSections: [
+                      LoaderListTile(
+                        leading: Icon(
+                          UniconsLine.location_arrow,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        title: const Text(
+                          'Location',
+                        ),
+                        trailing: appPermissions != null &&
+                                appPermissions.isGpsEnabled
+                            ? Icon(
+                                UniconsSolid.check_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              )
+                            : Icon(
+                                UniconsSolid.times_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              ),
+                      ),
+                      LoaderListTile(
+                        leading: Icon(
+                          FeatherIcons.bell,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        title: const Text(
+                          'Notifications',
+                        ),
+                        trailing: appPermissions != null &&
+                                appPermissions.isAppNotificationsAllowed
+                            ? Icon(
+                                UniconsSolid.check_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              )
+                            : Icon(
+                                UniconsSolid.times_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              ),
+                      ),
+                      LoaderListTile(
+                        leading: Icon(
+                          FeatherIcons.battery,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        title: const Text(
+                          'Battery Optimization',
+                        ),
+                        trailing: appPermissions != null &&
+                                appPermissions.isBatteryOptimizationDisabled
+                            ? Icon(
+                                UniconsSolid.check_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              )
+                            : Icon(
+                                UniconsSolid.times_circle,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              ),
+                      ),
+                    ],
+                  );
+                },
               ),
               SettingsCard(
                 title: 'About',
