@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../models/alarm.dart';
 import '../../../models/coordinates.dart';
 import '../../../models/form_type.dart';
+import '../../../widgets/buttons/elevated_loader_button.dart';
 import 'provider/alarm_form_provider.dart';
 import '../../../widgets/cupertino_back_button.dart';
 import '../../../widgets/textfields/custom_text_field.dart';
@@ -128,7 +129,7 @@ class NewAlarmScreen extends ConsumerWidget {
                     Expanded(
                       child: SizedBox(
                         height: 56,
-                        child: ElevatedButton(
+                        child: ElevatedLoaderButton(
                           onPressed: () async {
                             await alarmRef.saveAlarm(formType);
                           },
