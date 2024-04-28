@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -33,7 +34,9 @@ class RouterService extends ChangeNotifier {
   final Ref ref;
 
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    await ref.watch(admobServicesProvider).showTransitionInterstitialAd();
+    if (!kDebugMode) {
+      await ref.read(admobServicesProvider).showTransitionInterstitialAd();
+    }
     String? redirectPath;
 
     final alarm = ref.watch(runningAlarmProvider);
