@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:map_my_nap/audio_picker/audio_picker_screen.dart';
-import 'package:map_my_nap/settings/settings_screen.dart';
 
+import '../audio_picker/audio_picker_screen.dart';
 import '../controllers/location_alarm_controller.dart';
 import '../models/alarm.dart';
 import '../models/form_type.dart';
 import '../screens/alarm_form/alarm_form_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/triggered_alarm/triggered_alarm_screen.dart';
+import '../settings/settings_screen.dart';
 
 final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);

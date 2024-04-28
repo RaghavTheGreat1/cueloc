@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../controllers/location_alarm_controller.dart';
-import '../../models/coordinates.dart';
 
+import '../../controllers/location_alarm_controller.dart';
 import '../../maps.dart';
+import '../../models/coordinates.dart';
 
 class TriggeredAlarmScreen extends HookConsumerWidget {
   const TriggeredAlarmScreen({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../maps.dart';
 import '../../../models/alarm.dart';
 import '../../../models/coordinates.dart';
 import '../../../themes/custom_colors.dart';
 import '../../../widgets/cupertino_back_button.dart';
-
-import '../../../maps.dart';
 
 class AlarmPreviewScreen extends StatelessWidget {
   const AlarmPreviewScreen({

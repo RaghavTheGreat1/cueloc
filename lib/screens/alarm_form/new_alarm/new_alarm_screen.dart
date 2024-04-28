@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../maps.dart';
 import '../../../models/alarm.dart';
 import '../../../models/coordinates.dart';
 import '../../../models/form_type.dart';
+import '../../../models/trigger_on.dart';
 import '../../../widgets/buttons/elevated_loader_button.dart';
-import 'provider/alarm_form_provider.dart';
 import '../../../widgets/cupertino_back_button.dart';
 import '../../../widgets/textfields/custom_text_field.dart';
-
-import '../../../maps.dart';
-import '../../../models/trigger_on.dart';
+import 'provider/alarm_form_provider.dart';
 import 'widgets/radius_slider.dart';
 import 'widgets/trigger_on_selector.dart';
 

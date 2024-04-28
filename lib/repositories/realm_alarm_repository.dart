@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import '../database/models/alarm_realm_model.dart';
-import '../models/alarm.dart';
 import 'package:realm/realm.dart';
 
+import '../database/models/alarm_realm_model.dart';
 import '../database/services/realm_model_parsers.dart';
+import '../models/alarm.dart';
 import 'alarm_repository.dart';
 
 class RealmAlarmRepository extends AlarmRepository {

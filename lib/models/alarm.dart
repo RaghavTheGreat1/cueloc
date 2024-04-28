@@ -1,8 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:uuid/uuid.dart';
+
 import '../database/models/alarm_realm_model.dart';
 import 'coordinates.dart';
 import 'trigger_on.dart';
-import 'package:uuid/uuid.dart';
 
 part 'alarm.freezed.dart';
 
