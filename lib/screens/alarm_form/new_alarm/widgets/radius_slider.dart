@@ -57,7 +57,7 @@ class _RadiusSliderState extends State<RadiusSlider> {
               value: value,
               label: value.toString(),
               min: 250,
-              max: 5250,
+              max: 5000,
               divisions: 20,
               onChanged: (value) {
                 sliderValue.value = value;
