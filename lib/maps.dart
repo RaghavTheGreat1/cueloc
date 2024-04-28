@@ -92,6 +92,7 @@ class _MapsState extends State<Maps> {
       ),
     };
     return GoogleMap(
+      myLocationEnabled: true,
       initialCameraPosition: CameraPosition(
         target: currentLocation,
         zoom: 14,

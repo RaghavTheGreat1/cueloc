@@ -1,15 +1,18 @@
+import 'package:extension_utilities/extension_utilities.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
+import '../app_preferences/providers/app_user_preferences_provider.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
 import 'widgets/settings_card.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends HookConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -22,6 +25,47 @@ class SettingsScreen extends StatelessWidget {
               SettingsCard(
                 title: 'General',
                 subSections: [
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final appPreferencesAsync =
+                          ref.watch(appUserPreferencesProvider);
+
+                      return LoaderListTile(
+                        onTap: () {
+                          ref
+                              .read(appUserPreferencesProvider.notifier)
+                              .updateNextTheme();
+                        },
+                        isLoading: appPreferencesAsync.when(
+                          data: (preferences) => false,
+                          loading: () => true,
+                          error: (error, stackTrace) {
+                            debugPrintStack(
+                                stackTrace: stackTrace,
+                                label: error.toString());
+                            return false;
+                          },
+                        ),
+                        leading: Icon(
+                          UniconsLine.brush_alt,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        title: const Text(
+                          'Theme Mode',
+                        ),
+                        trailing: Text(
+                          appPreferencesAsync.maybeWhen(
+                            data: (preferences) =>
+                                preferences.themeMode.name.capitalize(),
+                            orElse: () => '',
+                          ),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                   LoaderListTile(
                     leading: Icon(
                       UniconsLine.music,

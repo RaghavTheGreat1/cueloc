@@ -11,7 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../gen/assets.gen.dart';
 import '../models/alarm.dart';
 import '../providers/alarms_stream_provider.dart';
-import '../providers/location_stream_provider.dart';
+import '../providers/user_location_stream_provider.dart';
 import '../repositories/alarm_repository.dart';
 
 final runningAlarmProvider = StateProvider<Alarm?>((ref) {
@@ -33,7 +33,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
   build() async {
     debugPrint("INITIALIZE LOCATION STREAM");
     _locationStreamSubscription = ref.listen<AsyncValue<Position>>(
-      locationStreamProvider,
+      userLocationStreamProvider,
       (previous, next) {
         next.whenData((position) async {
           final readyToTriggerAlarms = checkUserInRegionAlarms(next.value!);
