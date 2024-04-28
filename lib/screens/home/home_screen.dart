@@ -1,5 +1,6 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -51,6 +52,22 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          // SliverToBoxAdapter(
+          //   child: TextField(
+          //     onSubmitted: (value) async {
+          //       if (value.length < 3) {
+          //         return;
+          //       }
+          //       final lats = await GeocodingPlatform.instance
+          //           ?.placemarkFromAddress(value);
+          //       if (lats == null) return;
+          //       print(lats.length);
+          //       for (var i in lats) {
+          //         print(i.toJson());
+          //       }
+          //     },
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -60,8 +77,11 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Consumer(
                       builder: (context, ref, child) {
-                        final appPermission =
-                            ref.watch(appPermissionsControllerProvider);
+                        final appPermission = ref.watch(
+                            appPermissionsControllerProvider
+                                .select((value) => value.value));
+
+                        if (appPermission == null) return const SizedBox();
                         if (appPermission.isAppNotificationsAllowed &&
                             appPermission.isBatteryOptimizationDisabled &&
                             appPermission.isGpsEnabled) {
