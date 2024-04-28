@@ -1,4 +1,4 @@
-package com.rtg1.map_my_nap
+package com.fmtc_india.map_my_nap
 
 import io.flutter.embedding.android.FlutterActivity
 
