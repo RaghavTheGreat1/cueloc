@@ -1,5 +1,6 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -105,6 +106,9 @@ class HomeScreen extends StatelessWidget {
           const SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             sliver: AlarmsSliverList(),
+          ),
+          const SliverToBoxAdapter(
+            child: Gap(256),
           ),
         ],
       ),
