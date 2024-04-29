@@ -22,7 +22,7 @@ class AlarmCard extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: InkWell(
-        borderRadius: BorderRadius.circular(17),
+        borderRadius: BorderRadius.circular(24),
         onTap: () {
           context.go(
             '/alarm/read/${alarm.id}',
@@ -32,6 +32,12 @@ class AlarmCard extends HookConsumerWidget {
         onLongPress: () {
           showModalBottomSheet(
             context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24).copyWith(
+                bottomLeft: const Radius.circular(0),
+                bottomRight: const Radius.circular(0),
+              ),
+            ),
             builder: (context) {
               return Padding(
                 padding: const EdgeInsets.all(24.0),
@@ -56,62 +62,56 @@ class AlarmCard extends HookConsumerWidget {
         },
         child: Container(
           height: 160,
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: theme.colorScheme.tertiaryContainer,
-            borderRadius: BorderRadius.circular(17),
+            borderRadius: BorderRadius.circular(24),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 128,
-                  width: 128,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(17),
-                    border: Border.all(
-                      width: 0.7,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(17),
-                    child: MapsPreview(
-                      coordinates: alarm.coordinates,
-                      radius: alarm.radius,
-                    ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 128,
+                width: 128,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24),
+                  child: MapsPreview(
+                    coordinates: alarm.coordinates,
+                    radius: alarm.radius,
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Switch(
-                          value: alarm.isActive,
-                          onChanged: (value) async {
-                            await ref
-                                .read(alarmsControllerProvider.notifier)
-                                .toggleAlarm(alarm, value);
-                          },
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Switch(
+                        value: alarm.isActive,
+                        onChanged: (value) async {
+                          await ref
+                              .read(alarmsControllerProvider.notifier)
+                              .toggleAlarm(alarm, value);
+                        },
+                      ),
+                      Text(
+                        alarm.label,
+                        style: theme.textTheme.titleMedium!.copyWith(
+                          fontSize: 19,
+                          color: theme.colorScheme.onTertiaryContainer,
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          alarm.label,
-                          style: theme.textTheme.titleMedium!.copyWith(
-                            fontSize: 19,
-                            color: theme.colorScheme.onTertiaryContainer,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
