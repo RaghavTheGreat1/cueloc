@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'app_preferences/providers/app_user_preferences_provider.dart';
+import 'app_preferences/providers/app_user_preferences_controller_provider.dart';
 import 'extensions/lat_lng_extension.dart';
 import 'models/coordinates.dart';
 import 'services/location_services.dart';

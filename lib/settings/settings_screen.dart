@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
 import '../app_permissions/providers/app_permissions_controller.dart';
-import '../app_preferences/providers/app_user_preferences_provider.dart';
+import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
 import '../extensions/location_accuracy_extension.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
 import 'widgets/settings_card.dart';
@@ -98,6 +98,9 @@ class SettingsScreen extends HookConsumerWidget {
                     },
                   ),
                   LoaderListTile(
+                    onTap: () {
+                      context.go('/settings/pick-audio');
+                    },
                     leading: Icon(
                       UniconsLine.music,
                       color: theme.colorScheme.onPrimaryContainer,

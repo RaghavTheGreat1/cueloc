@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app_permissions/providers/app_permissions_controller.dart';
-import 'app_preferences/providers/app_user_preferences_provider.dart';
+import 'app_preferences/providers/app_user_preferences_controller_provider.dart';
 import 'controllers/location_alarm_controller.dart';
 import 'providers/user_location_stream_provider.dart';
 import 'router/router.dart';

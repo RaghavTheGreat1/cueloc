@@ -14,12 +14,23 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) {
+  return _AppUserPreferences.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AppUserPreferences {
+  @ThemeModeJsonConverter()
   ThemeMode get themeMode => throw _privateConstructorUsedError;
+  @LocaleJsonConverter()
   Locale get locale => throw _privateConstructorUsedError;
+  @LocationAccuracyJsonConverter()
   LocationAccuracy get locationAccuracy => throw _privateConstructorUsedError;
+  double get alarmVolume => throw _privateConstructorUsedError;
+  String get alarmMediaPath => throw _privateConstructorUsedError;
+  bool get vibrateOnAlarm => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AppUserPreferencesCopyWith<AppUserPreferences> get copyWith =>
       throw _privateConstructorUsedError;
@@ -32,7 +43,12 @@ abstract class $AppUserPreferencesCopyWith<$Res> {
       _$AppUserPreferencesCopyWithImpl<$Res, AppUserPreferences>;
   @useResult
   $Res call(
-      {ThemeMode themeMode, Locale locale, LocationAccuracy locationAccuracy});
+      {@ThemeModeJsonConverter() ThemeMode themeMode,
+      @LocaleJsonConverter() Locale locale,
+      @LocationAccuracyJsonConverter() LocationAccuracy locationAccuracy,
+      double alarmVolume,
+      String alarmMediaPath,
+      bool vibrateOnAlarm});
 }
 
 /// @nodoc
@@ -51,6 +67,9 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
     Object? themeMode = null,
     Object? locale = null,
     Object? locationAccuracy = null,
+    Object? alarmVolume = null,
+    Object? alarmMediaPath = null,
+    Object? vibrateOnAlarm = null,
   }) {
     return _then(_value.copyWith(
       themeMode: null == themeMode
@@ -65,6 +84,18 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracy,
+      alarmVolume: null == alarmVolume
+          ? _value.alarmVolume
+          : alarmVolume // ignore: cast_nullable_to_non_nullable
+              as double,
+      alarmMediaPath: null == alarmMediaPath
+          ? _value.alarmMediaPath
+          : alarmMediaPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      vibrateOnAlarm: null == vibrateOnAlarm
+          ? _value.vibrateOnAlarm
+          : vibrateOnAlarm // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -78,7 +109,12 @@ abstract class _$$AppUserPreferencesImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ThemeMode themeMode, Locale locale, LocationAccuracy locationAccuracy});
+      {@ThemeModeJsonConverter() ThemeMode themeMode,
+      @LocaleJsonConverter() Locale locale,
+      @LocationAccuracyJsonConverter() LocationAccuracy locationAccuracy,
+      double alarmVolume,
+      String alarmMediaPath,
+      bool vibrateOnAlarm});
 }
 
 /// @nodoc
@@ -95,6 +131,9 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
     Object? themeMode = null,
     Object? locale = null,
     Object? locationAccuracy = null,
+    Object? alarmVolume = null,
+    Object? alarmMediaPath = null,
+    Object? vibrateOnAlarm = null,
   }) {
     return _then(_$AppUserPreferencesImpl(
       themeMode: null == themeMode
@@ -109,28 +148,56 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
           ? _value.locationAccuracy
           : locationAccuracy // ignore: cast_nullable_to_non_nullable
               as LocationAccuracy,
+      alarmVolume: null == alarmVolume
+          ? _value.alarmVolume
+          : alarmVolume // ignore: cast_nullable_to_non_nullable
+              as double,
+      alarmMediaPath: null == alarmMediaPath
+          ? _value.alarmMediaPath
+          : alarmMediaPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      vibrateOnAlarm: null == vibrateOnAlarm
+          ? _value.vibrateOnAlarm
+          : vibrateOnAlarm // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$AppUserPreferencesImpl extends _AppUserPreferences {
+  _$AppUserPreferencesImpl(
+      {@ThemeModeJsonConverter() required this.themeMode,
+      @LocaleJsonConverter() required this.locale,
+      @LocationAccuracyJsonConverter() required this.locationAccuracy,
+      required this.alarmVolume,
+      required this.alarmMediaPath,
+      required this.vibrateOnAlarm})
+      : super._();
 
-class _$AppUserPreferencesImpl implements _AppUserPreferences {
-  const _$AppUserPreferencesImpl(
-      {required this.themeMode,
-      required this.locale,
-      required this.locationAccuracy});
+  factory _$AppUserPreferencesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppUserPreferencesImplFromJson(json);
 
   @override
+  @ThemeModeJsonConverter()
   final ThemeMode themeMode;
   @override
+  @LocaleJsonConverter()
   final Locale locale;
   @override
+  @LocationAccuracyJsonConverter()
   final LocationAccuracy locationAccuracy;
+  @override
+  final double alarmVolume;
+  @override
+  final String alarmMediaPath;
+  @override
+  final bool vibrateOnAlarm;
 
   @override
   String toString() {
-    return 'AppUserPreferences(themeMode: $themeMode, locale: $locale, locationAccuracy: $locationAccuracy)';
+    return 'AppUserPreferences(themeMode: $themeMode, locale: $locale, locationAccuracy: $locationAccuracy, alarmVolume: $alarmVolume, alarmMediaPath: $alarmMediaPath, vibrateOnAlarm: $vibrateOnAlarm)';
   }
 
   @override
@@ -142,12 +209,19 @@ class _$AppUserPreferencesImpl implements _AppUserPreferences {
                 other.themeMode == themeMode) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.locationAccuracy, locationAccuracy) ||
-                other.locationAccuracy == locationAccuracy));
+                other.locationAccuracy == locationAccuracy) &&
+            (identical(other.alarmVolume, alarmVolume) ||
+                other.alarmVolume == alarmVolume) &&
+            (identical(other.alarmMediaPath, alarmMediaPath) ||
+                other.alarmMediaPath == alarmMediaPath) &&
+            (identical(other.vibrateOnAlarm, vibrateOnAlarm) ||
+                other.vibrateOnAlarm == vibrateOnAlarm));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, themeMode, locale, locationAccuracy);
+  int get hashCode => Object.hash(runtimeType, themeMode, locale,
+      locationAccuracy, alarmVolume, alarmMediaPath, vibrateOnAlarm);
 
   @JsonKey(ignore: true)
   @override
@@ -155,21 +229,44 @@ class _$AppUserPreferencesImpl implements _AppUserPreferences {
   _$$AppUserPreferencesImplCopyWith<_$AppUserPreferencesImpl> get copyWith =>
       __$$AppUserPreferencesImplCopyWithImpl<_$AppUserPreferencesImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AppUserPreferencesImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _AppUserPreferences implements AppUserPreferences {
-  const factory _AppUserPreferences(
-          {required final ThemeMode themeMode,
-          required final Locale locale,
-          required final LocationAccuracy locationAccuracy}) =
-      _$AppUserPreferencesImpl;
+abstract class _AppUserPreferences extends AppUserPreferences {
+  factory _AppUserPreferences(
+      {@ThemeModeJsonConverter() required final ThemeMode themeMode,
+      @LocaleJsonConverter() required final Locale locale,
+      @LocationAccuracyJsonConverter()
+      required final LocationAccuracy locationAccuracy,
+      required final double alarmVolume,
+      required final String alarmMediaPath,
+      required final bool vibrateOnAlarm}) = _$AppUserPreferencesImpl;
+  _AppUserPreferences._() : super._();
+
+  factory _AppUserPreferences.fromJson(Map<String, dynamic> json) =
+      _$AppUserPreferencesImpl.fromJson;
 
   @override
+  @ThemeModeJsonConverter()
   ThemeMode get themeMode;
   @override
+  @LocaleJsonConverter()
   Locale get locale;
   @override
+  @LocationAccuracyJsonConverter()
   LocationAccuracy get locationAccuracy;
+  @override
+  double get alarmVolume;
+  @override
+  String get alarmMediaPath;
+  @override
+  bool get vibrateOnAlarm;
   @override
   @JsonKey(ignore: true)
   _$$AppUserPreferencesImplCopyWith<_$AppUserPreferencesImpl> get copyWith =>

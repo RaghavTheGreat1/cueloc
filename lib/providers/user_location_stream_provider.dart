@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../app_preferences/providers/app_user_preferences_provider.dart';
+import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
 
 final userLocationStreamProvider = StreamProvider<Position>((ref) async* {
   final locationAccuracy = ref.watch(appUserPreferencesProvider

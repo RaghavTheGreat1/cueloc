@@ -61,6 +61,8 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   extension_utilities: ^1.1.0
   google_mobile_ads: ^5.0.0
+  json_serializable: ^6.8.0
+  gap: ^3.0.1
 
 dev_dependencies:
   build_runner: ^2.4.9

@@ -103,16 +103,16 @@ class RouterService extends ChangeNotifier {
                   );
                 },
               ),
+              GoRoute(
+                path: 'pick-audio',
+                pageBuilder: (context, state) {
+                  return const CustomTransitionPage(
+                    child: AudioPickerScreen(),
+                    transitionsBuilder: rightToLeftFadeTransition,
+                  );
+                },
+              ),
             ],
-          ),
-          GoRoute(
-            path: 'pick-audio',
-            pageBuilder: (context, state) {
-              return const CustomTransitionPage(
-                child: AudioPickerScreen(),
-                transitionsBuilder: rightToLeftFadeTransition,
-              );
-            },
           ),
         ],
       ),
