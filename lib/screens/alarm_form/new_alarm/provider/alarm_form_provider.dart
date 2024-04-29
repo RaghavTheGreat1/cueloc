@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../controllers/alarms_controller.dart';
-import '../../../../models/alarm.dart';
+import '../../../../models/alarm_form.dart';
 import '../../../../models/coordinates.dart';
 import '../../../../models/form_type.dart';
 import '../../../../models/trigger_on.dart';
 import '../../../../router/router.dart';
 
 final alarmFormProvider =
-    StateNotifierProvider.autoDispose<AlarmFormController, Alarm>((ref) {
-  return AlarmFormController(
-    ref,
-    alarm: Alarm.raw(),
-  );
-});
+    NotifierProvider<AlarmFormNotifier, AlarmForm>(AlarmFormNotifier.new);
 
-final class AlarmFormController extends StateNotifier<Alarm> {
-  final Ref ref;
-  AlarmFormController(
-    this.ref, {
-    required this.alarm,
-  }) : super(alarm);
+final class AlarmFormNotifier extends Notifier<AlarmForm> {
+  AlarmFormNotifier({
+    AlarmForm? initialAlarm,
+  }) : _initialAlarm = initialAlarm;
 
-  final Alarm alarm;
+  final AlarmForm? _initialAlarm;
 
-  TextEditingController get labelTextController =>
-      TextEditingController.fromValue(
-        TextEditingValue(
-          text: state.label,
-          selection: TextSelection.collapsed(
-            offset: state.label.length,
-          ),
-        ),
-      );
+  TextEditingController get labelTextController => _labelTextController;
 
-  AlarmsNotifier get alarmsControllerNotifier =>
+  final TextEditingController _labelTextController = TextEditingController();
+
+  AlarmsNotifier get _alarmsControllerNotifier =>
       ref.watch(alarmsControllerProvider.notifier);
+
+  @override
+  AlarmForm build() {
+    if (_initialAlarm != null) {
+      labelTextController.value = TextEditingValue(
+        text: _initialAlarm!.label,
+      );
+    }
+    return _initialAlarm ?? AlarmForm.raw();
+  }
 
   void updateLabel(String label) {
     state = state.copyWith(label: label);
@@ -78,9 +76,9 @@ final class AlarmFormController extends StateNotifier<Alarm> {
   Future<void> saveAlarm(FormType formType) async {
     switch (formType) {
       case FormType.create:
-        await alarmsControllerNotifier.saveAlarm(state);
+        await _alarmsControllerNotifier.saveAlarm(state);
       case FormType.edit:
-        await alarmsControllerNotifier.updateAlarm(state);
+        await _alarmsControllerNotifier.updateAlarm(state);
         break;
 
       default:

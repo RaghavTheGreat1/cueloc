@@ -1,9 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../models/alarm.dart';
+
+import '../models/alarm_form.dart';
 import '../repositories/alarm_repository.dart';
 
 /// Provides all alarms that has been created irrespective of their status(active or inactive).
-final allAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {
+final allAlarmsStreamProvider = StreamProvider<List<AlarmForm>>((ref) async* {
   final alarmRepository = ref.watch(alarmRepositoryProvider);
 
   final alarmsStream = alarmRepository.streamAlarms();
@@ -14,7 +15,8 @@ final allAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {
 });
 
 /// Provides all active alarms.
-final activeAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {
+final activeAlarmsStreamProvider =
+    StreamProvider<List<AlarmForm>>((ref) async* {
   final alarmRepository = ref.watch(alarmRepositoryProvider);
 
   final alarmsStream = alarmRepository.streamAlarms();
@@ -25,7 +27,8 @@ final activeAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {
 });
 
 /// Provides all inactive alarms.
-final inactiveAlarmsStreamProvider = StreamProvider<List<Alarm>>((ref) async* {
+final inactiveAlarmsStreamProvider =
+    StreamProvider<List<AlarmForm>>((ref) async* {
   final alarmRepository = ref.watch(alarmRepositoryProvider);
 
   final alarmsStream = alarmRepository.streamAlarms();

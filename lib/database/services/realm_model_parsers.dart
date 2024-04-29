@@ -1,13 +1,12 @@
-import '../../models/alarm.dart';
-
+import '../../models/alarm_form.dart';
 import '../models/alarm_realm_model.dart';
 
 class RealmModelParsers {
-  static List<Alarm> parseAlarmRealmModelList(List<AlarmRealmModel> list) {
-    List<Alarm> alarms = [];
+  static List<AlarmForm> parseAlarmRealmModelList(List<AlarmRealmModel> list) {
+    List<AlarmForm> alarms = [];
     for (int i = 0; i < list.length; i++) {
       alarms.add(
-        Alarm.fromRealmModel(list[i]),
+        AlarmForm.fromRealmModel(list[i]),
       );
     }
     return alarms;

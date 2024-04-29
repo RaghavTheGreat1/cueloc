@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../maps.dart';
-import '../../../models/alarm.dart';
 import '../../../models/coordinates.dart';
 import '../../../models/form_type.dart';
 import '../../../models/trigger_on.dart';
@@ -16,18 +15,16 @@ import 'widgets/trigger_on_selector.dart';
 class NewAlarmScreen extends ConsumerWidget {
   const NewAlarmScreen({
     super.key,
-    this.initialAlarm,
     required this.formType,
   });
-
-  final Alarm? initialAlarm;
 
   final FormType formType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ThemeData theme = Theme.of(context);
-    final alarmRef = ref.read(alarmFormProvider.notifier);
+    final alarmFormNotifier = ref.read(alarmFormProvider.notifier);
+    final initialAlarm = ref.read(alarmFormProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -55,20 +52,19 @@ class NewAlarmScreen extends ConsumerWidget {
                                 final radius = ref.watch(alarmFormProvider
                                     .select((value) => value.radius));
                                 return Maps(
-                                  initialLatLng: initialAlarm != null
-                                      ? (initialAlarm!.coordinates.latitude ==
-                                                  0 &&
-                                              initialAlarm!
+                                  initialLatLng:
+                                      (initialAlarm.coordinates.latitude == 0 &&
+                                              initialAlarm
                                                       .coordinates.longitude ==
                                                   0
                                           ? null
-                                          : initialAlarm?.coordinates.toLatLng)
-                                      : null,
+                                          : initialAlarm.coordinates.toLatLng),
                                   initialSelectedLatLng:
-                                      initialAlarm?.coordinates,
+                                      initialAlarm.coordinates,
                                   radius: radius,
                                   onLocationSelect: (value) async {
-                                    await alarmRef.updateCoordinates(value);
+                                    await alarmFormNotifier
+                                        .updateCoordinates(value);
                                   },
                                 );
                               },
@@ -83,23 +79,25 @@ class NewAlarmScreen extends ConsumerWidget {
                             .labelTextController,
                         label: "Label",
                         onChanged: (value) {
-                          alarmRef.updateLabel(value);
+                          alarmFormNotifier.updateLabel(value);
                         },
                       ),
                       const SizedBox(
                         height: 24,
                       ),
                       RadiusSlider(
+                        initialValue: initialAlarm.radius,
                         onChanged: (double value) {
-                          alarmRef.updateRadius(value);
+                          alarmFormNotifier.updateRadius(value);
                         },
                       ),
                       const SizedBox(
                         height: 24,
                       ),
                       TriggerOnSelector(
+                        initialValue: initialAlarm.triggerOn,
                         onChanged: (TriggerOn value) {
-                          alarmRef.updateTriggerOn(value);
+                          alarmFormNotifier.updateTriggerOn(value);
                         },
                       ),
                       const SizedBox(
@@ -131,7 +129,7 @@ class NewAlarmScreen extends ConsumerWidget {
                         height: 56,
                         child: ElevatedLoaderButton(
                           onPressed: () async {
-                            await alarmRef.saveAlarm(formType);
+                            await alarmFormNotifier.saveAlarm(formType);
                           },
                           child: const Text("MAP IT"),
                         ),

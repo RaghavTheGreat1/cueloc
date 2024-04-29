@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'alarm.dart';
+part of 'alarm_form.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,8 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+AlarmForm _$AlarmFormFromJson(Map<String, dynamic> json) {
+  return _AlarmForm.fromJson(json);
+}
+
 /// @nodoc
-mixin _$Alarm {
+mixin _$AlarmForm {
   String get id => throw _privateConstructorUsedError;
   String get label => throw _privateConstructorUsedError;
   Coordinates get coordinates => throw _privateConstructorUsedError;
@@ -23,14 +27,16 @@ mixin _$Alarm {
   TriggerOn get triggerOn => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AlarmCopyWith<Alarm> get copyWith => throw _privateConstructorUsedError;
+  $AlarmFormCopyWith<AlarmForm> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AlarmCopyWith<$Res> {
-  factory $AlarmCopyWith(Alarm value, $Res Function(Alarm) then) =
-      _$AlarmCopyWithImpl<$Res, Alarm>;
+abstract class $AlarmFormCopyWith<$Res> {
+  factory $AlarmFormCopyWith(AlarmForm value, $Res Function(AlarmForm) then) =
+      _$AlarmFormCopyWithImpl<$Res, AlarmForm>;
   @useResult
   $Res call(
       {String id,
@@ -44,9 +50,9 @@ abstract class $AlarmCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AlarmCopyWithImpl<$Res, $Val extends Alarm>
-    implements $AlarmCopyWith<$Res> {
-  _$AlarmCopyWithImpl(this._value, this._then);
+class _$AlarmFormCopyWithImpl<$Res, $Val extends AlarmForm>
+    implements $AlarmFormCopyWith<$Res> {
+  _$AlarmFormCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -101,10 +107,11 @@ class _$AlarmCopyWithImpl<$Res, $Val extends Alarm>
 }
 
 /// @nodoc
-abstract class _$$AlarmImplCopyWith<$Res> implements $AlarmCopyWith<$Res> {
-  factory _$$AlarmImplCopyWith(
-          _$AlarmImpl value, $Res Function(_$AlarmImpl) then) =
-      __$$AlarmImplCopyWithImpl<$Res>;
+abstract class _$$AlarmFormImplCopyWith<$Res>
+    implements $AlarmFormCopyWith<$Res> {
+  factory _$$AlarmFormImplCopyWith(
+          _$AlarmFormImpl value, $Res Function(_$AlarmFormImpl) then) =
+      __$$AlarmFormImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -120,11 +127,11 @@ abstract class _$$AlarmImplCopyWith<$Res> implements $AlarmCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AlarmImplCopyWithImpl<$Res>
-    extends _$AlarmCopyWithImpl<$Res, _$AlarmImpl>
-    implements _$$AlarmImplCopyWith<$Res> {
-  __$$AlarmImplCopyWithImpl(
-      _$AlarmImpl _value, $Res Function(_$AlarmImpl) _then)
+class __$$AlarmFormImplCopyWithImpl<$Res>
+    extends _$AlarmFormCopyWithImpl<$Res, _$AlarmFormImpl>
+    implements _$$AlarmFormImplCopyWith<$Res> {
+  __$$AlarmFormImplCopyWithImpl(
+      _$AlarmFormImpl _value, $Res Function(_$AlarmFormImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +144,7 @@ class __$$AlarmImplCopyWithImpl<$Res>
     Object? triggerOn = null,
     Object? isActive = null,
   }) {
-    return _then(_$AlarmImpl(
+    return _then(_$AlarmFormImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -167,9 +174,9 @@ class __$$AlarmImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$AlarmImpl extends _Alarm {
-  const _$AlarmImpl(
+@JsonSerializable()
+class _$AlarmFormImpl extends _AlarmForm {
+  const _$AlarmFormImpl(
       {required this.id,
       required this.label,
       required this.coordinates,
@@ -177,6 +184,9 @@ class _$AlarmImpl extends _Alarm {
       required this.triggerOn,
       required this.isActive})
       : super._();
+
+  factory _$AlarmFormImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AlarmFormImplFromJson(json);
 
   @override
   final String id;
@@ -193,14 +203,14 @@ class _$AlarmImpl extends _Alarm {
 
   @override
   String toString() {
-    return 'Alarm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn, isActive: $isActive)';
+    return 'AlarmForm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn, isActive: $isActive)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AlarmImpl &&
+            other is _$AlarmFormImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.label, label) || other.label == label) &&
             (identical(other.coordinates, coordinates) ||
@@ -212,6 +222,7 @@ class _$AlarmImpl extends _Alarm {
                 other.isActive == isActive));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, label, coordinates, radius, triggerOn, isActive);
@@ -219,19 +230,29 @@ class _$AlarmImpl extends _Alarm {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AlarmImplCopyWith<_$AlarmImpl> get copyWith =>
-      __$$AlarmImplCopyWithImpl<_$AlarmImpl>(this, _$identity);
+  _$$AlarmFormImplCopyWith<_$AlarmFormImpl> get copyWith =>
+      __$$AlarmFormImplCopyWithImpl<_$AlarmFormImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AlarmFormImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _Alarm extends Alarm {
-  const factory _Alarm(
+abstract class _AlarmForm extends AlarmForm {
+  const factory _AlarmForm(
       {required final String id,
       required final String label,
       required final Coordinates coordinates,
       required final double radius,
       required final TriggerOn triggerOn,
-      required final bool isActive}) = _$AlarmImpl;
-  const _Alarm._() : super._();
+      required final bool isActive}) = _$AlarmFormImpl;
+  const _AlarmForm._() : super._();
+
+  factory _AlarmForm.fromJson(Map<String, dynamic> json) =
+      _$AlarmFormImpl.fromJson;
 
   @override
   String get id;
@@ -247,6 +268,6 @@ abstract class _Alarm extends Alarm {
   bool get isActive;
   @override
   @JsonKey(ignore: true)
-  _$$AlarmImplCopyWith<_$AlarmImpl> get copyWith =>
+  _$$AlarmFormImplCopyWith<_$AlarmFormImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,17 +1,22 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../database/models/alarm_realm_model.dart';
 
 part 'coordinates.freezed.dart';
+part 'coordinates.g.dart';
 
 @Freezed()
 class Coordinates with _$Coordinates {
   const Coordinates._();
-  
+
   const factory Coordinates({
     required double latitude,
     required double longitude,
   }) = _Coordinates;
+
+  factory Coordinates.fromJson(Map<String, dynamic> json) =>
+      _$CoordinatesFromJson(json);
 
   factory Coordinates.raw() {
     return const Coordinates(latitude: 0, longitude: 0);

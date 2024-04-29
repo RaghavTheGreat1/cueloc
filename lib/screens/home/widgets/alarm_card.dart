@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../controllers/alarms_controller.dart';
-import '../../../models/alarm.dart';
+import '../../../models/alarm_form.dart';
 import '../../../repositories/alarm_repository.dart';
 import '../../../widgets/maps/maps_preview.dart';
 
@@ -13,7 +13,7 @@ class AlarmCard extends HookConsumerWidget {
     required this.alarm,
   });
 
-  final Alarm alarm;
+  final AlarmForm alarm;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

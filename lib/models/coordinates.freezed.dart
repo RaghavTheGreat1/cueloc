@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) {
+  return _Coordinates.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Coordinates {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CoordinatesCopyWith<Coordinates> get copyWith =>
       throw _privateConstructorUsedError;
@@ -101,10 +106,13 @@ class __$$CoordinatesImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$CoordinatesImpl extends _Coordinates {
   const _$CoordinatesImpl({required this.latitude, required this.longitude})
       : super._();
+
+  factory _$CoordinatesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoordinatesImplFromJson(json);
 
   @override
   final double latitude;
@@ -127,6 +135,7 @@ class _$CoordinatesImpl extends _Coordinates {
                 other.longitude == longitude));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, latitude, longitude);
 
@@ -135,6 +144,13 @@ class _$CoordinatesImpl extends _Coordinates {
   @pragma('vm:prefer-inline')
   _$$CoordinatesImplCopyWith<_$CoordinatesImpl> get copyWith =>
       __$$CoordinatesImplCopyWithImpl<_$CoordinatesImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CoordinatesImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Coordinates extends Coordinates {
@@ -142,6 +158,9 @@ abstract class _Coordinates extends Coordinates {
       {required final double latitude,
       required final double longitude}) = _$CoordinatesImpl;
   const _Coordinates._() : super._();
+
+  factory _Coordinates.fromJson(Map<String, dynamic> json) =
+      _$CoordinatesImpl.fromJson;
 
   @override
   double get latitude;

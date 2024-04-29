@@ -9,12 +9,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../gen/assets.gen.dart';
-import '../models/alarm.dart';
+import '../models/alarm_form.dart';
 import '../providers/alarms_stream_provider.dart';
 import '../providers/user_location_stream_provider.dart';
 import '../repositories/alarm_repository.dart';
 
-final runningAlarmProvider = StateProvider<Alarm?>((ref) {
+final runningAlarmProvider = StateProvider<AlarmForm?>((ref) {
   return null;
 });
 
@@ -50,7 +50,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
     );
   }
 
-  List<Alarm> checkUserInRegionAlarms(Position position) {
+  List<AlarmForm> checkUserInRegionAlarms(Position position) {
     final activeAlarms = ref.read(activeAlarmsStreamProvider).value ?? [];
     final locationReachedAlarms = activeAlarms.where((element) {
       final distance = Geolocator.distanceBetween(
@@ -66,7 +66,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
   }
 
   /// This method is called when the user gets into the specified area radius of the alarm.
-  Future<void> triggerAlarm(Alarm alarm) async {
+  Future<void> triggerAlarm(AlarmForm alarm) async {
     if (alarm_plugin.Alarm.hasAlarm()) {
       return;
     }
@@ -106,7 +106,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
     }
   }
 
-  Future<void> stopAlarm(Alarm alarm) async {
+  Future<void> stopAlarm(AlarmForm alarm) async {
     if (alarm_plugin.Alarm.hasAlarm()) {
       final id = alarmIntHash(alarm);
       await alarm_plugin.Alarm.stop(id);
@@ -124,7 +124,7 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
     FlutterForegroundTask.launchApp();
   }
 
-  int alarmIntHash(Alarm alarm) {
+  int alarmIntHash(AlarmForm alarm) {
     final coordinatesSum =
         alarm.coordinates.latitude + alarm.coordinates.longitude;
 

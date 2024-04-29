@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../audio_picker/audio_picker_screen.dart';
 import '../controllers/location_alarm_controller.dart';
-import '../models/alarm.dart';
+import '../models/alarm_form.dart';
 import '../models/form_type.dart';
 import '../providers/admob_service_provider.dart';
 import '../screens/alarm_form/alarm_form_screen.dart';
@@ -71,16 +71,18 @@ class RouterService extends ChangeNotifier {
             },
           ),
           GoRoute(
-            path: 'alarm/:operation/:busStopId',
+            path: 'alarm/:operation/:alarmId',
             pageBuilder: (context, state) {
               return CustomTransitionPage(
                 key: state.pageKey,
                 transitionsBuilder: rightToLeftFadeTransition,
                 child: AlarmFormScreen(
                   formType: FormTypeExt.fromString(
-                      state.pathParameters['operation'].toString()),
-                  alarm:
-                      state.extra == null ? Alarm.raw() : state.extra as Alarm,
+                    state.pathParameters['operation'].toString(),
+                  ),
+                  alarm: state.extra == null
+                      ? AlarmForm.raw()
+                      : state.extra as AlarmForm,
                 ),
               );
             },

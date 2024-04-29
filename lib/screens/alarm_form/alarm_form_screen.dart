@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../builders/read_only_builder.dart';
-import '../../models/alarm.dart';
+import '../../models/alarm_form.dart';
 import '../../models/form_type.dart';
 import 'alarm_preview/alarm_preview_screen.dart';
 import 'new_alarm/new_alarm_screen.dart';
@@ -15,7 +15,7 @@ class AlarmFormScreen extends HookConsumerWidget {
     required this.formType,
   });
 
-  final Alarm alarm;
+  final AlarmForm alarm;
 
   final FormType formType;
 
@@ -24,14 +24,8 @@ class AlarmFormScreen extends HookConsumerWidget {
     bool readOnly = formType == FormType.read ? true : false;
     return ProviderScope(
       overrides: [
-        alarmFormProvider.overrideWith(
-          (ref) {
-            return AlarmFormController(
-              ref,
-              alarm: alarm,
-            );
-          },
-        ),
+        alarmFormProvider
+            .overrideWith(() => AlarmFormNotifier(initialAlarm: alarm)),
       ],
       child: ReadOnlyBuilder(
         readOnly: readOnly,
@@ -39,7 +33,6 @@ class AlarmFormScreen extends HookConsumerWidget {
           alarm: alarm,
         ),
         editView: NewAlarmScreen(
-          initialAlarm: alarm,
           formType: formType,
         ),
       ),

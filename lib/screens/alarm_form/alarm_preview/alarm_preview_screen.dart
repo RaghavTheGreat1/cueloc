@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../maps.dart';
-import '../../../models/alarm.dart';
+import '../../../models/alarm_form.dart';
 import '../../../models/coordinates.dart';
 import '../../../themes/custom_colors.dart';
 import '../../../widgets/cupertino_back_button.dart';
@@ -13,7 +13,7 @@ class AlarmPreviewScreen extends StatelessWidget {
     required this.alarm,
   });
 
-  final Alarm alarm;
+  final AlarmForm alarm;
 
   @override
   Widget build(BuildContext context) {

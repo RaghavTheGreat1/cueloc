@@ -5,24 +5,28 @@ import '../database/models/alarm_realm_model.dart';
 import 'coordinates.dart';
 import 'trigger_on.dart';
 
-part 'alarm.freezed.dart';
+part 'alarm_form.freezed.dart';
+part 'alarm_form.g.dart';
 
 @Freezed()
-class Alarm with _$Alarm {
-  const Alarm._();
+class AlarmForm with _$AlarmForm {
+  const AlarmForm._();
 
-  const factory Alarm({
+  const factory AlarmForm({
     required String id,
     required String label,
     required Coordinates coordinates,
     required double radius,
     required TriggerOn triggerOn,
     required bool isActive,
-  }) = _Alarm;
+  }) = _AlarmForm;
 
-  factory Alarm.raw() {
+  factory AlarmForm.fromJson(Map<String, dynamic> json) =>
+      _$AlarmFormFromJson(json);
+
+  factory AlarmForm.raw() {
     Uuid uuid = const Uuid();
-    return Alarm(
+    return AlarmForm(
       id: uuid.v1(),
       label: '',
       coordinates: Coordinates.raw(),
@@ -42,8 +46,8 @@ class Alarm with _$Alarm {
     );
   }
 
-  factory Alarm.fromRealmModel(AlarmRealmModel alarmRealmModel) {
-    return Alarm(
+  factory AlarmForm.fromRealmModel(AlarmRealmModel alarmRealmModel) {
+    return AlarmForm(
       id: alarmRealmModel.id,
       label: alarmRealmModel.label,
       coordinates: Coordinates.fromRealmModel(alarmRealmModel.coordinates!),

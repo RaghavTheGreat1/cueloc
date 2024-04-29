@@ -3,7 +3,7 @@ import 'package:realm/realm.dart';
 
 import '../database/models/alarm_realm_model.dart';
 import '../database/services/realm_model_parsers.dart';
-import '../models/alarm.dart';
+import '../models/alarm_form.dart';
 import 'alarm_repository.dart';
 
 class RealmAlarmRepository extends AlarmRepository {
@@ -19,7 +19,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<void> addAlarm(Alarm alarm) async {
+  Future<void> addAlarm(AlarmForm alarm) async {
     await realm.writeAsync<AlarmRealmModel>(() {
       return realm.add<AlarmRealmModel>(alarm.toRealmModel());
     });
@@ -30,7 +30,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<List<Alarm>> fetchAllAlarms() async {
+  Future<List<AlarmForm>> fetchAllAlarms() async {
     final alarmsAsRealmModel = realm.all<AlarmRealmModel>().toList();
 
     final alarms = await compute(
@@ -39,7 +39,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Stream<List<Alarm>> streamAlarms() async* {
+  Stream<List<AlarmForm>> streamAlarms() async* {
     final alarmsAsRealmModelStream = realm.all<AlarmRealmModel>().changes;
     await for (final event in alarmsAsRealmModelStream) {
       final realmAlarms = event.results.toList();
@@ -48,7 +48,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<List<Alarm>> fetchAlarms(
+  Future<List<AlarmForm>> fetchAlarms(
       {required int startIndex, required int endIndex}) async {
     final alarms = realm.all<AlarmRealmModel>();
     final size = alarms.length;
@@ -66,7 +66,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<void> toggleAlarm(Alarm alarm, bool isActive) async {
+  Future<void> toggleAlarm(AlarmForm alarm, bool isActive) async {
     final realmObjectToToggle = realm.find<AlarmRealmModel>(alarm.id);
 
     if (realmObjectToToggle != null) {
@@ -79,7 +79,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<void> deleteAlarm(Alarm alarm) async {
+  Future<void> deleteAlarm(AlarmForm alarm) async {
     final realmObjectToDelete = realm.find<AlarmRealmModel>(alarm.id);
 
     if (realmObjectToDelete != null) {
@@ -89,7 +89,7 @@ class RealmAlarmRepository extends AlarmRepository {
   }
 
   @override
-  Future<void> updateAlarm(Alarm alarm) async {
+  Future<void> updateAlarm(AlarmForm alarm) async {
     final realmObjectToToggle = realm.find<AlarmRealmModel>(alarm.id);
 
     if (realmObjectToToggle != null) {

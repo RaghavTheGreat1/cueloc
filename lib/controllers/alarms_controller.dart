@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/alarm.dart';
+import '../models/alarm_form.dart';
 import '../repositories/alarm_repository.dart';
 
 final alarmsControllerProvider =
@@ -14,32 +14,32 @@ class AlarmsNotifier extends AsyncNotifier<void> {
     return const AsyncValue.data(null);
   }
 
-  Future<void> saveAlarm(Alarm alarm) async {
+  Future<void> saveAlarm(AlarmForm alarm) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _alarmRepository.addAlarm(alarm);
     });
   }
 
-  Future<void> updateAlarm(Alarm alarm) async {
+  Future<void> updateAlarm(AlarmForm alarm) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _alarmRepository.updateAlarm(alarm);
     });
   }
 
-  Future<void> toggleAlarm(Alarm alarm, bool isActive) async {
+  Future<void> toggleAlarm(AlarmForm alarm, bool isActive) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await _alarmRepository.toggleAlarm(alarm, isActive);
     });
   }
 
-  Future<void> activateAlarm(Alarm alarm) async {
+  Future<void> activateAlarm(AlarmForm alarm) async {
     await toggleAlarm(alarm, true);
   }
 
-  Future<void> deactivateAlarm(Alarm alarm) async {
+  Future<void> deactivateAlarm(AlarmForm alarm) async {
     await toggleAlarm(alarm, false);
   }
 }
