@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../app_preferences/providers/app_user_preferences_controller_provider.dart';
 import '../../models/coordinates.dart';
 
-class MapsPreview extends StatefulWidget {
+class MapsPreview extends StatefulHookConsumerWidget {
   const MapsPreview({
     super.key,
     required this.coordinates,
@@ -13,10 +17,14 @@ class MapsPreview extends StatefulWidget {
   final double radius;
 
   @override
-  State<MapsPreview> createState() => _MapsPreviewState();
+  ConsumerState<MapsPreview> createState() => _MapsPreviewState();
 }
 
-class _MapsPreviewState extends State<MapsPreview> {
+class _MapsPreviewState extends ConsumerState<MapsPreview>
+    with WidgetsBindingObserver {
+  late String darkMapStyle;
+  late String lightMapStyle;
+
   late GoogleMapController controller;
 
   late LatLng currentLocation;
@@ -28,6 +36,11 @@ class _MapsPreviewState extends State<MapsPreview> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    Future(() async {
+      await loadMapStyles();
+      await setMapStyle();
+    });
 
     currentLocation = widget.coordinates.toLatLng;
 
@@ -40,8 +53,56 @@ class _MapsPreviewState extends State<MapsPreview> {
   }
 
   @override
+  void didChangePlatformBrightness() {
+    Future(() async {
+      await setMapStyle();
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  Future loadMapStyles() async {
+    darkMapStyle = await rootBundle.loadString('map_styles/dark_theme.json');
+    lightMapStyle = await rootBundle.loadString('map_styles/light_theme.json');
+  }
+
+  Future setMapStyle() async {
+    final themeMode =
+        ref.read(appUserPreferencesProvider).requireValue.themeMode;
+
+    switch (themeMode) {
+      case ThemeMode.system:
+        final theme = View.of(context).platformDispatcher.platformBrightness;
+        if (theme == Brightness.dark) {
+          await controller.setMapStyle(darkMapStyle);
+        } else {
+          await controller.setMapStyle(lightMapStyle);
+        }
+        break;
+      case ThemeMode.dark:
+        await controller.setMapStyle(darkMapStyle);
+        break;
+      case ThemeMode.light:
+        await controller.setMapStyle(lightMapStyle);
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    ref.listen(
+      appUserPreferencesProvider
+          .select((value) => value.requireValue.themeMode),
+      (previous, next) async {
+        await setMapStyle();
+        setState(() {});
+      },
+    );
     circles = {
       Circle(
         circleId: const CircleId("radius"),
@@ -66,6 +127,7 @@ class _MapsPreviewState extends State<MapsPreview> {
         circles: circles,
         onMapCreated: (value) async {
           controller = value;
+          await setMapStyle();
         },
       ),
     );

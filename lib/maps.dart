@@ -82,7 +82,9 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
 
   @override
   void didChangePlatformBrightness() {
-    setMapStyle();
+    Future(() async {
+      await setMapStyle();
+    });
   }
 
   @override
@@ -106,11 +108,24 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
   }
 
   Future setMapStyle() async {
-    final theme = View.of(context).platformDispatcher.platformBrightness;
-    if (theme == Brightness.dark) {
-      await controller.setMapStyle(darkMapStyle);
-    } else {
-      await controller.setMapStyle(lightMapStyle);
+    final themeMode =
+        ref.read(appUserPreferencesProvider).requireValue.themeMode;
+
+    switch (themeMode) {
+      case ThemeMode.system:
+        final theme = View.of(context).platformDispatcher.platformBrightness;
+        if (theme == Brightness.dark) {
+          await controller.setMapStyle(darkMapStyle);
+        } else {
+          await controller.setMapStyle(lightMapStyle);
+        }
+        break;
+      case ThemeMode.dark:
+        await controller.setMapStyle(darkMapStyle);
+        break;
+      case ThemeMode.light:
+        await controller.setMapStyle(lightMapStyle);
+        break;
     }
   }
 
@@ -121,13 +136,7 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
       appUserPreferencesProvider
           .select((value) => value.requireValue.themeMode),
       (previous, next) async {
-        if (next == ThemeMode.system) {
-          await setMapStyle();
-        } else if (next == ThemeMode.dark) {
-          await controller.setMapStyle(darkMapStyle);
-        } else {
-          await controller.setMapStyle(lightMapStyle);
-        }
+        await setMapStyle();
         setState(() {});
       },
     );
@@ -181,10 +190,11 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
         if (widget.initialLatLng == null) {
           final coordinates = await LocationServices.getCurrentLocation();
           final latLng = coordinates.toLatLng;
-          controller.animateCamera(
+          await controller.animateCamera(
             CameraUpdate.newLatLng(latLng),
           );
         }
+        await setMapStyle();
       },
       gestureRecognizers: {
         Factory<OneSequenceGestureRecognizer>(
