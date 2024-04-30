@@ -8,6 +8,8 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app_preferences/models/app_user_preferences.dart';
+import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
 import '../gen/assets.gen.dart';
 import '../models/alarm_form.dart';
 import '../providers/alarms_stream_provider.dart';
@@ -24,6 +26,8 @@ final locationAlarmControllerProvider =
 );
 
 class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
+  AppUserPreferences? get _appUserPreferences =>
+      ref.watch(appUserPreferencesProvider.select((value) => value.value));
   AlarmRepository get _alarmRepository => ref.watch(alarmRepositoryProvider);
 
   late final ProviderSubscription<AsyncValue<Position>>
@@ -74,9 +78,11 @@ class LocationAlarmControllerNotifier extends AsyncNotifier<void> {
     final alarmSettings = alarm_plugin_settings.AlarmSettings(
       id: id,
       dateTime: DateTime.now().add(const Duration(seconds: 2)),
-      assetAudioPath: Assets.alarmSounds.morning,
+      assetAudioPath:
+          _appUserPreferences?.alarmMediaPath ?? Assets.alarmSounds.morning,
       loopAudio: true,
-      vibrate: false,
+      volume: (_appUserPreferences?.alarmVolume ?? 7) / 10,
+      vibrate: _appUserPreferences?.vibrateOnAlarm ?? true,
       fadeDuration: 3.0,
       notificationTitle: alarm.label,
       notificationBody: 'You have reached your location',
