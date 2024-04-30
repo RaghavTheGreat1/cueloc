@@ -32,6 +32,7 @@ class GoogleMapsMarkersService {
       markerId: MarkerId(alarm.id),
       position: alarm.coordinates.toLatLng,
       icon: activeAlarmMarker,
+      infoWindow: InfoWindow(title: alarm.label),
     );
   }
 
@@ -40,6 +41,7 @@ class GoogleMapsMarkersService {
       markerId: MarkerId(alarm.id),
       position: alarm.coordinates.toLatLng,
       icon: inActiveAlarmMarker,
+      infoWindow: InfoWindow(title: alarm.label),
     );
   }
 }

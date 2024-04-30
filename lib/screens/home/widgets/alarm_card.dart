@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -84,6 +85,7 @@ class AlarmCard extends HookConsumerWidget {
                   ),
                 ),
               ),
+              const Gap(8),
               Expanded(
                 child: Align(
                   alignment: Alignment.topRight,
@@ -101,8 +103,12 @@ class AlarmCard extends HookConsumerWidget {
                       ),
                       Text(
                         alarm.label,
+                        maxLines: 2,
+                        softWrap: true,
+                        textAlign: TextAlign.end,
                         style: theme.textTheme.titleMedium!.copyWith(
                           fontSize: 19,
+                          overflow: TextOverflow.ellipsis,
                           color: theme.colorScheme.onTertiaryContainer,
                           fontWeight: FontWeight.w600,
                         ),
