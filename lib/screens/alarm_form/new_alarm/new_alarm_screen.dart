@@ -78,6 +78,7 @@ class NewAlarmScreen extends ConsumerWidget {
                             .read(alarmFormProvider.notifier)
                             .labelTextController,
                         label: "Label",
+                        maxLength: 100,
                         onChanged: (value) {
                           alarmFormNotifier.updateLabel(value);
                         },
