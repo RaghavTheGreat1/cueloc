@@ -38,18 +38,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: SafeArea(
-        child: PageView(
-          children: [
-            Container(
-              color: Colors.red,
-            ),
-            Container(
-              color: Colors.green,
-            ),
-            const AppPermissionsView()
-          ],
-        ),
+      body: PageView(
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.green,
+          ),
+          const AppPermissionsView()
+        ],
       ),
     );
   }
