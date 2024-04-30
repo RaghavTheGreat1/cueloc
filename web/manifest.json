@@ -1,6 +1,6 @@
 {
-    "name": "map_my_nap",
-    "short_name": "map_my_nap",
+    "name": "cueloc",
+    "short_name": "cueloc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

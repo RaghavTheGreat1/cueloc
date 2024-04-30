@@ -1,4 +1,4 @@
-package com.fmtc_india.map_my_nap
+package com.fmtc_india.cueloc
 
 import io.flutter.embedding.android.FlutterActivity
 
