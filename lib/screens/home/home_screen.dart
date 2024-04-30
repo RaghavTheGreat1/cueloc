@@ -2,9 +2,11 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app_permissions/providers/app_permissions_controller.dart';
+import '../../google_maps/providers/google_maps_marker_service_provider.dart';
 import '../../maps.dart';
 import '../../providers/alarms_stream_provider.dart';
 import 'widgets/alarm_card.dart';
@@ -44,10 +46,30 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
-                child: const SizedBox(
+                child: SizedBox(
                   height: 360,
-                  child: Maps(
-                    radius: 1000,
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final markerService =
+                          ref.watch(googleMapsMarkerServiceProvider);
+                      final activeAlarms =
+                          ref.watch(allAlarmsStreamProvider).value;
+                      final inActiveAlarms =
+                          ref.watch(inactiveAlarmsStreamProvider).value;
+
+                      final Set<Marker> markers = {};
+                      for (final i in activeAlarms ?? []) {
+                        markers.add(markerService.getActiveAlarmMarker(i));
+                      }
+                      for (final i in inActiveAlarms ?? []) {
+                        markers.add(markerService.getInactiveAlarmMarker(i));
+                      }
+
+                      return Maps(
+                        radius: 1000,
+                        initialMarkers: markers,
+                      );
+                    },
                   ),
                 ),
               ),

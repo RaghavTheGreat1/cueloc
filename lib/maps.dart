@@ -16,10 +16,12 @@ class Maps extends StatefulHookConsumerWidget {
     this.initialLatLng,
     required this.radius,
     this.onLocationSelect,
+    this.initialMarkers = const {},
     this.initialSelectedLatLng,
   });
 
   final LatLng? initialLatLng;
+  final Set<Marker>? initialMarkers;
   final Coordinates? initialSelectedLatLng;
   final double radius;
 
@@ -57,14 +59,13 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
       currentLocation = widget.initialLatLng!;
     }
 
-    markers = widget.initialSelectedLatLng != null
-        ? {
-            Marker(
-              markerId: const MarkerId("alarm_location"),
-              position: widget.initialSelectedLatLng!.toLatLng,
-            ),
-          }
-        : {};
+    markers = widget.initialMarkers?.toSet() ?? {};
+    if (widget.initialSelectedLatLng != null) {
+      markers.add(Marker(
+        markerId: const MarkerId("alarm_location"),
+        position: widget.initialSelectedLatLng!.toLatLng,
+      ));
+    }
   }
 
   @override
@@ -74,9 +75,9 @@ class _MapsState extends ConsumerState<Maps> with WidgetsBindingObserver {
       controller
           .animateCamera(CameraUpdate.zoomTo(14 - ((widget.radius / 2000))));
     }
-    if (oldWidget.radius != widget.radius) {
-      controller
-          .animateCamera(CameraUpdate.zoomTo(14 - ((widget.radius / 2000))));
+
+    if (oldWidget.initialMarkers != widget.initialMarkers) {
+      markers = widget.initialMarkers?.toSet() ?? {};
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'app_permissions/providers/app_permissions_controller.dart';
 import 'app_preferences/providers/app_user_preferences_controller_provider.dart';
 import 'controllers/location_alarm_controller.dart';
+import 'google_maps/providers/google_maps_marker_service_provider.dart';
 import 'providers/user_location_stream_provider.dart';
 import 'router/router.dart';
 import 'services/app_initializer_service.dart';
@@ -84,6 +85,7 @@ class _EagerInitialization extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(googleMapsMarkerServiceProvider);
     ref.watch(appUserPreferencesProvider);
     ref.watch(appPermissionsControllerProvider);
     ref.watch(userLocationStreamProvider);
