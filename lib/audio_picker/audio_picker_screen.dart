@@ -1,12 +1,13 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:unicons/unicons.dart';
 
 import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
-import '../gen/assets.gen.dart';
 import '../settings/widgets/settings_card.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
+import 'providers/app_ringtones_provider.dart';
 
 class AudioPickerScreen extends HookConsumerWidget {
   const AudioPickerScreen({super.key});
@@ -14,6 +15,7 @@ class AudioPickerScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sound'),
@@ -103,16 +105,42 @@ class AudioPickerScreen extends HookConsumerWidget {
               title: 'Ringtone',
               subSections: [
                 Flexible(
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final currentAudio = Assets.alarmSounds.values[index];
-                      return ListTile(
-                        title: Text(currentAudio),
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final appRingtones = ref.watch(appRintonesProvider);
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final currentRingtone = appRingtones[index];
+                          final isSelected = ref.watch(
+                            appUserPreferencesProvider.select(
+                              (value) =>
+                                  value.value?.alarmMediaPath ==
+                                  currentRingtone.uri,
+                            ),
+                          );
+                          return LoaderListTile(
+                            selected: isSelected,
+                            onTap: () async {
+                              await ref
+                                  .read(appUserPreferencesProvider.notifier)
+                                  .updateAlarmMediaPath(currentRingtone.uri);
+                            },
+                            leading: const Icon(
+                              UniconsLine.music,
+                            ),
+                            trailing: isSelected
+                                ? const Icon(
+                                    FeatherIcons.checkCircle,
+                                  )
+                                : const SizedBox(),
+                            title: Text(currentRingtone.title),
+                          );
+                        },
+                        itemCount: appRingtones.length,
                       );
                     },
-                    itemCount: Assets.alarmSounds.values.length,
                   ),
                 )
               ],
