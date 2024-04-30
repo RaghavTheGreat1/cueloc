@@ -23,6 +23,18 @@ class AppPermissionsServices {
     return alwaysOn.isGranted && location.isGranted;
   }
 
+  Future<bool> isLocationPermissionGranted() async {
+    final status = await permission_handler.Permission.location.status;
+
+    return status.isGranted;
+  }
+
+  Future<bool> isAlwaysOnLocationGranted() async {
+    final status = await permission_handler.Permission.locationAlways.status;
+
+    return status.isGranted;
+  }
+
   Future<bool> disableBatteryOptimization() async {
     final status = await permission_handler
         .Permission.ignoreBatteryOptimizations
@@ -37,29 +49,42 @@ class AppPermissionsServices {
     return status.isGranted;
   }
 
-  Future<bool> requestLocationAlwaysOnService() async {
-    final status = await permission_handler.Permission.locationAlways.request();
+  Future<bool> requestLocationPermission() async {
+    final initialStatus = await permission_handler.Permission.location.status;
+    if (initialStatus.isPermanentlyDenied) {
+      await permission_handler.openAppSettings();
+      return false;
+    }
 
+    final status = await permission_handler.Permission.location.request();
     return status.isGranted;
   }
 
-  Future<bool> requestLocationService() async {
-    final serviceStatus =
-        await permission_handler.Permission.location.serviceStatus;
+  Future<bool> requestLocationAlwaysOnService() async {
+    final initialStatus =
+        await permission_handler.Permission.locationAlways.status;
 
-    if (serviceStatus == permission_handler.ServiceStatus.enabled) {
-      final status = await permission_handler.Permission.location.request();
+    if (initialStatus.isPermanentlyDenied) {
+      await permission_handler.openAppSettings();
+      return false;
+    }
+    try {
+      final status = await permission_handler.Permission.locationAlways
+          .request()
+          .timeout(const Duration(seconds: 5));
+      return status.isGranted;
+    } catch (e) {
+      final status = await permission_handler.Permission.locationAlways.status;
+
       return status.isGranted;
     }
-
-    return false;
   }
 
   /// Requests permissions based on the current state of location status which includes both permission & service status.
   /// Requests for granting permissions when permissions is false. Requests for enabling service when service status is false.
   Future<bool> requestLocationServices() async {
     final isPermissionGranted = await requestLocationAlwaysOnService();
-    final isEnabled = await requestLocationService();
+    final isEnabled = await requestLocationPermission();
     final isGpsServiceEnable = (isPermissionGranted && isEnabled);
 
     return isGpsServiceEnable;

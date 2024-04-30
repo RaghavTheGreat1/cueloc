@@ -12,11 +12,38 @@ import '../extensions/location_accuracy_extension.dart';
 import '../widgets/list_tile/loader_list_tile.dart';
 import 'widgets/settings_card.dart';
 
-class SettingsScreen extends HookConsumerWidget {
+class SettingsScreen extends StatefulHookConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    final appPermissionsController =
+        ref.read(appPermissionsControllerProvider.notifier);
+    if (state == AppLifecycleState.resumed) {
+      await appPermissionsController.checkAllPermissions();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -129,7 +156,7 @@ class SettingsScreen extends HookConsumerWidget {
                           'Location',
                         ),
                         trailing: (appPermissions != null &&
-                                    appPermissions.isGpsEnabled
+                                    appPermissions.isLocationServicesEnabled
                                 ? Icon(
                                     UniconsSolid.check_circle,
                                     color: theme.colorScheme.onPrimaryContainer,

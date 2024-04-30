@@ -6,14 +6,18 @@ part 'app_permissions.freezed.dart';
 class AppPermissions with _$AppPermissions {
   const factory AppPermissions({
     required bool isBatteryOptimizationDisabled,
-    required bool isGpsEnabled,
+    required bool isLocationServicesEnabled,
+    required bool isLocationGranted,
+    required bool isAlwaysOnLocationGranted,
     required bool isAppNotificationsAllowed,
   }) = _AppPermissions;
 
   factory AppPermissions.raw() {
     return const AppPermissions(
       isBatteryOptimizationDisabled: false,
-      isGpsEnabled: false,
+      isLocationServicesEnabled: false,
+      isLocationGranted: false,
+      isAlwaysOnLocationGranted: false,
       isAppNotificationsAllowed: false,
     );
   }

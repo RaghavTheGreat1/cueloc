@@ -95,22 +95,21 @@ class _LoaderListTileState extends State<LoaderListTile> {
   void initState() {
     super.initState();
     isLoadingNotifier = ValueNotifier(widget.isLoading ?? false);
-    isLoadingNotifier.value = widget.isLoading ?? false;
   }
 
   @override
   void didUpdateWidget(covariant LoaderListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isLoading != widget.isLoading) {
-      setState(() {
-        isLoadingNotifier.value = widget.isLoading ?? false;
-      });
+      isLoadingNotifier.value = widget.isLoading ?? false;
     }
   }
 
   @override
   void dispose() {
     super.dispose();
+    isLoadingNotifier.value = false;
+    isLoadingNotifier.dispose();
   }
 
   Future<void> executeFunction() async {
@@ -118,15 +117,16 @@ class _LoaderListTileState extends State<LoaderListTile> {
       await HapticFeedback.mediumImpact();
     }
     if (mounted) {
-      setState(() {
-        isLoadingNotifier.value = true;
-      });
+      isLoadingNotifier.value = true;
     }
-    await widget.onTap?.call();
+    try {
+      await widget.onTap?.call();
+    } catch (e) {
+      isLoadingNotifier.value = false;
+      rethrow;
+    }
     if (mounted) {
-      setState(() {
-        isLoadingNotifier.value = false;
-      });
+      isLoadingNotifier.value = false;
     }
   }
 

@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                         if (appPermission == null) return const SizedBox();
                         if (appPermission.isAppNotificationsAllowed &&
                             appPermission.isBatteryOptimizationDisabled &&
-                            appPermission.isGpsEnabled) {
+                            appPermission.isLocationServicesEnabled) {
                           return const SizedBox();
                         }
                         return InputChip(

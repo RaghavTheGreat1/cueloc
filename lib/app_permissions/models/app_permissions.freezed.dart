@@ -17,7 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AppPermissions {
   bool get isBatteryOptimizationDisabled => throw _privateConstructorUsedError;
-  bool get isGpsEnabled => throw _privateConstructorUsedError;
+  bool get isLocationServicesEnabled => throw _privateConstructorUsedError;
+  bool get isLocationGranted => throw _privateConstructorUsedError;
+  bool get isAlwaysOnLocationGranted => throw _privateConstructorUsedError;
   bool get isAppNotificationsAllowed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -33,7 +35,9 @@ abstract class $AppPermissionsCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isBatteryOptimizationDisabled,
-      bool isGpsEnabled,
+      bool isLocationServicesEnabled,
+      bool isLocationGranted,
+      bool isAlwaysOnLocationGranted,
       bool isAppNotificationsAllowed});
 }
 
@@ -51,7 +55,9 @@ class _$AppPermissionsCopyWithImpl<$Res, $Val extends AppPermissions>
   @override
   $Res call({
     Object? isBatteryOptimizationDisabled = null,
-    Object? isGpsEnabled = null,
+    Object? isLocationServicesEnabled = null,
+    Object? isLocationGranted = null,
+    Object? isAlwaysOnLocationGranted = null,
     Object? isAppNotificationsAllowed = null,
   }) {
     return _then(_value.copyWith(
@@ -59,9 +65,17 @@ class _$AppPermissionsCopyWithImpl<$Res, $Val extends AppPermissions>
           ? _value.isBatteryOptimizationDisabled
           : isBatteryOptimizationDisabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGpsEnabled: null == isGpsEnabled
-          ? _value.isGpsEnabled
-          : isGpsEnabled // ignore: cast_nullable_to_non_nullable
+      isLocationServicesEnabled: null == isLocationServicesEnabled
+          ? _value.isLocationServicesEnabled
+          : isLocationServicesEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocationGranted: null == isLocationGranted
+          ? _value.isLocationGranted
+          : isLocationGranted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAlwaysOnLocationGranted: null == isAlwaysOnLocationGranted
+          ? _value.isAlwaysOnLocationGranted
+          : isAlwaysOnLocationGranted // ignore: cast_nullable_to_non_nullable
               as bool,
       isAppNotificationsAllowed: null == isAppNotificationsAllowed
           ? _value.isAppNotificationsAllowed
@@ -81,7 +95,9 @@ abstract class _$$AppPermissionsImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isBatteryOptimizationDisabled,
-      bool isGpsEnabled,
+      bool isLocationServicesEnabled,
+      bool isLocationGranted,
+      bool isAlwaysOnLocationGranted,
       bool isAppNotificationsAllowed});
 }
 
@@ -97,7 +113,9 @@ class __$$AppPermissionsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isBatteryOptimizationDisabled = null,
-    Object? isGpsEnabled = null,
+    Object? isLocationServicesEnabled = null,
+    Object? isLocationGranted = null,
+    Object? isAlwaysOnLocationGranted = null,
     Object? isAppNotificationsAllowed = null,
   }) {
     return _then(_$AppPermissionsImpl(
@@ -105,9 +123,17 @@ class __$$AppPermissionsImplCopyWithImpl<$Res>
           ? _value.isBatteryOptimizationDisabled
           : isBatteryOptimizationDisabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      isGpsEnabled: null == isGpsEnabled
-          ? _value.isGpsEnabled
-          : isGpsEnabled // ignore: cast_nullable_to_non_nullable
+      isLocationServicesEnabled: null == isLocationServicesEnabled
+          ? _value.isLocationServicesEnabled
+          : isLocationServicesEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLocationGranted: null == isLocationGranted
+          ? _value.isLocationGranted
+          : isLocationGranted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAlwaysOnLocationGranted: null == isAlwaysOnLocationGranted
+          ? _value.isAlwaysOnLocationGranted
+          : isAlwaysOnLocationGranted // ignore: cast_nullable_to_non_nullable
               as bool,
       isAppNotificationsAllowed: null == isAppNotificationsAllowed
           ? _value.isAppNotificationsAllowed
@@ -122,19 +148,25 @@ class __$$AppPermissionsImplCopyWithImpl<$Res>
 class _$AppPermissionsImpl implements _AppPermissions {
   const _$AppPermissionsImpl(
       {required this.isBatteryOptimizationDisabled,
-      required this.isGpsEnabled,
+      required this.isLocationServicesEnabled,
+      required this.isLocationGranted,
+      required this.isAlwaysOnLocationGranted,
       required this.isAppNotificationsAllowed});
 
   @override
   final bool isBatteryOptimizationDisabled;
   @override
-  final bool isGpsEnabled;
+  final bool isLocationServicesEnabled;
+  @override
+  final bool isLocationGranted;
+  @override
+  final bool isAlwaysOnLocationGranted;
   @override
   final bool isAppNotificationsAllowed;
 
   @override
   String toString() {
-    return 'AppPermissions(isBatteryOptimizationDisabled: $isBatteryOptimizationDisabled, isGpsEnabled: $isGpsEnabled, isAppNotificationsAllowed: $isAppNotificationsAllowed)';
+    return 'AppPermissions(isBatteryOptimizationDisabled: $isBatteryOptimizationDisabled, isLocationServicesEnabled: $isLocationServicesEnabled, isLocationGranted: $isLocationGranted, isAlwaysOnLocationGranted: $isAlwaysOnLocationGranted, isAppNotificationsAllowed: $isAppNotificationsAllowed)';
   }
 
   @override
@@ -146,16 +178,27 @@ class _$AppPermissionsImpl implements _AppPermissions {
                     isBatteryOptimizationDisabled) ||
                 other.isBatteryOptimizationDisabled ==
                     isBatteryOptimizationDisabled) &&
-            (identical(other.isGpsEnabled, isGpsEnabled) ||
-                other.isGpsEnabled == isGpsEnabled) &&
+            (identical(other.isLocationServicesEnabled,
+                    isLocationServicesEnabled) ||
+                other.isLocationServicesEnabled == isLocationServicesEnabled) &&
+            (identical(other.isLocationGranted, isLocationGranted) ||
+                other.isLocationGranted == isLocationGranted) &&
+            (identical(other.isAlwaysOnLocationGranted,
+                    isAlwaysOnLocationGranted) ||
+                other.isAlwaysOnLocationGranted == isAlwaysOnLocationGranted) &&
             (identical(other.isAppNotificationsAllowed,
                     isAppNotificationsAllowed) ||
                 other.isAppNotificationsAllowed == isAppNotificationsAllowed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isBatteryOptimizationDisabled,
-      isGpsEnabled, isAppNotificationsAllowed);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isBatteryOptimizationDisabled,
+      isLocationServicesEnabled,
+      isLocationGranted,
+      isAlwaysOnLocationGranted,
+      isAppNotificationsAllowed);
 
   @JsonKey(ignore: true)
   @override
@@ -168,13 +211,19 @@ class _$AppPermissionsImpl implements _AppPermissions {
 abstract class _AppPermissions implements AppPermissions {
   const factory _AppPermissions(
       {required final bool isBatteryOptimizationDisabled,
-      required final bool isGpsEnabled,
+      required final bool isLocationServicesEnabled,
+      required final bool isLocationGranted,
+      required final bool isAlwaysOnLocationGranted,
       required final bool isAppNotificationsAllowed}) = _$AppPermissionsImpl;
 
   @override
   bool get isBatteryOptimizationDisabled;
   @override
-  bool get isGpsEnabled;
+  bool get isLocationServicesEnabled;
+  @override
+  bool get isLocationGranted;
+  @override
+  bool get isAlwaysOnLocationGranted;
   @override
   bool get isAppNotificationsAllowed;
   @override

@@ -9,6 +9,7 @@ import '../audio_picker/audio_picker_screen.dart';
 import '../controllers/location_alarm_controller.dart';
 import '../models/alarm_form.dart';
 import '../models/form_type.dart';
+import '../onboarding/screens/onboarding_screen.dart';
 import '../providers/admob_service_provider.dart';
 import '../screens/alarm_form/alarm_form_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -19,7 +20,7 @@ final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/onboarding',
     debugLogDiagnostics: true,
     routes: router._routes,
     redirect: router.redirect,
@@ -50,6 +51,16 @@ class RouterService extends ChangeNotifier {
 
   List<RouteBase> get _routes {
     return [
+      GoRoute(
+        path: '/onboarding',
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            transitionsBuilder: rightToLeftFadeTransition,
+            child: const OnboardingScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: '/',
         pageBuilder: (context, state) {

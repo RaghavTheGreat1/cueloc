@@ -36,10 +36,17 @@ class AppPermissionsNotifier extends AsyncNotifier<AppPermissions> {
         await _appPermissionsServices.isBatteryOptimizationDisabled();
     final isLocationServicesEnabled =
         await _appPermissionsServices.isLocationServicesEnabled();
+    final isLocationPermissionGranted =
+        await _appPermissionsServices.isLocationPermissionGranted();
+    final isAlwaysOnLocationAllowed =
+        await _appPermissionsServices.isAlwaysOnLocationGranted();
+
     return AppPermissions(
       isAppNotificationsAllowed: isNotificationServiceEnabled,
       isBatteryOptimizationDisabled: isBatteryOptimizationDisabled,
-      isGpsEnabled: isLocationServicesEnabled,
+      isLocationServicesEnabled: isLocationServicesEnabled,
+      isLocationGranted: isLocationPermissionGranted,
+      isAlwaysOnLocationGranted: isAlwaysOnLocationAllowed,
     );
   }
 
@@ -52,10 +59,16 @@ class AppPermissionsNotifier extends AsyncNotifier<AppPermissions> {
           await _appPermissionsServices.disableBatteryOptimization();
       final isLocationServicesEnabled =
           await _appPermissionsServices.requestLocationAlwaysOnService();
+      final isLocationPermissionGranted =
+          await _appPermissionsServices.requestLocationPermission();
+      final isAlwaysOnLocationAllowed =
+          await _appPermissionsServices.requestLocationAlwaysOnService();
       return AppPermissions(
         isAppNotificationsAllowed: isNotificationServiceEnabled,
         isBatteryOptimizationDisabled: isBatteryOptimizationDisabled,
-        isGpsEnabled: isLocationServicesEnabled,
+        isLocationServicesEnabled: isLocationServicesEnabled,
+        isLocationGranted: isLocationPermissionGranted,
+        isAlwaysOnLocationGranted: isAlwaysOnLocationAllowed,
       );
     });
   }
@@ -82,14 +95,65 @@ class AppPermissionsNotifier extends AsyncNotifier<AppPermissions> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final isGranted = await _appPermissionsServices.requestLocationServices();
-      return state.value!.copyWith(isGpsEnabled: isGranted);
+      return state.value!.copyWith(
+        isLocationServicesEnabled: isGranted,
+        isLocationGranted: isGranted,
+        isAlwaysOnLocationGranted: isGranted,
+      );
+    });
+  }
+
+  Future<void> requestLocationService() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final isGranted =
+          await _appPermissionsServices.requestLocationPermission();
+      return state.value!.copyWith(
+        isLocationGranted: isGranted,
+      );
+    });
+  }
+
+  Future<void> requestLocationAlwaysOnService() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final isGranted =
+          await _appPermissionsServices.requestLocationAlwaysOnService();
+      return state.value!.copyWith(
+        isAlwaysOnLocationGranted: isGranted,
+      );
+    });
+  }
+
+  Future<void> checkAllPermissions() async {
+    state = const AsyncLoading();
+
+    state = await AsyncValue.guard(() async {
+      final isNotificationServiceEnabled =
+          await _appPermissionsServices.isNotificationServiceEnabled();
+      final isBatteryOptimizationDisabled =
+          await _appPermissionsServices.isBatteryOptimizationDisabled();
+      final isLocationServicesEnabled =
+          await _appPermissionsServices.isLocationServicesEnabled();
+      final isLocationPermissionGranted =
+          await _appPermissionsServices.isLocationPermissionGranted();
+      final isAlwaysOnLocationAllowed =
+          await _appPermissionsServices.isAlwaysOnLocationGranted();
+
+      return state.value!.copyWith(
+        isAppNotificationsAllowed: isNotificationServiceEnabled,
+        isBatteryOptimizationDisabled: isBatteryOptimizationDisabled,
+        isLocationServicesEnabled: isLocationServicesEnabled,
+        isLocationGranted: isLocationPermissionGranted,
+        isAlwaysOnLocationGranted: isAlwaysOnLocationAllowed,
+      );
     });
   }
 
   bool areAllServicesActive() {
     if (state.value!.isAppNotificationsAllowed &&
         state.value!.isBatteryOptimizationDisabled &&
-        state.value!.isGpsEnabled) {
+        state.value!.isLocationServicesEnabled) {
       return true;
     } else {
       return false;
