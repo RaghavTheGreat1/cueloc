@@ -21,7 +21,7 @@ class TriggeredAlarmScreen extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('Map My Nap'),
+          title: const Text('CueLoc'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),

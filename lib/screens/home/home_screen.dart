@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Map My Nap"),
+        title: const Text("CueLoc"),
         actions: [
           IconButton(
             onPressed: () {

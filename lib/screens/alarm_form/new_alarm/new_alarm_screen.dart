@@ -29,7 +29,7 @@ class NewAlarmScreen extends ConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Map My Nap"),
+        title: const Text("CueLoc"),
         leading: const CupertinoBackButton(),
       ),
       body: Stack(

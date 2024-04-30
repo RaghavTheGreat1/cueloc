@@ -22,7 +22,7 @@ class AlarmPreviewScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Map My Nap"),
+        title: const Text("CueLoc"),
         leading: const CupertinoBackButton(),
         actions: [
           Padding(
