@@ -19,6 +19,7 @@ class AlarmForm with _$AlarmForm {
     required double radius,
     required TriggerOn triggerOn,
     required bool isActive,
+    required String notes,
   }) = _AlarmForm;
 
   factory AlarmForm.fromJson(Map<String, dynamic> json) =>
@@ -33,6 +34,7 @@ class AlarmForm with _$AlarmForm {
       radius: 1000,
       triggerOn: TriggerOn.entry,
       isActive: false,
+      notes: '',
     );
   }
 
@@ -42,6 +44,7 @@ class AlarmForm with _$AlarmForm {
       label,
       radius,
       triggerOn.name,
+      notes,
       coordinates: coordinates.toRealmModel(),
     );
   }
@@ -54,6 +57,7 @@ class AlarmForm with _$AlarmForm {
       radius: alarmRealmModel.radius,
       triggerOn: TriggerOnExt.fromName(alarmRealmModel.triggerOn),
       isActive: alarmRealmModel.isActive,
+      notes: alarmRealmModel.notes,
     );
   }
 }

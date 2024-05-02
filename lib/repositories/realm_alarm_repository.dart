@@ -12,7 +12,7 @@ class RealmAlarmRepository extends AlarmRepository {
   RealmAlarmRepository() {
     final config = Configuration.local(
       [AlarmRealmModel.schema, CoordinatesRealmModel.schema],
-      schemaVersion: 1,
+      schemaVersion: 0,
     );
 
     realm = Realm(config);

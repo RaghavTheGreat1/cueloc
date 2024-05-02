@@ -263,17 +263,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
                 },
               ),
               SettingsCard(
-                title: 'About',
+                title: 'Miscellaneous',
                 subSections: [
-                  LoaderListTile(
-                    leading: Icon(
-                      FeatherIcons.info,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                    title: const Text(
-                      'About',
-                    ),
-                  ),
+                  // LoaderListTile(
+                  //   leading: Icon(
+                  //     FeatherIcons.info,
+                  //     color: theme.colorScheme.onPrimaryContainer,
+                  //   ),
+                  //   title: const Text(
+                  //     'About',
+                  //   ),
+                  // ),
                   LoaderListTile(
                     leading: Icon(
                       UniconsLine.copyright,
@@ -286,15 +286,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
                       context.go('/settings/license');
                     },
                   ),
-                  LoaderListTile(
-                    leading: Icon(
-                      FeatherIcons.github,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                    title: const Text(
-                      'Source Code',
-                    ),
-                  ),
+                  // LoaderListTile(
+                  //   leading: Icon(
+                  //     FeatherIcons.github,
+                  //     color: theme.colorScheme.onPrimaryContainer,
+                  //   ),
+                  //   title: const Text(
+                  //     'Source Code',
+                  //   ),
+                  // ),
                 ],
               ),
             ],

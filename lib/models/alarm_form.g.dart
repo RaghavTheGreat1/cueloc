@@ -15,6 +15,7 @@ _$AlarmFormImpl _$$AlarmFormImplFromJson(Map<String, dynamic> json) =>
       radius: (json['radius'] as num).toDouble(),
       triggerOn: $enumDecode(_$TriggerOnEnumMap, json['triggerOn']),
       isActive: json['isActive'] as bool,
+      notes: json['notes'] as String,
     );
 
 Map<String, dynamic> _$$AlarmFormImplToJson(_$AlarmFormImpl instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$AlarmFormImplToJson(_$AlarmFormImpl instance) =>
       'radius': instance.radius,
       'triggerOn': _$TriggerOnEnumMap[instance.triggerOn]!,
       'isActive': instance.isActive,
+      'notes': instance.notes,
     };
 
 const _$TriggerOnEnumMap = {

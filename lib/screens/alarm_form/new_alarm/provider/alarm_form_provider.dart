@@ -21,8 +21,10 @@ final class AlarmFormNotifier extends Notifier<AlarmForm> {
   final AlarmForm? _initialAlarm;
 
   TextEditingController get labelTextController => _labelTextController;
+  TextEditingController get notesTextController => _notesTextController;
 
   final TextEditingController _labelTextController = TextEditingController();
+  final TextEditingController _notesTextController = TextEditingController();
 
   AlarmsNotifier get _alarmsControllerNotifier =>
       ref.watch(alarmsControllerProvider.notifier);
@@ -32,6 +34,9 @@ final class AlarmFormNotifier extends Notifier<AlarmForm> {
     if (_initialAlarm != null) {
       labelTextController.value = TextEditingValue(
         text: _initialAlarm!.label,
+      );
+      notesTextController.value = TextEditingValue(
+        text: _initialAlarm!.notes,
       );
     }
     return _initialAlarm ?? AlarmForm.raw();
@@ -47,6 +52,10 @@ final class AlarmFormNotifier extends Notifier<AlarmForm> {
 
   void updateTriggerOn(TriggerOn triggerOn) {
     state = state.copyWith(triggerOn: triggerOn);
+  }
+
+  void updateNotes(String notes) {
+    state = state.copyWith(notes: notes);
   }
 
   Future<void> updateCoordinates(Coordinates coordinates) async {

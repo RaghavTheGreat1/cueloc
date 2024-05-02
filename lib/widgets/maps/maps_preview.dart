@@ -53,6 +53,24 @@ class _MapsPreviewState extends ConsumerState<MapsPreview>
   }
 
   @override
+  void didUpdateWidget(covariant MapsPreview oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.coordinates != widget.coordinates) {
+      currentLocation = widget.coordinates.toLatLng;
+      markers = {
+        Marker(
+          markerId: const MarkerId("alarm_location"),
+          position: currentLocation,
+        ),
+      };
+      controller.animateCamera(
+        CameraUpdate.newLatLng(currentLocation),
+      );
+      setState(() {});
+    }
+  }
+
+  @override
   void didChangePlatformBrightness() {
     Future(() async {
       await setMapStyle();

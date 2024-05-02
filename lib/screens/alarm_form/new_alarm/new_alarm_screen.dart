@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../maps.dart';
@@ -27,7 +28,6 @@ class NewAlarmScreen extends ConsumerWidget {
     final initialAlarm = ref.read(alarmFormProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("CueLoc"),
         leading: const CupertinoBackButton(),
@@ -100,6 +100,30 @@ class NewAlarmScreen extends ConsumerWidget {
                         onChanged: (TriggerOn value) {
                           alarmFormNotifier.updateTriggerOn(value);
                         },
+                      ),
+                      const Gap(24),
+                      Text(
+                        "Notes",
+                        style: theme.textTheme.labelLarge!.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CustomTextFormField(
+                        key: const ValueKey("Notes"),
+                        controller: ref
+                            .read(alarmFormProvider.notifier)
+                            .notesTextController,
+                        label: "Type here...",
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        onChanged: (value) {
+                          alarmFormNotifier.updateNotes(value);
+                        },
+                        minLines: 1,
+                        maxLines: null,
                       ),
                       const SizedBox(
                         height: 128,

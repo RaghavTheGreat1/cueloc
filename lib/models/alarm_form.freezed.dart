@@ -26,6 +26,7 @@ mixin _$AlarmForm {
   double get radius => throw _privateConstructorUsedError;
   TriggerOn get triggerOn => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
+  String get notes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $AlarmFormCopyWith<$Res> {
       Coordinates coordinates,
       double radius,
       TriggerOn triggerOn,
-      bool isActive});
+      bool isActive,
+      String notes});
 
   $CoordinatesCopyWith<$Res> get coordinates;
 }
@@ -68,6 +70,7 @@ class _$AlarmFormCopyWithImpl<$Res, $Val extends AlarmForm>
     Object? radius = null,
     Object? triggerOn = null,
     Object? isActive = null,
+    Object? notes = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -94,6 +97,10 @@ class _$AlarmFormCopyWithImpl<$Res, $Val extends AlarmForm>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -120,7 +127,8 @@ abstract class _$$AlarmFormImplCopyWith<$Res>
       Coordinates coordinates,
       double radius,
       TriggerOn triggerOn,
-      bool isActive});
+      bool isActive,
+      String notes});
 
   @override
   $CoordinatesCopyWith<$Res> get coordinates;
@@ -143,6 +151,7 @@ class __$$AlarmFormImplCopyWithImpl<$Res>
     Object? radius = null,
     Object? triggerOn = null,
     Object? isActive = null,
+    Object? notes = null,
   }) {
     return _then(_$AlarmFormImpl(
       id: null == id
@@ -169,6 +178,10 @@ class __$$AlarmFormImplCopyWithImpl<$Res>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -182,7 +195,8 @@ class _$AlarmFormImpl extends _AlarmForm {
       required this.coordinates,
       required this.radius,
       required this.triggerOn,
-      required this.isActive})
+      required this.isActive,
+      required this.notes})
       : super._();
 
   factory _$AlarmFormImpl.fromJson(Map<String, dynamic> json) =>
@@ -200,10 +214,12 @@ class _$AlarmFormImpl extends _AlarmForm {
   final TriggerOn triggerOn;
   @override
   final bool isActive;
+  @override
+  final String notes;
 
   @override
   String toString() {
-    return 'AlarmForm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn, isActive: $isActive)';
+    return 'AlarmForm(id: $id, label: $label, coordinates: $coordinates, radius: $radius, triggerOn: $triggerOn, isActive: $isActive, notes: $notes)';
   }
 
   @override
@@ -219,13 +235,14 @@ class _$AlarmFormImpl extends _AlarmForm {
             (identical(other.triggerOn, triggerOn) ||
                 other.triggerOn == triggerOn) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.notes, notes) || other.notes == notes));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, label, coordinates, radius, triggerOn, isActive);
+      runtimeType, id, label, coordinates, radius, triggerOn, isActive, notes);
 
   @JsonKey(ignore: true)
   @override
@@ -248,7 +265,8 @@ abstract class _AlarmForm extends AlarmForm {
       required final Coordinates coordinates,
       required final double radius,
       required final TriggerOn triggerOn,
-      required final bool isActive}) = _$AlarmFormImpl;
+      required final bool isActive,
+      required final String notes}) = _$AlarmFormImpl;
   const _AlarmForm._() : super._();
 
   factory _AlarmForm.fromJson(Map<String, dynamic> json) =
@@ -266,6 +284,8 @@ abstract class _AlarmForm extends AlarmForm {
   TriggerOn get triggerOn;
   @override
   bool get isActive;
+  @override
+  String get notes;
   @override
   @JsonKey(ignore: true)
   _$$AlarmFormImplCopyWith<_$AlarmFormImpl> get copyWith =>

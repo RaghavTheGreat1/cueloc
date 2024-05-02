@@ -12,6 +12,7 @@ class _AlarmRealmModel {
   late double radius;
   late String triggerOn;
   late bool isActive = false;
+  late String notes;
 }
 
 @RealmModel()

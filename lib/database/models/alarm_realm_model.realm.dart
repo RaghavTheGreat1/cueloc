@@ -15,7 +15,8 @@ class AlarmRealmModel extends _AlarmRealmModel
     String id,
     String label,
     double radius,
-    String triggerOn, {
+    String triggerOn,
+    String notes, {
     CoordinatesRealmModel? coordinates,
     bool isActive = false,
   }) {
@@ -30,6 +31,7 @@ class AlarmRealmModel extends _AlarmRealmModel
     RealmObjectBase.set(this, 'radius', radius);
     RealmObjectBase.set(this, 'triggerOn', triggerOn);
     RealmObjectBase.set(this, 'isActive', isActive);
+    RealmObjectBase.set(this, 'notes', notes);
   }
 
   AlarmRealmModel._();
@@ -69,6 +71,11 @@ class AlarmRealmModel extends _AlarmRealmModel
   set isActive(bool value) => RealmObjectBase.set(this, 'isActive', value);
 
   @override
+  String get notes => RealmObjectBase.get<String>(this, 'notes') as String;
+  @override
+  set notes(String value) => RealmObjectBase.set(this, 'notes', value);
+
+  @override
   Stream<RealmObjectChanges<AlarmRealmModel>> get changes =>
       RealmObjectBase.getChanges<AlarmRealmModel>(this);
 
@@ -84,6 +91,7 @@ class AlarmRealmModel extends _AlarmRealmModel
       'radius': radius.toEJson(),
       'triggerOn': triggerOn.toEJson(),
       'isActive': isActive.toEJson(),
+      'notes': notes.toEJson(),
     };
   }
 
@@ -97,12 +105,14 @@ class AlarmRealmModel extends _AlarmRealmModel
         'radius': EJsonValue radius,
         'triggerOn': EJsonValue triggerOn,
         'isActive': EJsonValue isActive,
+        'notes': EJsonValue notes,
       } =>
         AlarmRealmModel(
           fromEJson(id),
           fromEJson(label),
           fromEJson(radius),
           fromEJson(triggerOn),
+          fromEJson(notes),
           coordinates: fromEJson(coordinates),
           isActive: fromEJson(isActive),
         ),
@@ -122,6 +132,7 @@ class AlarmRealmModel extends _AlarmRealmModel
       SchemaProperty('radius', RealmPropertyType.double),
       SchemaProperty('triggerOn', RealmPropertyType.string),
       SchemaProperty('isActive', RealmPropertyType.bool),
+      SchemaProperty('notes', RealmPropertyType.string),
     ]);
   }();
 
