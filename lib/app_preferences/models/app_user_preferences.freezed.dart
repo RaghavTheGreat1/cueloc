@@ -20,6 +20,7 @@ AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUserPreferences {
+  bool get isFirstTime => throw _privateConstructorUsedError;
   @ThemeModeJsonConverter()
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   @LocaleJsonConverter()
@@ -43,7 +44,8 @@ abstract class $AppUserPreferencesCopyWith<$Res> {
       _$AppUserPreferencesCopyWithImpl<$Res, AppUserPreferences>;
   @useResult
   $Res call(
-      {@ThemeModeJsonConverter() ThemeMode themeMode,
+      {bool isFirstTime,
+      @ThemeModeJsonConverter() ThemeMode themeMode,
       @LocaleJsonConverter() Locale locale,
       @LocationAccuracyJsonConverter() LocationAccuracy locationAccuracy,
       double alarmVolume,
@@ -64,6 +66,7 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isFirstTime = null,
     Object? themeMode = null,
     Object? locale = null,
     Object? locationAccuracy = null,
@@ -72,6 +75,10 @@ class _$AppUserPreferencesCopyWithImpl<$Res, $Val extends AppUserPreferences>
     Object? vibrateOnAlarm = null,
   }) {
     return _then(_value.copyWith(
+      isFirstTime: null == isFirstTime
+          ? _value.isFirstTime
+          : isFirstTime // ignore: cast_nullable_to_non_nullable
+              as bool,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -109,7 +116,8 @@ abstract class _$$AppUserPreferencesImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@ThemeModeJsonConverter() ThemeMode themeMode,
+      {bool isFirstTime,
+      @ThemeModeJsonConverter() ThemeMode themeMode,
       @LocaleJsonConverter() Locale locale,
       @LocationAccuracyJsonConverter() LocationAccuracy locationAccuracy,
       double alarmVolume,
@@ -128,6 +136,7 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isFirstTime = null,
     Object? themeMode = null,
     Object? locale = null,
     Object? locationAccuracy = null,
@@ -136,6 +145,10 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
     Object? vibrateOnAlarm = null,
   }) {
     return _then(_$AppUserPreferencesImpl(
+      isFirstTime: null == isFirstTime
+          ? _value.isFirstTime
+          : isFirstTime // ignore: cast_nullable_to_non_nullable
+              as bool,
       themeMode: null == themeMode
           ? _value.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -168,7 +181,8 @@ class __$$AppUserPreferencesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AppUserPreferencesImpl extends _AppUserPreferences {
   _$AppUserPreferencesImpl(
-      {@ThemeModeJsonConverter() required this.themeMode,
+      {required this.isFirstTime,
+      @ThemeModeJsonConverter() required this.themeMode,
       @LocaleJsonConverter() required this.locale,
       @LocationAccuracyJsonConverter() required this.locationAccuracy,
       required this.alarmVolume,
@@ -179,6 +193,8 @@ class _$AppUserPreferencesImpl extends _AppUserPreferences {
   factory _$AppUserPreferencesImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppUserPreferencesImplFromJson(json);
 
+  @override
+  final bool isFirstTime;
   @override
   @ThemeModeJsonConverter()
   final ThemeMode themeMode;
@@ -197,7 +213,7 @@ class _$AppUserPreferencesImpl extends _AppUserPreferences {
 
   @override
   String toString() {
-    return 'AppUserPreferences(themeMode: $themeMode, locale: $locale, locationAccuracy: $locationAccuracy, alarmVolume: $alarmVolume, alarmMediaPath: $alarmMediaPath, vibrateOnAlarm: $vibrateOnAlarm)';
+    return 'AppUserPreferences(isFirstTime: $isFirstTime, themeMode: $themeMode, locale: $locale, locationAccuracy: $locationAccuracy, alarmVolume: $alarmVolume, alarmMediaPath: $alarmMediaPath, vibrateOnAlarm: $vibrateOnAlarm)';
   }
 
   @override
@@ -205,6 +221,8 @@ class _$AppUserPreferencesImpl extends _AppUserPreferences {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AppUserPreferencesImpl &&
+            (identical(other.isFirstTime, isFirstTime) ||
+                other.isFirstTime == isFirstTime) &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(other.locale, locale) || other.locale == locale) &&
@@ -220,7 +238,7 @@ class _$AppUserPreferencesImpl extends _AppUserPreferences {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, themeMode, locale,
+  int get hashCode => Object.hash(runtimeType, isFirstTime, themeMode, locale,
       locationAccuracy, alarmVolume, alarmMediaPath, vibrateOnAlarm);
 
   @JsonKey(ignore: true)
@@ -240,7 +258,8 @@ class _$AppUserPreferencesImpl extends _AppUserPreferences {
 
 abstract class _AppUserPreferences extends AppUserPreferences {
   factory _AppUserPreferences(
-      {@ThemeModeJsonConverter() required final ThemeMode themeMode,
+      {required final bool isFirstTime,
+      @ThemeModeJsonConverter() required final ThemeMode themeMode,
       @LocaleJsonConverter() required final Locale locale,
       @LocationAccuracyJsonConverter()
       required final LocationAccuracy locationAccuracy,
@@ -252,6 +271,8 @@ abstract class _AppUserPreferences extends AppUserPreferences {
   factory _AppUserPreferences.fromJson(Map<String, dynamic> json) =
       _$AppUserPreferencesImpl.fromJson;
 
+  @override
+  bool get isFirstTime;
   @override
   @ThemeModeJsonConverter()
   ThemeMode get themeMode;

@@ -13,6 +13,19 @@ ThemeData darkTheme() {
       bodyColor: colorScheme.onBackground,
       displayColor: colorScheme.onBackground,
     ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: colorScheme.primaryContainer,
+      contentTextStyle: GoogleFonts.rubik(
+        color: colorScheme.onPrimaryContainer,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      closeIconColor: colorScheme.onPrimaryContainer,
+      insetPadding: const EdgeInsets.all(24),
+    ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: colorScheme.onPrimaryContainer,
       foregroundColor: colorScheme.primaryContainer,

@@ -96,6 +96,12 @@ class AppUserPreferencesNotifier extends AsyncNotifier<AppUserPreferences> {
     await updateAppUserPreferences(newAppPrefs);
   }
 
+  Future<void> updateIsFirstTime(bool isFirstTime) async {
+    state = const AsyncLoading();
+    final newAppPrefs = state.requireValue.copyWith(isFirstTime: isFirstTime);
+    await updateAppUserPreferences(newAppPrefs);
+  }
+
   Future<void> reset() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {

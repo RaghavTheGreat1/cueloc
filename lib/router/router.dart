@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
 import '../audio_picker/audio_picker_screen.dart';
 import '../controllers/location_alarm_controller.dart';
 import '../models/alarm_form.dart';
@@ -20,7 +21,7 @@ final routerServiceProvider = Provider<GoRouter>((ref) {
   final router = RouterService(ref);
 
   return GoRouter(
-    initialLocation: '/onboarding',
+    initialLocation: '/',
     debugLogDiagnostics: true,
     routes: router._routes,
     redirect: router.redirect,
@@ -35,6 +36,13 @@ class RouterService extends ChangeNotifier {
   final Ref ref;
 
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+    final isFirstTime = ref.watch(appUserPreferencesProvider
+        .select((value) => value.value?.isFirstTime ?? true));
+
+    if (isFirstTime) {
+      return '/onboarding';
+    }
+
     if (!kDebugMode) {
       await ref.read(admobServicesProvider).showTransitionInterstitialAd();
     }

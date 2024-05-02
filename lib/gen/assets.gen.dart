@@ -44,8 +44,22 @@ class $AssetsIconsGen {
   /// File path: assets/icons/alarm.png
   AssetGenImage get alarm => const AssetGenImage('assets/icons/alarm.png');
 
+  /// File path: assets/icons/cueloc.png
+  AssetGenImage get cueloc => const AssetGenImage('assets/icons/cueloc.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [alarmBw, alarm];
+  List<AssetGenImage> get values => [alarmBw, alarm, cueloc];
+}
+
+class $AssetsIllustrationsGen {
+  const $AssetsIllustrationsGen();
+
+  /// File path: assets/illustrations/undraw_adventure_map_hnin.svg
+  String get undrawAdventureMapHnin =>
+      'assets/illustrations/undraw_adventure_map_hnin.svg';
+
+  /// List of all assets
+  List<String> get values => [undrawAdventureMapHnin];
 }
 
 class Assets {
@@ -53,6 +67,8 @@ class Assets {
 
   static const $AssetsAlarmSoundsGen alarmSounds = $AssetsAlarmSoundsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsIllustrationsGen illustrations =
+      $AssetsIllustrationsGen();
   static const $MapStylesGen mapStyles = $MapStylesGen();
 }
 

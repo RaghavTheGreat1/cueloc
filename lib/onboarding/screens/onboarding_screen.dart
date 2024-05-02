@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app_permissions/providers/app_permissions_controller.dart';
+import '../providers/onboarding_page_provider.dart';
 import '../views/app_permissions_view.dart';
+import '../views/welcome_view.dart';
 
 class OnboardingScreen extends StatefulHookConsumerWidget {
   const OnboardingScreen({super.key});
@@ -36,17 +38,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+    final onboardingPageController =
+        ref.watch(onboardingPageControllerProvider);
     final theme = Theme.of(context);
     return Scaffold(
       body: PageView(
-        children: [
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.green,
-          ),
-          const AppPermissionsView()
+        controller: onboardingPageController,
+        children: const [
+          WelcomeView(),
+          AppPermissionsView(),
         ],
       ),
     );

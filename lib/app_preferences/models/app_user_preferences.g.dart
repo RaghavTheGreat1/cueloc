@@ -9,6 +9,7 @@ part of 'app_user_preferences.dart';
 _$AppUserPreferencesImpl _$$AppUserPreferencesImplFromJson(
         Map<String, dynamic> json) =>
     _$AppUserPreferencesImpl(
+      isFirstTime: json['isFirstTime'] as bool,
       themeMode:
           const ThemeModeJsonConverter().fromJson(json['themeMode'] as String),
       locale: const LocaleJsonConverter().fromJson(json['locale'] as String),
@@ -22,6 +23,7 @@ _$AppUserPreferencesImpl _$$AppUserPreferencesImplFromJson(
 Map<String, dynamic> _$$AppUserPreferencesImplToJson(
         _$AppUserPreferencesImpl instance) =>
     <String, dynamic>{
+      'isFirstTime': instance.isFirstTime,
       'themeMode': const ThemeModeJsonConverter().toJson(instance.themeMode),
       'locale': const LocaleJsonConverter().toJson(instance.locale),
       'locationAccuracy': const LocationAccuracyJsonConverter()

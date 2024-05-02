@@ -153,7 +153,8 @@ class AppPermissionsNotifier extends AsyncNotifier<AppPermissions> {
   bool areAllServicesActive() {
     if (state.value!.isAppNotificationsAllowed &&
         state.value!.isBatteryOptimizationDisabled &&
-        state.value!.isLocationServicesEnabled) {
+        state.value!.isLocationGranted &&
+        state.value!.isAlwaysOnLocationGranted) {
       return true;
     } else {
       return false;

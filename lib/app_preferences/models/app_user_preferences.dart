@@ -15,6 +15,7 @@ class AppUserPreferences with _$AppUserPreferences {
   AppUserPreferences._();
 
   factory AppUserPreferences({
+    required bool isFirstTime,
     @ThemeModeJsonConverter() required ThemeMode themeMode,
     @LocaleJsonConverter() required Locale locale,
     @LocationAccuracyJsonConverter() required LocationAccuracy locationAccuracy,
@@ -28,6 +29,7 @@ class AppUserPreferences with _$AppUserPreferences {
 
   factory AppUserPreferences.raw() {
     return AppUserPreferences(
+      isFirstTime: true,
       themeMode: ThemeMode.system,
       locale: const Locale('en'),
       locationAccuracy: LocationAccuracy.low,
