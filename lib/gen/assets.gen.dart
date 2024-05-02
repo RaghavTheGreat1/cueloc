@@ -58,8 +58,12 @@ class $AssetsIllustrationsGen {
   String get undrawAdventureMapHnin =>
       'assets/illustrations/undraw_adventure_map_hnin.svg';
 
+  /// File path: assets/illustrations/undraw_selection_re_ycpo.svg
+  String get undrawSelectionReYcpo =>
+      'assets/illustrations/undraw_selection_re_ycpo.svg';
+
   /// List of all assets
-  List<String> get values => [undrawAdventureMapHnin];
+  List<String> get values => [undrawAdventureMapHnin, undrawSelectionReYcpo];
 }
 
 class Assets {

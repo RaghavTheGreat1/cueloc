@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controllers/alarms_controller.dart';
 import '../../../models/alarm_form.dart';
 import '../../../repositories/alarm_repository.dart';
+import '../../../widgets/list_tile/loader_list_tile.dart';
 import '../../../widgets/maps/maps_preview.dart';
 
 class AlarmCard extends HookConsumerWidget {
@@ -45,12 +46,12 @@ class AlarmCard extends HookConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ListTile(
+                    LoaderListTile(
                       onTap: () async {
-                        context.pop();
                         await ref
                             .read(alarmRepositoryProvider)
                             .deleteAlarm(alarm);
+                        context.pop();
                       },
                       title: const Text("Delete"),
                       trailing: const Icon(Icons.delete_forever_outlined),

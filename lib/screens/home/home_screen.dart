@@ -1,11 +1,12 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../app_permissions/providers/app_permissions_controller.dart';
+import '../../gen/assets.gen.dart';
 import '../../google_maps/providers/google_maps_marker_service_provider.dart';
 import '../../maps.dart';
 import '../../providers/alarms_stream_provider.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("CueLoc"),
@@ -34,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         icon: const Icon(
           Icons.add_rounded,
         ),
-        label: const Text('New Alarm'),
+        label: const Text('New CueLoc'),
         onPressed: () {
           context.go('/alarm/new/_');
         },
@@ -75,6 +77,35 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          Consumer(
+            builder: (context, ref, child) {
+              final alarms = ref.watch(
+                      allAlarmsStreamProvider.select((value) => value.value)) ??
+                  [];
+              if (alarms.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      children: [
+                        SvgPicture.asset(
+                          height: MediaQuery.of(context).size.height / 5,
+                          Assets.illustrations.undrawSelectionReYcpo,
+                        ),
+                        const Gap(24),
+                        Text(
+                          "You have 0 CueLocs\nTap the + button to add a new one.",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return const SliverToBoxAdapter();
+            },
+          ),
           // SliverToBoxAdapter(
           //   child: TextField(
           //     onSubmitted: (value) async {
@@ -91,39 +122,64 @@ class HomeScreen extends StatelessWidget {
           //     },
           //   ),
           // ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final appPermission = ref.watch(
-                            appPermissionsControllerProvider
-                                .select((value) => value.value));
+          // SliverToBoxAdapter(
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(16),
+          //     child: SingleChildScrollView(
+          //       scrollDirection: Axis.horizontal,
+          //       child: Row(
+          //         children: [
+          //           Consumer(
+          //             builder: (context, ref, child) {
+          //               final appPermission = ref.watch(
+          //                   appPermissionsControllerProvider
+          //                       .select((value) => value.value));
 
-                        if (appPermission == null) return const SizedBox();
-                        if (appPermission.isAppNotificationsAllowed &&
-                            appPermission.isBatteryOptimizationDisabled &&
-                            appPermission.isLocationServicesEnabled) {
-                          return const SizedBox();
-                        }
-                        return InputChip(
-                          onPressed: () async {
-                            await ref
-                                .read(appPermissionsControllerProvider.notifier)
-                                .requestPerimssions();
-                          },
-                          label: const Text('Grant Permissions'),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          //               if (appPermission == null) return const SizedBox();
+          //               if (appPermission.isAppNotificationsAllowed &&
+          //                   appPermission.isBatteryOptimizationDisabled &&
+          //                   appPermission.isLocationServicesEnabled) {
+          //                 return const SizedBox();
+          //               }
+          //               return InputChip(
+          //                 onPressed: () async {
+          //                   await ref
+          //                       .read(appPermissionsControllerProvider.notifier)
+          //                       .requestPerimssions();
+          //                 },
+          //                 label: const Text('Grant Permissions'),
+          //               );
+          //             },
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
+          Consumer(
+            builder: (context, ref, child) {
+              final alarms = ref.watch(
+                      allAlarmsStreamProvider.select((value) => value.value)) ??
+                  [];
+              if (alarms.isNotEmpty) {
+                return SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          "CueLocs (${alarms.length})",
+                          style: theme.textTheme.headlineMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return const SliverToBoxAdapter();
+            },
           ),
           const SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
