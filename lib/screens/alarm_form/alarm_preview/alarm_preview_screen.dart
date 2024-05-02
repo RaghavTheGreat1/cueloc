@@ -115,19 +115,25 @@ class AlarmPreviewScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      Text(
-                        "Notes",
-                        style: theme.textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
+                      if (alarm.notes.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Notes",
+                              style: theme.textTheme.titleMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              alarm.notes,
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        alarm.notes,
-                        style: theme.textTheme.bodyMedium,
-                      ),
                       const SizedBox(
                         height: 128,
                       ),

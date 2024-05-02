@@ -171,7 +171,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           "CueLocs (${alarms.length})",
-                          style: theme.textTheme.headlineMedium,
+                          style: theme.textTheme.titleLarge,
                         ),
                       ),
                     ],
