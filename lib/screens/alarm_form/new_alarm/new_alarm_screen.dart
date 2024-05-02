@@ -117,6 +117,7 @@ class NewAlarmScreen extends ConsumerWidget {
                             .read(alarmFormProvider.notifier)
                             .notesTextController,
                         label: "Type here...",
+                        textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.multiline,
                         textInputAction: TextInputAction.newline,
                         onChanged: (value) {
