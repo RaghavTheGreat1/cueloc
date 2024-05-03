@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../controllers/location_alarm_controller.dart';
-import '../../maps.dart';
+import '../../map_picker.dart';
 import '../../models/coordinates.dart';
 
 class TriggeredAlarmScreen extends HookConsumerWidget {
@@ -44,9 +44,9 @@ class TriggeredAlarmScreen extends HookConsumerWidget {
                         borderRadius: BorderRadius.circular(17),
                         child: SizedBox(
                           height: screenSize.height / 1.9,
-                          child: Maps(
+                          child: MapPicker(
                             initialLatLng: alarm.coordinates.toLatLng,
-                            initialSelectedLatLng: alarm.coordinates,
+                            initialSelectedLatLng: alarm.coordinates.toLatLng,
                             radius: alarm.radius,
                           ),
                         ),

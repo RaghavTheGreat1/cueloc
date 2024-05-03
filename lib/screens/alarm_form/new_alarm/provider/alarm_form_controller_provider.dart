@@ -10,7 +10,11 @@ import '../../../../models/form_type.dart';
 import '../../../../models/trigger_on.dart';
 import '../../../../router/router.dart';
 
-final alarmFormProvider =
+final alarmFormKeyProvider = Provider<GlobalKey<FormState>>((ref) {
+  return GlobalKey<FormState>(debugLabel: 'AlarmFormKey');
+});
+
+final alarmFormControllerProvider =
     NotifierProvider<AlarmFormNotifier, AlarmForm>(AlarmFormNotifier.new);
 
 final class AlarmFormNotifier extends Notifier<AlarmForm> {
