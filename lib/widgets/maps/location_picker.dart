@@ -6,13 +6,13 @@ import 'package:gap/gap.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'app_preferences/providers/app_user_preferences_controller_provider.dart';
-import 'extensions/lat_lng_extension.dart';
-import 'models/coordinates.dart';
-import 'services/location_services.dart';
+import '../../app_preferences/providers/app_user_preferences_controller_provider.dart';
+import '../../extensions/lat_lng_extension.dart';
+import '../../models/coordinates.dart';
+import '../../services/location_services.dart';
 
-class MapPicker extends StatefulHookConsumerWidget {
-  const MapPicker({
+class LocationPicker extends StatefulHookConsumerWidget {
+  const LocationPicker({
     super.key,
     this.initialLatLng,
     required this.radius,
@@ -31,10 +31,10 @@ class MapPicker extends StatefulHookConsumerWidget {
   final String? Function(LatLng?)? validator;
 
   @override
-  ConsumerState<MapPicker> createState() => _MapPickerState();
+  ConsumerState<LocationPicker> createState() => _MapPickerState();
 }
 
-class _MapPickerState extends ConsumerState<MapPicker>
+class _MapPickerState extends ConsumerState<LocationPicker>
     with WidgetsBindingObserver {
   late final ValueNotifier<LatLng?> selectedLocation;
 
@@ -76,7 +76,7 @@ class _MapPickerState extends ConsumerState<MapPicker>
   }
 
   @override
-  void didUpdateWidget(covariant MapPicker oldWidget) {
+  void didUpdateWidget(covariant LocationPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.radius != widget.radius) {
       controller

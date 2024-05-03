@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../map_picker.dart';
+import '../../../widgets/maps/location_picker.dart';
 import '../../../models/coordinates.dart';
 import '../../../models/form_type.dart';
 import '../../../models/trigger_on.dart';
@@ -53,7 +53,7 @@ class NewAlarmScreen extends ConsumerWidget {
                                 final radius = ref.watch(
                                     alarmFormControllerProvider
                                         .select((value) => value.radius));
-                                return MapPicker(
+                                return LocationPicker(
                                   initialLatLng:
                                       (initialAlarm.coordinates.latitude == 0 &&
                                               initialAlarm

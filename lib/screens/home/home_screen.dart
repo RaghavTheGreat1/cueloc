@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../gen/assets.gen.dart';
 import '../../google_maps/providers/google_maps_marker_service_provider.dart';
-import '../../map_picker.dart';
+import '../../widgets/maps/location_picker.dart';
 import '../../providers/alarms_stream_provider.dart';
 import 'widgets/alarm_card.dart';
 
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                         markers.add(markerService.getInactiveAlarmMarker(i));
                       }
 
-                      return MapPicker(
+                      return LocationPicker(
                         radius: 1000,
                         initialMarkers: markers,
                       );

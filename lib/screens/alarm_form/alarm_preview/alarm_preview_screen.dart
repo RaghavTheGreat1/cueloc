@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../map_picker.dart';
+import '../../../widgets/maps/location_picker.dart';
 import '../../../models/alarm_form.dart';
 import '../../../models/coordinates.dart';
 import '../../../themes/custom_colors.dart';
@@ -62,7 +62,7 @@ class AlarmPreviewScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(17),
                           child: SizedBox(
                             height: screenSize.height / 1.9,
-                            child: MapPicker(
+                            child: LocationPicker(
                               initialLatLng: alarm.coordinates.toLatLng,
                               initialSelectedLatLng: alarm.coordinates.toLatLng,
                               radius: alarm.radius,
