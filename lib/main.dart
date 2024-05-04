@@ -48,7 +48,7 @@ class MapMyNap extends HookConsumerWidget {
           priority: NotificationPriority.LOW,
           isSticky: false, // important
           iconData: const NotificationIconData(
-            resType: ResourceType.mipmap,
+            resType: ResourceType.drawable,
             resPrefix: ResourcePrefix.ic,
             name: 'launcher',
           ),

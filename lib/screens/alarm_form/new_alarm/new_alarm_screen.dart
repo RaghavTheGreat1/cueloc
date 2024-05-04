@@ -72,7 +72,6 @@ class NewAlarmScreen extends ConsumerWidget {
                                         .updateCoordinates(value);
                                   },
                                   validator: (value) {
-                                    print(value);
                                     if (value == null) {
                                       return "Please select a location";
                                     }
