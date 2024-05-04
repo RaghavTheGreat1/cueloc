@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../app_preferences/providers/app_user_preferences_controller_provider.dart';
 import '../audio_picker/audio_picker_screen.dart';
 import '../controllers/location_alarm_controller.dart';
+import '../gen/assets.gen.dart';
 import '../models/alarm_form.dart';
 import '../models/form_type.dart';
 import '../onboarding/screens/onboarding_screen.dart';
@@ -118,8 +119,11 @@ class RouterService extends ChangeNotifier {
               GoRoute(
                 path: 'license',
                 pageBuilder: (context, state) {
-                  return const CustomTransitionPage(
-                    child: LicensePage(),
+                  return CustomTransitionPage(
+                    child: LicensePage(
+                      applicationName: 'Cueloc',
+                      applicationIcon: Image.asset(Assets.icons.cueloc.path),
+                    ),
                     transitionsBuilder: rightToLeftFadeTransition,
                   );
                 },

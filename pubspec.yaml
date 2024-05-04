@@ -91,6 +91,9 @@ flutter:
     - map_styles/
     - assets/icons/
     - assets/illustrations/
+    - assets/fonts/
+    - assets/fonts/Rubik/
+    - assets/fonts/Rubik/static/
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
